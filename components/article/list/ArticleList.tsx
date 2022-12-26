@@ -1,12 +1,16 @@
+import { Article } from "../../../__generated__/resolvers-types";
 import Divider from "../../shared/divider/Divider";
 import ArticlePreview from "../preview/ArticlePreview";
 
-export default function ArticleList() {
+type Props = {
+  articles: Article[];
+};
+export default function ArticleList({ articles }: Props) {
   return (
     <>
-      {[1, 2, 3, 4, 5].map((article) => (
+      {articles.map((article) => (
         <>
-          <ArticlePreview />
+          <ArticlePreview title={article.title} />
           <Divider />
         </>
       ))}

@@ -2,7 +2,11 @@ import styles from "./ArticlePreview.module.scss";
 import Avatar from "../../shared/avatar/Avatar";
 import Link from "next/link";
 
-export default function ArticlePreview() {
+type Props = {
+  title: string;
+};
+
+export default function ArticlePreview({ title }: Props) {
   return (
     <Link
       href={`/article/${123}`}
@@ -15,7 +19,7 @@ export default function ArticlePreview() {
       <div className={styles.content}>
         <div className={styles.header}>
           <Avatar />
-          <span className={styles.title}>Title of the atricle</span>
+          <span className={styles.title}>{title}</span>
         </div>
         <span className={styles.description}>
           Short description about the article, very interesting article. Short

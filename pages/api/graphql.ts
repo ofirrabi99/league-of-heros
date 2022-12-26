@@ -1,18 +1,14 @@
+import { readFileSync } from "fs";
 import { createYoga, createSchema } from "graphql-yoga";
 
-const typeDefs = `
-  type Query {
-    users: [User!]!
-  }
-  type User {
-    name: String
-  }
-`;
+const typeDefs = readFileSync("pages/api/schemas/schema.graphql", {
+  encoding: "utf-8",
+});
 
 const resolvers = {
   Query: {
-    users() {
-      return [{ name: "Nextjs" }];
+    articles() {
+      return [{ title: "Nextjs" }];
     },
   },
 };

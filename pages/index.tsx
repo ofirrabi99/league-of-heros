@@ -1,7 +1,20 @@
 import styles from "../styles/pages/index.module.scss";
 import ArticleList from "../components/article/list/ArticleList";
 
+import { useQuery, gql } from "@apollo/client";
+
 export default function Home() {
+  const { loading, error, data } = useQuery(gql`
+    {
+      articles {
+        title
+      }
+    }
+  `);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
   return (
     <>
       <h1 className={styles.headerPrimary}>NewNews.</h1>
@@ -10,7 +23,7 @@ export default function Home() {
         content from your favorite creators.
       </p>
       <div className="content">
-        <ArticleList />
+        <ArticleList articles={data.articles} />
       </div>
     </>
   );

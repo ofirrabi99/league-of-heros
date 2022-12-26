@@ -1,0 +1,52 @@
+@use "../../../styles/variables";
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  height: 40vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.title {
+  font-weight: 500;
+  margin-inline-start: 0.5rem;
+}
+
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+%footer {
+  font-size: 0.75rem;
+}
+
+.autor {
+  @extend %footer;
+}
+
+.date {
+  @extend %footer;
+  color: variables.$textSecondaryColor;
+}
+
+.content {
+  background-color: rgba(34, 34, 34, 0.75);
+  padding: 1rem;
+  color: white;
+}

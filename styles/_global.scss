@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -19,5 +23,19 @@ body {
 
   @include mixins.respond(tab-land) {
     margin: 0 5vw;
+  }
+}
+
+.content {
+  @include mixins.respond(big-desktop) {
+    margin: 0 20vw;
+  }
+
+  @include mixins.respond(tab-land) {
+    margin: 0 10vw;
+  }
+
+  @include mixins.respond(phone) {
+    margin: 0;
   }
 }

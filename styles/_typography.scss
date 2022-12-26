@@ -1,0 +1,11 @@
+@use "variables";
+
+.headerPrimary {
+  color: variables.$textPrimaryColor;
+  font-size: 3rem;
+}
+
+.headerSecondary {
+  color: variables.$textSecondaryColor;
+  font-size: 1.5rem;
+}

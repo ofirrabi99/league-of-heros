@@ -14,6 +14,10 @@ export type Scalars = {
 
 export type Article = {
   __typename?: 'Article';
+  content: Scalars['String'];
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
 

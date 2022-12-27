@@ -1,30 +1,39 @@
+import Login from "../components/layout/login/Login";
+import Divider from "../components/shared/divider/Divider";
 import styles from "../styles/pages/index.module.scss";
-import ArticleList from "../components/article/list/ArticleList";
-
-import { useQuery, gql } from "@apollo/client";
 
 export default function Home() {
-  const { loading, error, data } = useQuery(gql`
-    {
-      articles {
-        title
-      }
-    }
-  `);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
   return (
     <>
-      <h1 className={styles.headerPrimary}>NewNews.</h1>
+      <h1 className={styles.headerPrimary}>HEROES OF THE NIGHT</h1>
       <p className={styles.headerSecondary}>
-        Meet the new world of news, where you can read original and unique
-        content from your favorite creators.
+        Create a Fantasy Basketball Champions League team and challenge your
+        friends in each gameday!
       </p>
-      <div className="content">
-        <ArticleList articles={data.articles} />
+      <br />
+      <br />
+      <br />
+      <div className="center">
+        <Login />
       </div>
+      <Divider />
+      <p className={styles.headerSecondary}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni placeat
+        officiis earum pariatur, maiores sunt laborum ut iure fuga sint amet
+        officia neque recusandae? Ex reiciendis illo quos odit fuga! Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Magni placeat officiis
+        earum pariatur, maiores sunt laborum ut iure fuga sint amet officia
+        neque recusandae? Ex reiciendis illo quos odit fuga! Lorem ipsum dolor
+        sit amet consectetur adipisicing elit. Magni placeat officiis earum
+        pariatur, maiores sunt laborum ut iure fuga sint amet officia neque
+        recusandae? Ex reiciendis illo quos odit fuga! Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Magni placeat officiis earum
+        pariatur, maiores sunt laborum ut iure fuga sint amet officia neque
+        recusandae? Ex reiciendis illo quos odit fuga! Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Magni placeat officiis earum
+        pariatur, maiores sunt laborum ut iure fuga sint amet officia neque
+        recusandae? Ex reiciendis illo quos odit fuga!
+      </p>
     </>
   );
 }

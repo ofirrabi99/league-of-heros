@@ -1,17 +1,13 @@
-@use "variables";
+@use "variables" as *;
 
 .headerPrimary {
-  color: variables.$textPrimaryColor;
-  font-size: 3rem;
-  margin: 0.5rem 0;
+  color: $textPrimaryColor;
+  text-align: center;
+  padding: 0.5rem;
 }
 
 .headerSecondary {
-  color: variables.$textSecondaryColor;
-  font-size: 1.5rem;
-  margin: 0.25rem 0;
-}
-
-.center {
+  color: $textSecondaryColor;
   text-align: center;
+  padding: 0.25rem;
 }

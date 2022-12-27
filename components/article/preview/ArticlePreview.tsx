@@ -3,32 +3,36 @@ import Avatar from "../../shared/avatar/Avatar";
 import Link from "next/link";
 
 type Props = {
+  id: string;
   title: string;
+  description: string;
+  image?: string | null;
 };
 
-export default function ArticlePreview({ title }: Props) {
+export default function ArticlePreview({
+  id,
+  title,
+  description,
+  image,
+}: Props) {
   return (
     <Link
-      href={`/article/${123}`}
+      href={`/article/${id}`}
       className={styles.wrapper}
       style={{
-        backgroundImage:
-          "url('https://www.sport5.co.il/Sip_Storage/FILES/9/size624x514/1251649.jpg')",
+        backgroundImage: `url('${image}')`,
       }}
     >
       <div className={styles.content}>
         <div className={styles.header}>
-          <Avatar />
+          {/* <Avatar /> */}
           <span className={styles.title}>{title}</span>
         </div>
-        <span className={styles.description}>
-          Short description about the article, very interesting article. Short
-          description about the article, very interesting article.
-        </span>
-        <div>
+        <span className={styles.description}>{description}</span>
+        {/* <div>
           <span className={styles.autor}>Ofir Rabi</span>{" "}
           <span className={styles.date}>{new Date().toDateString()}</span>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

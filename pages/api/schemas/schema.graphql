@@ -1,7 +1,0 @@
-type Article {
-  title: String!
-}
-
-type Query {
-  articles: [Article!]!
-}

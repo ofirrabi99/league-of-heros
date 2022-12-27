@@ -1,0 +1,12 @@
+@use "../../../styles/variables" as *;
+
+.button {
+  background-color: $textPrimaryColor;
+  color: $textClickableColor;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}

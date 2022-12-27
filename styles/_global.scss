@@ -6,6 +6,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  background: url("/background.png") no-repeat scroll center 0;
+}
+
 a {
   text-decoration: none;
 }
@@ -16,26 +20,7 @@ a {
   margin: 0;
 }
 
-.wrapper {
-  @include mixins.respond(big-desktop) {
-    margin: 0 10vw;
-  }
-
-  @include mixins.respond(tab-land) {
-    margin: 0 5vw;
-  }
-}
-
-.content {
-  @include mixins.respond(big-desktop) {
-    margin: 0 20vw;
-  }
-
-  @include mixins.respond(tab-land) {
-    margin: 0 10vw;
-  }
-
-  @include mixins.respond(phone) {
-    margin: 0;
-  }
+.center {
+  display: flex;
+  justify-content: center;
 }

@@ -11,8 +11,6 @@ export default function Home() {
         friends in each gameday!
       </p>
       <br />
-      <br />
-      <br />
       <div className="center">
         <Login />
       </div>

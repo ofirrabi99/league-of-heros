@@ -1,8 +1,8 @@
 @use "../../../styles/variables" as *;
 
 .button {
-  background-color: $textPrimaryColor;
-  color: $textClickableColor;
+  background-color: $secondaryColor;
+  color: $primaryColor;
   padding: 1rem;
   text-transform: uppercase;
   font-weight: bold;

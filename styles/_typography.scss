@@ -1,13 +1,22 @@
 @use "variables" as *;
 
-.headerPrimary {
-  color: $textPrimaryColor;
+%header {
   text-align: center;
   padding: 0.5rem;
 }
 
+.headerPrimary {
+  @extend %header;
+  color: $secondaryColor;
+}
+
+.headerPrimaryWithBackground {
+  @extend %header;
+  color: $primaryColor;
+  background-color: $secondaryColor;
+}
+
 .headerSecondary {
-  color: $textSecondaryColor;
-  text-align: center;
-  padding: 0.25rem;
+  @extend %header;
+  color: $secondaryColor;
 }

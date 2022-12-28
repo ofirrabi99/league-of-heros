@@ -2,7 +2,7 @@ import {
   MutationUserArgs,
   QueryUserArgs,
   User,
-} from "../../../../__generated__/resolvers-types";
+} from "../../../../types/graphql-types";
 
 const users: User[] = [];
 

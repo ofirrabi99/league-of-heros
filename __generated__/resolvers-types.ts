@@ -12,16 +12,31 @@ export type Scalars = {
   Float: number;
 };
 
-export type Article = {
-  __typename?: 'Article';
-  content: Scalars['String'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
-  image?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  user: User;
+};
+
+
+export type MutationUserArgs = {
+  coachName: Scalars['String'];
+  id: Scalars['String'];
+  teamName: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  articles: Array<Article>;
+  user?: Maybe<User>;
+};
+
+
+export type QueryUserArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  coachName: Scalars['String'];
+  id: Scalars['ID'];
+  teamName: Scalars['String'];
 };

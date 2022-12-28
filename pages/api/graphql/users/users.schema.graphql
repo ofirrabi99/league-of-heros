@@ -1,0 +1,13 @@
+extend type Query {
+  user(id: ID): User
+}
+
+extend type Mutation {
+  user(id: String!, teamName: String!, coachName: String!): User!
+}
+
+type User {
+  id: ID!
+  teamName: String!
+  coachName: String!
+}

@@ -1,28 +1,25 @@
-import { readFileSync } from "fs";
 import { createYoga, createSchema } from "graphql-yoga";
+import {
+  typeDefs as usersTypeDefs,
+  resolvers as usersResolvers,
+} from "./users";
 
-const typeDefs = readFileSync("pages/api/graphql/schemas/schema.graphql", {
-  encoding: "utf-8",
-});
+const initialTypeDefs = `
+  type Query {
+    _empty: String
+  }
 
-const resolvers = {
-  // Query: {
-  //   articles() {
-  //     return articles;
-  //   },
-  //   article(_: any, { id }: { id: string }) {
-  //     return articles.find((article) => article.id === id);
-  //   },
-  // },
-};
+  type Mutation {
+    _empty: String
+  }
+`;
 
 const schema = createSchema({
-  typeDefs,
-  resolvers,
+  typeDefs: [initialTypeDefs, usersTypeDefs],
+  resolvers: [usersResolvers],
 });
 
 export default createYoga({
   schema,
-  // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
   graphqlEndpoint: "/api/graphql",
 });

@@ -3,7 +3,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  user(id: String!, teamName: String!, coachName: String!): User!
+  user(id: ID!, teamName: String!, coachName: String!): User!
 }
 
 type User {

@@ -1,9 +1,13 @@
 import styles from "./Button.module.scss";
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export default function Button({ children }: Props) {
-  return <button className={styles.button}>{children}</button>;
+export default function Button({ children, ...rest }: Props) {
+  return (
+    <button className={styles.button} {...rest}>
+      {children}
+    </button>
+  );
 }

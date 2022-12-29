@@ -7,16 +7,22 @@ interface Props
     HTMLInputElement
   > {
   label?: string;
+  error?: string;
 }
 
 function Input(
-  { label, ...rest }: Props,
+  { label, error, ...rest }: Props,
   ref: React.LegacyRef<HTMLInputElement> | undefined
 ) {
   return (
     <div>
-      <span className={styles.label}>{label}</span>
-      <input className={styles.input} {...rest} ref={ref} />
+      <div className={styles.label}>{label}</div>
+      <input
+        className={`${styles.input} ${error && styles.error}`}
+        {...rest}
+        ref={ref}
+      />
+      <div className={`${styles.error} ${styles.errorLabel}`}>{error}</div>
     </div>
   );
 }

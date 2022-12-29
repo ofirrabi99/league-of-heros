@@ -2,9 +2,10 @@
 
 .input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 0.25rem;
   border-color: none;
+  font-size: 1.375rem;
 
   &:focus-visible {
     outline: none;
@@ -14,4 +15,15 @@
 
 .label {
   color: $secondaryColor;
+  margin-bottom: 0.25rem;
+}
+
+.error {
+  color: $errorColor;
+  border-color: $errorColor;
+  border-width: 0.2rem;
+}
+
+.errorLabel {
+  margin-top: 0.25rem;
 }

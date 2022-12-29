@@ -22,7 +22,9 @@ function Input(
         {...rest}
         ref={ref}
       />
-      <div className={`${styles.error} ${styles.errorLabel}`}>{error}</div>
+      {error && (
+        <div className={`${styles.error} ${styles.errorLabel}`}>{error}</div>
+      )}
     </div>
   );
 }

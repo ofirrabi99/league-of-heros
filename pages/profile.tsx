@@ -36,7 +36,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: { coachName: user?.coachName, teamName: user?.teamName },
@@ -63,7 +62,9 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
           error={errors.teamName && "This field is required"}
         />
 
-        <Button type="submit">SAVE</Button>
+        <Button type="submit" loading>
+          SAVE
+        </Button>
       </form>
     </Page>
   );

@@ -5,7 +5,10 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../lib/apolloClient";
 import Layout from "../components/layout/Layout";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CSS
+import { config as fontAwesomeConfig } from "@fortawesome/fontawesome-svg-core";
 
+fontAwesomeConfig.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {

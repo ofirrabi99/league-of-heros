@@ -38,7 +38,10 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: { coachName: user?.coachName, teamName: user?.teamName },
+    defaultValues: {
+      coachName: user?.coachName || userCredentials.name,
+      teamName: user?.teamName,
+    },
   });
 
   const onSubmit = (data: FormData) => {
@@ -62,7 +65,12 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
           error={errors.teamName && "This field is required"}
         />
 
-        <Button type="submit" loading>
+        <Button
+          type="submit"
+          loading={loading}
+          success={Boolean(data)}
+          error={Boolean(error)}
+        >
           SAVE
         </Button>
       </form>

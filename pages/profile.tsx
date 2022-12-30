@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Page from "../components/layout/page/Page";
 import Button from "../components/shared/button/Button";
@@ -32,6 +33,7 @@ type FormData = {
 };
 
 export default function Profile({ data: user, user: userCredentials }: Props) {
+  const router = useRouter();
   const [setUser, { data, loading, error }] = useMutation(SET_USER);
   const {
     register,
@@ -45,7 +47,9 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   });
 
   const onSubmit = (data: FormData) => {
-    setUser({ variables: { id: userCredentials?.sub, ...data } });
+    setUser({ variables: { id: userCredentials?.sub, ...data } }).then(() => {
+      router.push("/my-team");
+    });
   };
 
   return (

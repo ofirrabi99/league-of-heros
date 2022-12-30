@@ -20,7 +20,7 @@ export type Mutation = {
 
 export type MutationUserArgs = {
   coachName: Scalars['String'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   teamName: Scalars['String'];
 };
 

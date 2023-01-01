@@ -11,8 +11,8 @@ export const GET_USER = gql`
 `;
 
 export const SET_USER = gql`
-  mutation setUser($id: ID!, $coachName: String!, $teamName: String!) {
-    user(id: $id, coachName: $coachName, teamName: $teamName) {
+  mutation setUser($user: NewUserInput!) {
+    setUser(user: $user) {
       id
       coachName
       teamName

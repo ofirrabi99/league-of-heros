@@ -34,7 +34,9 @@ type FormData = {
 
 export default function Profile({ data: user, user: userCredentials }: Props) {
   const router = useRouter();
-  const [setUser, { data, loading, error }] = useMutation(SET_USER);
+  const [addUser, { data, loading, error }] = useMutation(SET_USER, {
+    mutation: SET_USER,
+  });
   const {
     register,
     handleSubmit,
@@ -47,7 +49,9 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   });
 
   const onSubmit = (data: FormData) => {
-    setUser({ variables: { id: userCredentials?.sub, ...data } }).then(() => {
+    addUser({
+      variables: { user: { id: userCredentials?.sub, ...data } },
+    }).then(() => {
       router.push("/my-team");
     });
   };

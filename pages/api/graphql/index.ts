@@ -1,25 +1,13 @@
-import { createYoga, createSchema } from "graphql-yoga";
-import {
-  typeDefs as usersTypeDefs,
-  resolvers as usersResolvers,
-} from "./users";
-
-const initialTypeDefs = `
-  type Query {
-    _empty: String
-  }
-
-  type Mutation {
-    _empty: String
-  }
-`;
-
-const schema = createSchema({
-  typeDefs: [initialTypeDefs, usersTypeDefs],
-  resolvers: [usersResolvers],
-});
+import "reflect-metadata";
+import { createYoga } from "graphql-yoga";
+import { buildSchema } from "type-graphql";
+import { Container } from "typedi";
+import UserResolver from "./user/user.resolver";
 
 export default createYoga({
-  schema,
+  schema: await buildSchema({
+    resolvers: [UserResolver],
+    container: Container,
+  }),
   graphqlEndpoint: "/api/graphql",
 });

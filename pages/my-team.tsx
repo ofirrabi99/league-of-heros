@@ -9,8 +9,6 @@ export const getServerSideProps = withPageAuthRequired({
     const session = await getSession(ctx.req, ctx.res);
     const user = await getUserFromSession(session);
 
-    console.log(user);
-
     return {
       props: { data: user },
       ...(!user && { redirect: { destination: "/profile", permanent: false } }),

@@ -1,19 +1,15 @@
-import {
-  MutationUserArgs,
-  QueryUserArgs,
-  User,
-} from "../../../../types/graphql-types";
+import { Resolvers, User } from "../../../../types/graphql-types";
 
 const users: User[] = [];
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
-    user: (_root: any, args: QueryUserArgs, _context: any, _info: any) => {
-      return users.find((user) => user.id === args.id);
+    user: (_root, args, _context, _info) => {
+      return users.find((user) => user.id === args.id) ?? null;
     },
   },
   Mutation: {
-    user: (_root: any, args: MutationUserArgs, _context: any, _info: any) => {
+    user: (_root, args, _context, _info) => {
       const newUser = args;
       users.push(newUser);
       return newUser;

@@ -55,14 +55,12 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   return (
     <Page title="PROFILE">
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        {/* register your input into the hook by invoking the "register" function */}
         <TextField
           label="Coach Name"
           {...register("coachName", { required: true })}
           error={errors.coachName && "This field is required"}
         />
 
-        {/* include validation with required or other standard HTML validation rules */}
         <TextField
           label="Team Name"
           {...register("teamName", { required: true })}

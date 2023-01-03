@@ -13,7 +13,7 @@ import UserController from "./user.controller";
 import User from "./user.model";
 
 @InputType()
-class NewUserInput {
+class NewUserInput implements Partial<User> {
   @Field((_type) => ID)
   id!: string;
 
@@ -38,7 +38,7 @@ class UserResolver {
 
   @Mutation((_returns) => User)
   async setUser(@Arg("user") user: NewUserInput): Promise<User> {
-    return await this.userController.addUser(
+    return await this.userController.setUser(
       user.id,
       user.coachName,
       user.teamName

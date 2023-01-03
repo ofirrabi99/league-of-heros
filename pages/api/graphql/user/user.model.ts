@@ -1,10 +1,10 @@
-import { prop } from "@typegoose/typegoose";
+import { modelOptions, prop } from "@typegoose/typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 
 @ObjectType()
 class User {
   @Field((_type) => ID)
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   id!: string;
 
   @Field()

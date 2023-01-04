@@ -7,9 +7,9 @@ import Button from "../components/shared/button/Button";
 import TextField from "../components/shared/textField/TextField";
 import { SET_USER } from "../queries/user";
 import styles from "../styles/pages/profile.module.scss";
-import { UserCredentials } from "../types/auth0-types";
-import { User } from "../types/graphql-types";
+import type { UserCredentials } from "../types/auth0-types";
 import { getUserFromSession } from "../utils/commonFunctions";
+import type User from "./api/graphql/user/user.model";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {

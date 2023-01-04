@@ -1,0 +1,35 @@
+@use "../../styles/variables" as *;
+@use "../../styles/typography";
+
+.wrapper {
+  width: 8rem;
+  display: grid;
+  justify-content: center;
+  gap: 0;
+}
+
+.teamLogo {
+  position: absolute;
+  max-width: 2rem;
+  max-height: 2rem;
+  margin: 0.2rem;
+}
+
+.details {
+  color: $primaryColor;
+  background-color: $secondaryColor;
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.imageWrapper {
+  display: grid;
+}
+
+.values {
+  display: flex;
+  justify-content: space-around;
+}

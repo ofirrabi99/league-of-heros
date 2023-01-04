@@ -16,7 +16,15 @@
   background-color: $secondaryColor;
 }
 
-.headerSecondary {
-  @extend %header;
+.mainPrimary {
+  padding: 0.25rem;
   color: $secondaryColor;
+}
+
+.money {
+  color: $moneyColor;
+}
+
+.score {
+  color: $scoreColor;
 }

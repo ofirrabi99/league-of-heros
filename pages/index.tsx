@@ -1,6 +1,20 @@
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Login from "../components/layout/login/Login";
 import Divider from "../components/shared/divider/Divider";
 import styles from "../styles/pages/index.module.scss";
+
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(ctx) {
+    const session = await getSession(ctx.req, ctx.res);
+
+    return {
+      props: {},
+      ...(session?.user && {
+        redirect: { destination: "/my-team", permanent: false },
+      }),
+    };
+  },
+});
 
 export default function Home() {
   return (

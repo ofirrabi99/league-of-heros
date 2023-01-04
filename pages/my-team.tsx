@@ -31,6 +31,8 @@ export default function MyTeam({ data: user }: Props) {
         This is your team for the upcoming game day:
       </p>
       <br />
+      <h2 className={styles.headerPrimary}>{user.teamName}</h2>
+      <br />
       <Lineup />
     </Page>
   );

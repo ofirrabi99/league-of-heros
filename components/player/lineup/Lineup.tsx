@@ -1,8 +1,9 @@
+import styles from "./Lineup.module.scss";
 import Player from "../Player";
 
 export default function Lineup() {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Player />
       <Player />
       <Player />

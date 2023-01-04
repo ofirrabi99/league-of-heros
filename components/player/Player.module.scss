@@ -2,8 +2,8 @@
 @use "../../styles/typography";
 
 .wrapper {
-  width: 8rem;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 0;
 }
@@ -26,10 +26,15 @@
 }
 
 .imageWrapper {
-  display: grid;
+  display: flex;
 }
 
 .values {
   display: flex;
   justify-content: space-around;
+}
+
+.image {
+  min-width: 8rem;
+  width: 15vw;
 }

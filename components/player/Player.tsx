@@ -12,6 +12,7 @@ export default function Player() {
           alt="Hapoel Holon"
         />
         <img
+          className={styles.image}
           src="https://www.fiba.basketball/api/img/player/headshot/5/208494/560/200739?alternate=%2fimages%2fdefault_profile.jpg"
           alt="Joe Ragland"
         />

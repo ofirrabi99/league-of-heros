@@ -4,9 +4,10 @@ import { Service } from "typedi";
 
 @Service()
 class UserController {
+  private UserModel = getModelForClass(User);
+
   async findById(id: string): Promise<User | null> {
-    const UserModel = getModelForClass(User);
-    return await UserModel.findOne({ id });
+    return await this.UserModel.findOne({ id });
   }
 
   async setUser(
@@ -14,8 +15,13 @@ class UserController {
     coachName: string,
     teamName: string
   ): Promise<User> {
-    const UserModel = getModelForClass(User);
-    const user = new UserModel({ id, coachName, teamName });
+    let user = await this.UserModel.findOne({ id });
+    if (user) {
+      user.coachName = coachName;
+      user.teamName = teamName;
+    }
+    if (!user) user = new this.UserModel({ id, coachName, teamName });
+
     return await user.save();
   }
 }

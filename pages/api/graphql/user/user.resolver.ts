@@ -8,7 +8,6 @@ import {
   ID,
 } from "type-graphql";
 import { Service } from "typedi";
-import mongoose from "../../../../lib/mongoose";
 import UserController from "./user.controller";
 import User from "./user.model";
 
@@ -31,7 +30,6 @@ class UserResolver {
 
   @Query((_returns) => User, { nullable: true })
   async user(@Arg("id", (_type) => ID) id: string): Promise<User | null> {
-    await mongoose();
     const user = await this.userController.findById(id);
     return user;
   }

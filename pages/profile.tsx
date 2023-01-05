@@ -39,9 +39,7 @@ type FormData = {
 
 export default function Profile({ data: user, user: userCredentials }: Props) {
   const router = useRouter();
-  const [addUser, { data, loading, error }] = useMutation(SET_USER, {
-    mutation: SET_USER,
-  });
+  const [addUser, { data, loading, error }] = useMutation(SET_USER);
   const {
     register,
     handleSubmit,

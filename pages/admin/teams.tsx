@@ -1,11 +1,11 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import styles from "../styles/pages/my-team.module.scss";
-import { UserCredentials } from "../types/auth0-types";
-import Page from "../components/layout/page/Page";
-import type User from "./api/graphql/user/user.model";
-import Lineup from "../components/player/lineup/Lineup";
-import client, { injectCookies } from "../lib/apolloClient";
-import { GET_USER } from "../queries/user";
+import styles from "../../styles/pages/admin/teams.module.scss";
+import { UserCredentials } from "../../types/auth0-types";
+import Page from "../../components/layout/page/Page";
+import type User from "../api/graphql/user/user.model";
+import client, { injectCookies } from "../../lib/apolloClient";
+import { GET_USER } from "../../queries/user";
+import EditOrAddTeamForm from "../../components/admin/editOrAddTeamForm/EditOrAddTeamForm";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
@@ -29,17 +29,15 @@ interface Props {
   data: User;
 }
 
-export default function MyTeam({ data: user }: Props) {
+export default function AdminTeams({ data: user }: Props) {
   return (
-    <Page title="MY TEAM">
+    <Page title="ADMIN - TEAMS">
       <h2 className={styles.mainPrimary}>Hey, {user.coachName}!</h2>
       <p className={styles.mainPrimary}>
-        This is your team for the upcoming game day:
+        Here you can edit or add teams to the system.
       </p>
       <br />
-      <h2 className={styles.headerPrimary}>{user.teamName}</h2>
-      <br />
-      <Lineup />
+      <EditOrAddTeamForm />
     </Page>
   );
 }

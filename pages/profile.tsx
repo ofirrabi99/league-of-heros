@@ -1,20 +1,25 @@
 import { useMutation } from "@apollo/client";
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Page from "../components/layout/page/Page";
 import Button from "../components/shared/button/Button";
 import TextField from "../components/shared/textField/TextField";
-import { SET_USER } from "../queries/user";
+import client, { injectCookies } from "../lib/apolloClient";
+import { GET_USER, SET_USER } from "../queries/user";
 import styles from "../styles/pages/profile.module.scss";
 import type { UserCredentials } from "../types/auth0-types";
-import { getUserFromSession } from "../utils/commonFunctions";
 import type User from "./api/graphql/user/user.model";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
-    const session = await getSession(ctx.req, ctx.res);
-    const user = await getUserFromSession(session);
+    injectCookies(ctx.req.headers.cookie);
+
+    const {
+      data: { user },
+    } = await client.query({
+      query: GET_USER,
+    });
 
     return {
       props: { data: user },
@@ -50,7 +55,7 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
 
   const onSubmit = (data: FormData) => {
     addUser({
-      variables: { user: { id: userCredentials?.sub, ...data } },
+      variables: { user: data },
     }).then(() => {
       router.push("/my-team");
     });

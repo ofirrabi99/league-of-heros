@@ -5,8 +5,9 @@ import { Container } from "typedi";
 import UserResolver from "./user/user.resolver";
 import { NextApiRequest, NextApiResponse } from "next";
 import mongoose from "../../../lib/mongoose";
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 
-export default async function handler(
+export default withApiAuthRequired(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -24,4 +25,4 @@ export default async function handler(
     }),
     graphqlEndpoint: "/api/graphql",
   })(req, res);
-}
+});

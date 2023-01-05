@@ -1,15 +1,21 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import styles from "../styles/pages/my-team.module.scss";
 import { UserCredentials } from "../types/auth0-types";
-import { getUserFromSession } from "../utils/commonFunctions";
 import Page from "../components/layout/page/Page";
 import type User from "./api/graphql/user/user.model";
 import Lineup from "../components/player/lineup/Lineup";
+import client, { injectCookies } from "../lib/apolloClient";
+import { GET_USER } from "../queries/user";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
-    const session = await getSession(ctx.req, ctx.res);
-    const user = await getUserFromSession(session);
+    injectCookies(ctx.req.headers.cookie);
+
+    const {
+      data: { user },
+    } = await client.query({
+      query: GET_USER,
+    });
 
     return {
       props: { data: user },

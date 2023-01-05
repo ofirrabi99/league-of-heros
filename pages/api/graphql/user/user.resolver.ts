@@ -1,21 +1,11 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Arg,
-  InputType,
-  Field,
-  ID,
-} from "type-graphql";
+import { Resolver, Query, Mutation, Arg, InputType, Field } from "type-graphql";
 import { Service } from "typedi";
+import CurrentUser from "../_helpers/decorators/CurrentUser";
 import UserController from "./user.controller";
 import User from "./user.model";
 
 @InputType()
 class NewUserInput implements Partial<User> {
-  @Field((_type) => ID)
-  id!: string;
-
   @Field()
   coachName!: string;
 
@@ -26,18 +16,21 @@ class NewUserInput implements Partial<User> {
 @Service()
 @Resolver(User)
 class UserResolver {
-  constructor(private userController: UserController) {}
+  constructor(private readonly userController: UserController) {}
 
   @Query((_returns) => User, { nullable: true })
-  async user(@Arg("id", (_type) => ID) id: string): Promise<User | null> {
-    const user = await this.userController.findById(id);
+  async user(@CurrentUser("id") userId: string): Promise<User | null> {
+    const user = await this.userController.findById(userId);
     return user;
   }
 
   @Mutation((_returns) => User)
-  async setUser(@Arg("user") user: NewUserInput): Promise<User> {
+  async setUser(
+    @Arg("user") user: NewUserInput,
+    @CurrentUser("id") userId: string
+  ): Promise<User> {
     return await this.userController.setUser(
-      user.id,
+      userId,
       user.coachName,
       user.teamName
     );

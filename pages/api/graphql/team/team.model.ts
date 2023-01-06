@@ -4,9 +4,8 @@ import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
 class Team {
-  @Field()
-  @prop()
-  _id!: string;
+  @Field((_type) => String)
+  _id!: Types.ObjectId;
 
   @Field()
   @prop({ required: true, unique: true })

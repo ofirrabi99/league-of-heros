@@ -16,12 +16,7 @@ export default function EditOrAddTeamForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    // defaultValues: {
-    //   coachName: user?.coachName || userCredentials.name,
-    //   teamName: user?.teamName,
-    // },
-  });
+  } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
     addTeam({ variables: { team: { ...data } } });

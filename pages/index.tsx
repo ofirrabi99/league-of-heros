@@ -1,7 +1,5 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Login from "../components/layout/login/Login";
-import Divider from "../components/shared/divider/Divider";
-import styles from "../styles/pages/index.module.scss";
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
@@ -19,7 +17,7 @@ export const getServerSideProps = withPageAuthRequired({
 export default function Home() {
   return (
     <>
-      <h1 className={styles.headerPrimary}>HEROES OF THE NIGHT</h1>
+      {/* <h1 className={styles.headerPrimary}>HEROES OF THE NIGHT</h1>
       <p className={styles.headerPrimary}>
         Create a Fantasy Basketball Champions League team and challenge your
         friends in each gameday!
@@ -45,7 +43,7 @@ export default function Home() {
         amet consectetur adipisicing elit. Magni placeat officiis earum
         pariatur, maiores sunt laborum ut iure fuga sint amet officia neque
         recusandae? Ex reiciendis illo quos odit fuga!
-      </p>
+      </p> */}
     </>
   );
 }

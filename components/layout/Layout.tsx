@@ -1,4 +1,5 @@
-import styles from "./Layout.module.scss";
+import { Center } from "@chakra-ui/react";
+import Toolbar from "./Toolbar";
 
 interface Props {
   children: React.ReactNode;
@@ -7,9 +8,10 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <>
-      <div className={styles.logoWrapper}>
+      <Center m="1rem 0">
         <img src="/logo.svg" alt="logo" />
-      </div>
+      </Center>
+      <Toolbar />
       {children}
     </>
   );

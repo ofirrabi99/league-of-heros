@@ -2,12 +2,8 @@ import { useMutation } from "@apollo/client";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import Page from "../components/layout/page/Page";
-import Button from "../components/shared/button/Button";
-import TextField from "../components/shared/textField/TextField";
 import client, { injectCookies } from "../lib/apolloClient";
 import { GET_USER, SET_USER } from "../queries/user";
-import styles from "../styles/pages/profile.module.scss";
 import type { UserCredentials } from "../types/auth0-types";
 import type User from "./api/graphql/user/user.model";
 
@@ -60,29 +56,30 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   };
 
   return (
-    <Page title="PROFILE">
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          label="Coach Name"
-          {...register("coachName", { required: true })}
-          error={errors.coachName && "This field is required"}
-        />
+    <></>
+    // <Page title="PROFILE">
+    //   <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    //     <TextField
+    //       label="Coach Name"
+    //       {...register("coachName", { required: true })}
+    //       error={errors.coachName && "This field is required"}
+    //     />
 
-        <TextField
-          label="Team Name"
-          {...register("teamName", { required: true })}
-          error={errors.teamName && "This field is required"}
-        />
+    //     <TextField
+    //       label="Team Name"
+    //       {...register("teamName", { required: true })}
+    //       error={errors.teamName && "This field is required"}
+    //     />
 
-        <Button
-          type="submit"
-          loading={loading}
-          success={Boolean(data)}
-          error={Boolean(error)}
-        >
-          SAVE
-        </Button>
-      </form>
-    </Page>
+    //     <Button
+    //       type="submit"
+    //       loading={loading}
+    //       success={Boolean(data)}
+    //       error={Boolean(error)}
+    //     >
+    //       SAVE
+    //     </Button>
+    //   </form>
+    // </Page>
   );
 }

@@ -95,7 +95,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
       </Text>
 
       <br />
-      <br />
 
       <Center>
         <form onSubmit={handleSubmit(onSubmit)}>

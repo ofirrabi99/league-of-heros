@@ -91,7 +91,7 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
         Change the way other coaches see you 👀
       </Heading>
       <Text textAlign={"center"} fontSize={"lg"} color={"gray.500"}>
-        You can always chane it later ✍
+        You can always change it later ✍
       </Text>
 
       <br />

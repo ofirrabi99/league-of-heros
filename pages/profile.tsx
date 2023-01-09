@@ -9,8 +9,9 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import client, { injectCookies } from "../lib/apolloClient";
 import { GET_USER, SET_USER } from "../queries/user";
@@ -44,7 +45,6 @@ type FormData = {
 };
 
 export default function Profile({ data: user, user: userCredentials }: Props) {
-  const router = useRouter();
   const [addUser, { data, loading, error }] = useMutation(SET_USER);
   const {
     register,
@@ -56,14 +56,34 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
       teamName: user?.teamName,
     },
   });
+  const toast = useToast();
 
   const onSubmit = (data: FormData) => {
     addUser({
       variables: { user: data },
-    }).then(() => {
-      router.push("/my-team");
     });
   };
+
+  useEffect(() => {
+    if (!data) return;
+    toast({
+      title: "Your information has been updated.",
+      status: "success",
+      duration: 6000,
+      isClosable: true,
+    });
+  }, [data]);
+
+  useEffect(() => {
+    if (!error) return;
+    toast({
+      title: "Oops... Something wrong happend.",
+      description: "Please try again!",
+      status: "error",
+      duration: 6000,
+      isClosable: true,
+    });
+  }, [error]);
 
   return (
     <>

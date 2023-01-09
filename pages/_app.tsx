@@ -12,15 +12,15 @@ const inter = Inter({ subsets: ["latin"] });
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Layout>
-        <main className={`${inter.className}`}>
-          <ApolloProvider client={client}>
-            <UserProvider>
+      <UserProvider>
+        <ApolloProvider client={client}>
+          <Layout>
+            <main className={`${inter.className}`}>
               <Component {...pageProps} />
-            </UserProvider>
-          </ApolloProvider>
-        </main>
-      </Layout>
+            </main>
+          </Layout>
+        </ApolloProvider>
+      </UserProvider>
     </ChakraProvider>
   );
 }

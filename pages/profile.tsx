@@ -13,15 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import TopPage from "../components/shared/TopPage";
 import client, { injectCookies } from "../lib/apolloClient";
+import { requireAuth } from "../lib/auth0";
 import { GET_USER, SET_USER } from "../queries/user";
 import type { UserCredentials } from "../types/auth0-types";
 import type User from "./api/graphql/user/user.model";
 
-export const getServerSideProps = withPageAuthRequired({
+export const getServerSideProps = requireAuth({
   async getServerSideProps(ctx) {
-    injectCookies(ctx.req.headers.cookie);
-
     const {
       data: { user },
     } = await client.query({
@@ -87,12 +87,10 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
 
   return (
     <>
-      <Heading textAlign={"center"} fontSize={"4xl"}>
-        Change the way other coaches see you 👀
-      </Heading>
-      <Text textAlign={"center"} fontSize={"lg"} color={"gray.500"}>
-        You can always change it later ✍
-      </Text>
+      <TopPage
+        header="Change the way other coaches see you 👀"
+        description="You can always change it later ✍"
+      />
 
       <br />
 

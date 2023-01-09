@@ -24,6 +24,11 @@ const client = new ApolloClient({
   defaultOptions,
 });
 
+/**
+ * Sets the auth0 cookie on getServerSideProps
+ * We need it because it runs only in the server
+ * @param cookie from the browser
+ */
 export const injectCookies = (cookie: string | undefined) => {
   const httpLink = createHttpLink({
     uri: process.env.NEXT_PUBLIC_URL,

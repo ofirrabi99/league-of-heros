@@ -8,9 +8,6 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <>
-      <Center my="1rem">
-        <img src="/logo.svg" alt="logo" />
-      </Center>
       <Toolbar />
       {children}
     </>

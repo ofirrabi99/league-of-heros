@@ -1,5 +1,15 @@
 import { useMutation } from "@apollo/client";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import {
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import client, { injectCookies } from "../lib/apolloClient";
@@ -56,30 +66,44 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
   };
 
   return (
-    <></>
-    // <Page title="PROFILE">
-    //   <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-    //     <TextField
-    //       label="Coach Name"
-    //       {...register("coachName", { required: true })}
-    //       error={errors.coachName && "This field is required"}
-    //     />
+    <>
+      <Heading textAlign={"center"} fontSize={"4xl"}>
+        Change the way other coaches see you 👀
+      </Heading>
+      <Text textAlign={"center"} fontSize={"lg"} color={"gray.500"}>
+        You can always chane it later ✍
+      </Text>
 
-    //     <TextField
-    //       label="Team Name"
-    //       {...register("teamName", { required: true })}
-    //       error={errors.teamName && "This field is required"}
-    //     />
+      <br />
+      <br />
 
-    //     <Button
-    //       type="submit"
-    //       loading={loading}
-    //       success={Boolean(data)}
-    //       error={Boolean(error)}
-    //     >
-    //       SAVE
-    //     </Button>
-    //   </form>
-    // </Page>
+      <Center>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={3}>
+            <FormControl isInvalid={Boolean(errors.coachName)} isRequired>
+              <FormLabel>Coach Name</FormLabel>
+              <Input
+                variant="outline"
+                placeholder="Gregg Popovich"
+                {...register("coachName", { required: true })}
+              />
+            </FormControl>
+
+            <FormControl isInvalid={Boolean(errors.teamName)} isRequired>
+              <FormLabel>Team Name</FormLabel>
+              <Input
+                variant="outline"
+                placeholder="San Antonio Spurs"
+                {...register("teamName", { required: true })}
+              />
+            </FormControl>
+
+            <Button colorScheme={"purple"} type="submit" isDisabled={loading}>
+              SAVE
+            </Button>
+          </Stack>
+        </form>
+      </Center>
+    </>
   );
 }

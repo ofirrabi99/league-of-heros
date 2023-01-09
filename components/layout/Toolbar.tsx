@@ -28,11 +28,7 @@ import {
   UnlockIcon,
 } from "@chakra-ui/icons";
 import { useUser } from "@auth0/nextjs-auth0/client";
-
-const Links = [
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "Profile", href: "profile" },
-];
+import { Links } from "../../utils/constants";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link

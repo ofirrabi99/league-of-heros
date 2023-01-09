@@ -4,11 +4,11 @@ import {
 } from "@auth0/nextjs-auth0";
 import { injectCookies } from "./apolloClient";
 
-interface Props {
+interface RequireAuthProps {
   getServerSideProps?: WithPageAuthRequiredOptions["getServerSideProps"];
 }
 
-export const requireAuth = ({ getServerSideProps }: Props) =>
+export const requireAuth = ({ getServerSideProps }: RequireAuthProps) =>
   withPageAuthRequired({
     async getServerSideProps(ctx) {
       injectCookies(ctx.req.headers.cookie);

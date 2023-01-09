@@ -15,6 +15,7 @@ function TopPage({ description, header }: Props) {
       <Text textAlign={"center"} fontSize={"lg"} color={"gray.500"}>
         {description}
       </Text>
+      <br />
     </>
   );
 }

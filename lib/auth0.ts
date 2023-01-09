@@ -15,6 +15,6 @@ export const requireAuth = ({ getServerSideProps }: RequireAuthProps) =>
 
       if (!getServerSideProps) return { props: {} };
 
-      return getServerSideProps!(ctx);
+      return getServerSideProps(ctx);
     },
   });

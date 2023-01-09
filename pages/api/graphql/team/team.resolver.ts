@@ -5,9 +5,6 @@ import Team from "./team.model";
 
 @InputType()
 class NewTeamInput implements Partial<Team> {
-  @Field({ nullable: true })
-  id?: string;
-
   @Field()
   name!: string;
 
@@ -21,17 +18,14 @@ class TeamResolver {
   constructor(private readonly teamController: TeamController) {}
 
   @Query((_returns) => [Team])
-  async teams(): Promise<Team[] | null> {
+  async teams(): Promise<Team[]> {
     return await this.teamController.findAll();
   }
 
-  @Mutation((_returns) => Team)
-  async setTeam(@Arg("team") team: NewTeamInput): Promise<Team> {
-    return await this.teamController.setTeam(
-      team.id || "",
-      team.name,
-      team.imageUrl
-    );
+  @Mutation((_returns) => [Team])
+  async setTeam(@Arg("team") team: NewTeamInput): Promise<Team[]> {
+    await this.teamController.setTeam(team.name, team.imageUrl);
+    return await this.teams();
   }
 }
 

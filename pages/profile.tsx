@@ -21,7 +21,7 @@ import type { UserCredentials } from "../types/auth0-types";
 import type User from "./api/graphql/user/user.model";
 
 export const getServerSideProps = requireAuth({
-  async getServerSideProps(ctx) {
+  async getServerSideProps() {
     const {
       data: { user },
     } = await client.query({
@@ -69,8 +69,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
     toast({
       title: "Your information has been updated.",
       status: "success",
-      duration: 6000,
-      isClosable: true,
     });
   }, [data]);
 
@@ -80,8 +78,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
       title: "Oops... Something wrong happend.",
       description: "Please try again!",
       status: "error",
-      duration: 6000,
-      isClosable: true,
     });
   }, [error]);
 
@@ -91,8 +87,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
         header="Change the way other coaches see you 👀"
         description="You can always change it later ✍"
       />
-
-      <br />
 
       <Center>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -115,7 +109,12 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
               />
             </FormControl>
 
-            <Button colorScheme={"purple"} type="submit" isDisabled={loading}>
+            <Button
+              colorScheme={"purple"}
+              type="submit"
+              isLoading={loading}
+              loadingText="SAVING..."
+            >
               SAVE
             </Button>
           </Stack>

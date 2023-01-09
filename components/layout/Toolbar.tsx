@@ -82,7 +82,7 @@ export default function Toolbar() {
         <Flex alignItems={"center"}>
           {!user && !isLoadingUser && (
             <NextLink href="/api/auth/login">
-              <Button colorScheme="teal">Sign In</Button>
+              <Button colorScheme="purple">Sign In</Button>
             </NextLink>
           )}
           {user && (

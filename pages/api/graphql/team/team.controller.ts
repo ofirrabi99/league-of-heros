@@ -10,10 +10,9 @@ class TeamController {
     return await this.TeamModel.find({});
   }
 
-  async setTeam(id: string, name: string, imageUrl: string): Promise<Team> {
-    let team = id ? await this.TeamModel.findById(id) : null;
+  async setTeam(name: string, imageUrl: string): Promise<Team> {
+    let team = await this.TeamModel.findOne({ name });
     if (team) {
-      team.name = name;
       team.imageUrl = imageUrl;
     }
     if (!team) team = new this.TeamModel({ name, imageUrl });

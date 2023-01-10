@@ -4,6 +4,7 @@ import {
   Heading,
   HStack,
   useColorModeValue,
+  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -12,6 +13,7 @@ import useMyMutation from "../../hooks/useMyMutation";
 import TeamModel from "../../pages/api/graphql/team/team.model";
 import { DELETE_TEAM } from "../../queries/team";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
+import AreYouSureDialog from "../shared/AreYouSureDialog";
 
 interface Props {
   team: TeamModel;
@@ -20,6 +22,7 @@ interface Props {
 }
 function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
   const toast = useToast();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     action: deleteTeam,
     options: { loading: isLoadingDeleteTeam },
@@ -29,43 +32,53 @@ function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
     () => toast(GENERAL_ERROR_TOAST)
   );
 
-  const onDeleteClick = () => {
+  const onDelete = () => {
     deleteTeam({ variables: { teamId: team._id } });
   };
 
   return (
-    <VStack
-      bg={useColorModeValue("gray.200", "gray.700")}
-      rounded={"lg"}
-      p={6}
-      textAlign={"center"}
-      justifyContent="space-between"
-    >
-      <Avatar size={"xl"} src={team.imageUrl} />
-      <Heading fontSize={"2xl"}>{team.name}</Heading>
+    <>
+      <VStack
+        bg={useColorModeValue("gray.200", "gray.700")}
+        rounded={"lg"}
+        p={6}
+        textAlign={"center"}
+        justifyContent="space-between"
+      >
+        <Avatar size={"xl"} src={team.imageUrl} />
+        <Heading fontSize={"2xl"}>{team.name}</Heading>
 
-      <HStack mt={8} spacing={4}>
-        <Button
-          onClick={onDeleteClick}
-          colorScheme="red"
-          flex={1}
-          fontSize={"sm"}
-          rounded={"full"}
-          isLoading={isLoadingDeleteTeam}
-        >
-          Delete
-        </Button>
-        <Button
-          onClick={() => onEditClick(team)}
-          colorScheme="purple"
-          flex={1}
-          fontSize={"sm"}
-          rounded={"full"}
-        >
-          Edit
-        </Button>
-      </HStack>
-    </VStack>
+        <HStack mt={8} spacing={4}>
+          <Button
+            onClick={onOpen}
+            colorScheme="red"
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+            isLoading={isLoadingDeleteTeam}
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={() => onEditClick(team)}
+            colorScheme="purple"
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+          >
+            Edit
+          </Button>
+        </HStack>
+      </VStack>
+      <AreYouSureDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onApprove={onDelete}
+        title={`Delete ${team.name}`}
+      >
+        Are you sure? You can't undo this action afterwards.
+      </AreYouSureDialog>
+    </>
   );
 }
 

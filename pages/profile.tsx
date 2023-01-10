@@ -1,20 +1,17 @@
 import { useMutation } from "@apollo/client";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import {
   Button,
   Center,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
-  Text,
   useToast,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TopPage from "../components/shared/TopPage";
-import client, { injectCookies } from "../lib/apolloClient";
+import client from "../lib/apolloClient";
 import { requireAuth } from "../lib/auth0";
 import { GET_USER, SET_USER } from "../queries/user";
 import type { UserCredentials } from "../types/auth0-types";

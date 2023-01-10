@@ -1,16 +1,8 @@
-import { Resolver, Query, Mutation, Arg, InputType, Field } from "type-graphql";
+import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Service } from "typedi";
 import TeamController from "./team.controller";
 import Team from "./team.model";
-
-@InputType()
-class NewTeamInput implements Partial<Team> {
-  @Field()
-  name!: string;
-
-  @Field()
-  imageUrl!: string;
-}
+import { TeamInput } from "./team.types";
 
 @Service()
 @Resolver(Team)
@@ -23,8 +15,14 @@ class TeamResolver {
   }
 
   @Mutation((_returns) => [Team])
-  async setTeam(@Arg("team") team: NewTeamInput): Promise<Team[]> {
-    await this.teamController.setTeam(team.name, team.imageUrl);
+  async setTeam(@Arg("team") team: TeamInput): Promise<Team[]> {
+    await this.teamController.setTeam(team);
+    return await this.teams();
+  }
+
+  @Mutation((_returns) => [Team])
+  async deleteTeam(@Arg("teamId") teamId: String): Promise<Team[]> {
+    await this.teamController.deleteTeam(teamId);
     return await this.teams();
   }
 }

@@ -12,30 +12,39 @@ import {
   ModalOverlay,
   VStack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import Team from "../../pages/api/graphql/team/team.model";
 
-export type FormData = {
+export interface FormData {
   name: string;
   imageUrl: string;
-};
+}
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: FormData) => void;
   loading: boolean;
+  teamToUpdate?: Team;
 }
 export default function AddOrEditTeamDialog({
   isOpen,
   onClose,
   onSubmit,
   loading,
+  teamToUpdate,
 }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({});
+    reset,
+  } = useForm<FormData>();
+
+  useEffect(() => {
+    reset({ ...teamToUpdate });
+  }, [teamToUpdate, isOpen]);
 
   return (
     <Modal
@@ -46,7 +55,7 @@ export default function AddOrEditTeamDialog({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create your account</ModalHeader>
+        <ModalHeader>{teamToUpdate ? "Update" : "Create"} team</ModalHeader>
         <ModalCloseButton />
 
         <form onSubmit={handleSubmit(onSubmit)}>

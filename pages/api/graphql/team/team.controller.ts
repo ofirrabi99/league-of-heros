@@ -1,6 +1,7 @@
 import Team from "./team.model";
 import { getModelForClass } from "@typegoose/typegoose";
 import { Service } from "typedi";
+import { TeamInput } from "./team.types";
 
 @Service()
 class TeamController {
@@ -10,14 +11,20 @@ class TeamController {
     return await this.TeamModel.find({});
   }
 
-  async setTeam(name: string, imageUrl: string): Promise<Team> {
-    let team = await this.TeamModel.findOne({ name });
-    if (team) {
-      team.imageUrl = imageUrl;
-    }
-    if (!team) team = new this.TeamModel({ name, imageUrl });
+  async setTeam(teamInput: TeamInput): Promise<Team> {
+    let { _id, ...rest } = teamInput;
+    const team = new this.TeamModel({
+      _id,
+      ...rest,
+    });
+
+    team.isNew = !_id;
 
     return await team.save();
+  }
+
+  async deleteTeam(teamId: String): Promise<Team | null> {
+    return await this.TeamModel.findOneAndDelete({ _id: teamId });
   }
 }
 

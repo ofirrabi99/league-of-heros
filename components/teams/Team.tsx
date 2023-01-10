@@ -4,22 +4,35 @@ import {
   Heading,
   HStack,
   useColorModeValue,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
+import { memo } from "react";
+import useMyMutation from "../../hooks/useMyMutation";
 import TeamModel from "../../pages/api/graphql/team/team.model";
+import { DELETE_TEAM } from "../../queries/team";
+import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 
-interface Props extends Partial<TeamModel> {
-  name: string;
-  imageUrl: string;
-  onEditClick: () => void;
-  onDeleteClick: () => void;
+interface Props {
+  team: TeamModel;
+  onEditClick: (team: TeamModel) => void;
+  onAfterDeleteClick: (teams: TeamModel[]) => void;
 }
-export default function Team({
-  name,
-  imageUrl,
-  onEditClick,
-  onDeleteClick,
-}: Props) {
+function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
+  const toast = useToast();
+  const {
+    action: deleteTeam,
+    options: { loading: isLoadingDeleteTeam },
+  } = useMyMutation(
+    DELETE_TEAM,
+    (data) => onAfterDeleteClick(data.deleteTeam),
+    () => toast(GENERAL_ERROR_TOAST)
+  );
+
+  const onDeleteClick = () => {
+    deleteTeam({ variables: { teamId: team._id } });
+  };
+
   return (
     <VStack
       bg={useColorModeValue("gray.200", "gray.700")}
@@ -28,8 +41,8 @@ export default function Team({
       textAlign={"center"}
       justifyContent="space-between"
     >
-      <Avatar size={"xl"} src={imageUrl} />
-      <Heading fontSize={"2xl"}>{name}</Heading>
+      <Avatar size={"xl"} src={team.imageUrl} />
+      <Heading fontSize={"2xl"}>{team.name}</Heading>
 
       <HStack mt={8} spacing={4}>
         <Button
@@ -38,11 +51,12 @@ export default function Team({
           flex={1}
           fontSize={"sm"}
           rounded={"full"}
+          isLoading={isLoadingDeleteTeam}
         >
           Delete
         </Button>
         <Button
-          onClick={onEditClick}
+          onClick={() => onEditClick(team)}
           colorScheme="purple"
           flex={1}
           fontSize={"sm"}
@@ -54,3 +68,5 @@ export default function Team({
     </VStack>
   );
 }
+
+export default memo(Team);

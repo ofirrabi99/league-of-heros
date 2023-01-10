@@ -1,6 +1,6 @@
-import { useMutation } from "@apollo/client";
+import useMyMutation from "../../hooks/useMyMutation";
 import { Box, Button, Grid, useDisclosure, useToast } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import TopPage from "../../components/shared/TopPage";
 import AddOrEditTeamDialog, {
   FormData,
@@ -10,6 +10,8 @@ import client from "../../lib/apolloClient";
 import { requireAuth } from "../../lib/auth0";
 import { DELETE_TEAM, GET_TEAMS, SET_TEAM } from "../../queries/team";
 import TeamModel from "../api/graphql/team/team.model";
+import TeamsList from "../../components/teams/TeamsList";
+import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 
 export const getServerSideProps = requireAuth({
   async getServerSideProps(ctx) {
@@ -30,11 +32,20 @@ interface Props {
 }
 
 export default function AdminTeams({ teams }: Props) {
+  const toast = useToast();
   const [teamsList, setTeamsList] = useState<TeamModel[]>(teams);
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [setTeam, setTeamState] = useMutation(SET_TEAM);
-  const [deleteTeam, deleteTeamState] = useMutation(DELETE_TEAM);
-  const toast = useToast();
+  const {
+    action: setTeam,
+    options: { loading: isLoadingSetTeam },
+  } = useMyMutation(
+    SET_TEAM,
+    (data) => {
+      setTeamsList([...data.setTeam]);
+      handleCloseDialog();
+    },
+    () => toast(GENERAL_ERROR_TOAST)
+  );
   const [teamToUpdate, setTeamToUpdate] = useState<TeamModel>();
 
   const onSetTeam = ({ imageUrl, name }: FormData) => {
@@ -44,50 +55,25 @@ export default function AdminTeams({ teams }: Props) {
     handleCloseDialog();
   };
 
-  const onDeleteTeam = (teamId: String) => {
-    deleteTeam({
-      variables: { teamId },
-    });
-  };
+  const onAfterDeleteTeam = useCallback(
+    (teams: TeamModel[]) => {
+      setTeamsList([...teams]);
+    },
+    [setTeamsList]
+  );
 
-  const onStartUpdateTeam = (team: typeof teamToUpdate) => {
-    setTeamToUpdate(team);
-    onOpen();
-  };
+  const onBeforeUpdateTeam = useCallback(
+    (team: typeof teamToUpdate) => {
+      setTeamToUpdate(team);
+      onOpen();
+    },
+    [setTeamToUpdate, onOpen]
+  );
 
-  const handleCloseDialog = () => {
+  const handleCloseDialog = useCallback(() => {
     setTeamToUpdate(undefined);
     onClose();
-  };
-
-  useEffect(() => {
-    if (!setTeamState.data) return;
-    setTeamsList([...setTeamState.data.setTeam]);
-    handleCloseDialog();
-  }, [setTeamState.data]);
-
-  useEffect(() => {
-    if (!setTeamState.error) return;
-    toast({
-      title: "Oops... Something wrong happend.",
-      description: "Please try again!",
-      status: "error",
-    });
-  }, [setTeamState.error]);
-
-  useEffect(() => {
-    if (!deleteTeamState.data) return;
-    setTeamsList([...deleteTeamState.data.deleteTeam]);
-  }, [deleteTeamState.data]);
-
-  useEffect(() => {
-    if (!deleteTeamState.error) return;
-    toast({
-      title: "Oops... Something wrong happend.",
-      description: "Please try again!",
-      status: "error",
-    });
-  }, [deleteTeamState.error]);
+  }, [setTeamToUpdate, onClose]);
 
   return (
     <>
@@ -97,28 +83,17 @@ export default function AdminTeams({ teams }: Props) {
           ADD NEW TEAM
         </Button>
       </Box>
-      <Grid
-        templateColumns="repeat(auto-fill, 15rem)"
-        gap={4}
-        justifyContent="space-around"
-        mx={4}
-      >
-        {teamsList.map((team) => (
-          <Team
-            key={team._id.toString()}
-            imageUrl={team.imageUrl}
-            name={team.name}
-            onEditClick={() => onStartUpdateTeam(team)}
-            onDeleteClick={() => onDeleteTeam(team._id.toString())}
-          />
-        ))}
-      </Grid>
+      <TeamsList
+        teamsList={teamsList}
+        onEditClick={onBeforeUpdateTeam}
+        onAfterDeleteClick={onAfterDeleteTeam}
+      />
       <br />
       <AddOrEditTeamDialog
         isOpen={isOpen}
         onClose={handleCloseDialog}
         onSubmit={onSetTeam}
-        loading={setTeamState.loading}
+        loading={isLoadingSetTeam}
         teamToUpdate={teamToUpdate}
       />
     </>

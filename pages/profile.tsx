@@ -1,4 +1,3 @@
-import { useMutation } from "@apollo/client";
 import {
   Button,
   Center,
@@ -11,10 +10,12 @@ import {
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TopPage from "../components/shared/TopPage";
+import useMyMutation from "../hooks/useMyMutation";
 import client from "../lib/apolloClient";
 import { requireAuth } from "../lib/auth0";
 import { GET_USER, SET_USER } from "../queries/user";
 import type { UserCredentials } from "../types/auth0-types";
+import { GENERAL_ERROR_TOAST } from "../utils/constants";
 import type User from "./api/graphql/user/user.model";
 
 export const getServerSideProps = requireAuth({
@@ -42,7 +43,18 @@ type FormData = {
 };
 
 export default function Profile({ data: user, user: userCredentials }: Props) {
-  const [addUser, { data, loading, error }] = useMutation(SET_USER);
+  const {
+    action: addUser,
+    options: { loading },
+  } = useMyMutation(
+    SET_USER,
+    () =>
+      toast({
+        title: "Your information has been updated.",
+        status: "success",
+      }),
+    () => toast(GENERAL_ERROR_TOAST)
+  );
   const {
     register,
     handleSubmit,
@@ -60,23 +72,6 @@ export default function Profile({ data: user, user: userCredentials }: Props) {
       variables: { user: data },
     });
   };
-
-  useEffect(() => {
-    if (!data) return;
-    toast({
-      title: "Your information has been updated.",
-      status: "success",
-    });
-  }, [data]);
-
-  useEffect(() => {
-    if (!error) return;
-    toast({
-      title: "Oops... Something wrong happend.",
-      description: "Please try again!",
-      status: "error",
-    });
-  }, [error]);
 
   return (
     <>

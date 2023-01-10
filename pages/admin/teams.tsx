@@ -43,6 +43,7 @@ export default function AdminTeams({ teams }: Props) {
     (data) => {
       setTeamsList([...data.setTeam]);
       handleCloseDialog();
+      toast({ status: "success", title: "Your changes has been saved!" });
     },
     () => toast(GENERAL_ERROR_TOAST)
   );
@@ -52,7 +53,6 @@ export default function AdminTeams({ teams }: Props) {
     setTeam({
       variables: { team: { name, imageUrl, _id: teamToUpdate?._id } },
     });
-    handleCloseDialog();
   };
 
   const onAfterDeleteTeam = useCallback(

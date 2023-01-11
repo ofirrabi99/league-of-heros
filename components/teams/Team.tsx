@@ -4,7 +4,6 @@ import {
   Heading,
   HStack,
   useColorModeValue,
-  useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
@@ -12,8 +11,8 @@ import { memo } from "react";
 import useMyMutation from "../../hooks/useMyMutation";
 import TeamModel from "../../pages/api/graphql/team/team.model";
 import { DELETE_TEAM } from "../../queries/team";
+import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
-import AreYouSureDialog from "../shared/AreYouSureDialog";
 
 interface Props {
   team: TeamModel;
@@ -22,7 +21,7 @@ interface Props {
 }
 function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
   const toast = useToast();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const {
     action: deleteTeam,
     options: { loading: isLoadingDeleteTeam },
@@ -50,7 +49,16 @@ function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
 
         <HStack mt={8} spacing={4}>
           <Button
-            onClick={onOpen}
+            onClick={() =>
+              fireAreYouSureDialog(
+                {
+                  title: `Delete ${team.name}`,
+                  description:
+                    "Are you sure? You can't undo this action afterwards.",
+                },
+                onDelete
+              )
+            }
             colorScheme="red"
             flex={1}
             fontSize={"sm"}
@@ -70,14 +78,6 @@ function Team({ team, onEditClick, onAfterDeleteClick }: Props) {
           </Button>
         </HStack>
       </VStack>
-      <AreYouSureDialog
-        isOpen={isOpen}
-        onClose={onClose}
-        onApprove={onDelete}
-        title={`Delete ${team.name}`}
-      >
-        Are you sure? You can't undo this action afterwards.
-      </AreYouSureDialog>
     </>
   );
 }

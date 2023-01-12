@@ -12,8 +12,7 @@ class UserResolver {
 
   @Query((_returns) => User, { nullable: true })
   async user(@CurrentUser("id") userId: string): Promise<User | null> {
-    const user = await this.userController.findById(userId);
-    return user;
+    return await this.userController.findById(userId);
   }
 
   @Mutation((_returns) => User)

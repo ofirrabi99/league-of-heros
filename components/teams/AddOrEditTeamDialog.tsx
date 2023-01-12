@@ -44,7 +44,7 @@ export default function AddOrEditTeamDialog({
 
   useEffect(() => {
     reset({ ...teamToUpdate });
-  }, [teamToUpdate, isOpen]);
+  }, [teamToUpdate, isOpen, reset]);
 
   return (
     <Modal

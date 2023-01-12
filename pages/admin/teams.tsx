@@ -1,14 +1,13 @@
 import useMyMutation from "../../hooks/useMyMutation";
-import { Box, Button, Grid, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import TopPage from "../../components/shared/TopPage";
 import AddOrEditTeamDialog, {
   FormData,
 } from "../../components/teams/AddOrEditTeamDialog";
-import Team from "../../components/teams/Team";
 import client from "../../lib/apolloClient";
 import { requireAuth } from "../../lib/auth0";
-import { DELETE_TEAM, GET_TEAMS, SET_TEAM } from "../../queries/team";
+import { GET_TEAMS, SET_TEAM } from "../../queries/team";
 import TeamModel from "../api/graphql/team/team.model";
 import TeamsList from "../../components/teams/TeamsList";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";

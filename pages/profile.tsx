@@ -7,7 +7,6 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TopPage from "../components/shared/TopPage";
 import useMyMutation from "../hooks/useMyMutation";

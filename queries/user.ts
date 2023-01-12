@@ -10,7 +10,7 @@ export const GET_USER = gql`
 `;
 
 export const SET_USER = gql`
-  mutation setUser($user: NewUserInput!) {
+  mutation setUser($user: UserInput!) {
     setUser(user: $user) {
       coachName
       teamName

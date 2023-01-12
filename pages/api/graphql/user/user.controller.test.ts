@@ -12,17 +12,16 @@ describe("user controller", () => {
     });
 
     it("should find entered user", async () => {
-      const newUser = await UserModel.create({
+      const user = {
         id: "123",
         teamName: "hapoel holon",
         coachName: "ofir rabi",
-      });
+      };
+      await UserModel.create(user);
 
-      const user = await controller.findById("123");
-      expect(user).not.toBeNull();
-      expect(user?.id).toBe(newUser.id);
-      expect(user?.teamName).toBe(newUser.teamName);
-      expect(user?.coachName).toBe(newUser.coachName);
+      const findUser = await controller.findById("123");
+      expect(findUser).not.toBeNull();
+      expect(findUser).toEqual(expect.objectContaining(user));
     });
   });
 

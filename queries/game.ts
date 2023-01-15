@@ -6,6 +6,7 @@ export const SET_GAME = gql`
       _id
       date
       teams {
+        _id
         name
         imageUrl
       }

@@ -25,11 +25,11 @@ class GameResolver {
     return await this.games();
   }
 
-  // @Mutation((_returns) => [Team])
-  // async deleteTeam(@Arg("teamId") teamId: String): Promise<Team[]> {
-  //   await this.teamController.deleteTeam(teamId);
-  //   return await this.teams();
-  // }
+  @Mutation((_returns) => [Game])
+  async deleteGame(@Arg("gameId") gameId: string): Promise<Game[]> {
+    await this.gameController.deleteGame(gameId);
+    return await this.games();
+  }
 
   // @FieldResolver()
   // async teams(@Root("_doc") game: Game): Promise<Team[]> {

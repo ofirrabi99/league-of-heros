@@ -34,12 +34,16 @@ export const GET_GAMES_AND_TEAMS = gql`
   }
 `;
 
-// export const DELETE_TEAM = gql`
-//   mutation deleteTeam($teamId: String!) {
-//     deleteTeam(teamId: $teamId) {
-//       _id
-//       name
-//       imageUrl
-//     }
-//   }
-// `;
+export const DELETE_GAME = gql`
+  mutation deleteGame($gameId: String!) {
+    deleteGame(gameId: $gameId) {
+      _id
+      date
+      teams {
+        _id
+        name
+        imageUrl
+      }
+    }
+  }
+`;

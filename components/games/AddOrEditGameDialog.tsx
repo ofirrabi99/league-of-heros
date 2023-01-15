@@ -14,10 +14,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Game from "../../pages/api/graphql/game/game.model";
 import Team from "../../pages/api/graphql/team/team.model";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export interface FormData {
   date: string;
   homeTeam: string;
@@ -45,10 +46,10 @@ export default function AddOrEditGameDialog({
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<FormData>();
 
   useEffect(() => {
-    console.log({ gameToUpdate });
     reset({
       date: gameToUpdate?.date,
       homeTeam: gameToUpdate?.teams[0]?._id.toString(),
@@ -80,10 +81,16 @@ export default function AddOrEditGameDialog({
             <VStack>
               <FormControl isInvalid={Boolean(errors.date)} isRequired>
                 <FormLabel>Date</FormLabel>
-                <Input
-                  variant="outline"
-                  placeholder="San Antonio Spurs"
-                  {...register("date", { required: true })}
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field }) => (
+                    <DatePicker
+                      placeholderText="Select date"
+                      onChange={(date) => field.onChange(date?.toISOString())}
+                      selected={new Date(field.value)}
+                    />
+                  )}
                 />
               </FormControl>
 

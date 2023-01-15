@@ -25,9 +25,9 @@ class GameController {
     return await team.save();
   }
 
-  // async deleteTeam(teamId: String): Promise<Team | null> {
-  //   return await this.TeamModel.findOneAndDelete({ _id: teamId });
-  // }
+  async deleteGame(gameId: string): Promise<Game | null> {
+    return await this.GameModel.findOneAndDelete({ _id: gameId });
+  }
 }
 
 export default GameController;

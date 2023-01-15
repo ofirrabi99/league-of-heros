@@ -11,29 +11,29 @@ import {
 import { memo } from "react";
 import useMyMutation from "../../hooks/useMyMutation";
 import GameModel from "../../pages/api/graphql/game/game.model";
-import { DELETE_TEAM } from "../../queries/team";
+import { DELETE_GAME } from "../../queries/game";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 
 interface Props {
   game: GameModel;
-  onEditClick: (team: GameModel) => void;
-  onAfterDeleteClick: (teams: GameModel[]) => void;
+  onEditClick: (game: GameModel) => void;
+  onAfterDeleteClick: (games: GameModel[]) => void;
 }
-function Team({ game, onEditClick, onAfterDeleteClick }: Props) {
+function Game({ game, onEditClick, onAfterDeleteClick }: Props) {
   const toast = useToast();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const {
-    action: deleteTeam,
-    options: { loading: isLoadingDeleteTeam },
+    action: deleteGame,
+    options: { loading: isLoadingDeleteGame },
   } = useMyMutation(
-    DELETE_TEAM,
-    (data) => onAfterDeleteClick(data.deleteTeam),
+    DELETE_GAME,
+    (data) => onAfterDeleteClick(data.deleteGame),
     () => toast(GENERAL_ERROR_TOAST)
   );
 
   const onDelete = () => {
-    deleteTeam({ variables: { teamId: game._id } });
+    deleteGame({ variables: { gameId: game._id } });
   };
 
   return (
@@ -73,7 +73,7 @@ function Team({ game, onEditClick, onAfterDeleteClick }: Props) {
             flex={1}
             fontSize={"sm"}
             rounded={"full"}
-            isLoading={isLoadingDeleteTeam}
+            isLoading={isLoadingDeleteGame}
           >
             Delete
           </Button>
@@ -92,4 +92,4 @@ function Team({ game, onEditClick, onAfterDeleteClick }: Props) {
   );
 }
 
-export default memo(Team);
+export default memo(Game);

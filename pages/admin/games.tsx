@@ -14,7 +14,7 @@ import { GET_GAMES_AND_TEAMS, SET_GAME } from "../../queries/game";
 import AddOrEditGameDialog, {
   FormData,
 } from "../../components/games/AddOrEditGameDialog";
-import GamesList from "../../components/teams/GamesList";
+import GamesList from "../../components/games/GamesList";
 
 export const getServerSideProps = requireAuth({
   async getServerSideProps(ctx) {
@@ -40,8 +40,8 @@ export default function AdminGames({ teams, games }: Props) {
   const [gamesList, setGamesList] = useState<GameModel[]>(games);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
-    action: setTeam,
-    options: { loading: isLoadingSetTeam },
+    action: setGame,
+    options: { loading: isLoadingSetGame },
   } = useMyMutation(
     SET_GAME,
     (data) => {
@@ -54,7 +54,7 @@ export default function AdminGames({ teams, games }: Props) {
   const [gameToUpdate, setGameToUpdate] = useState<GameModel>();
 
   const onSetGame = ({ date, homeTeam, awayTeam }: FormData) => {
-    setTeam({
+    setGame({
       variables: {
         game: { date, teamsId: [homeTeam, awayTeam], _id: gameToUpdate?._id },
       },
@@ -69,8 +69,8 @@ export default function AdminGames({ teams, games }: Props) {
   );
 
   const onBeforeUpdateGame = useCallback(
-    (team: typeof gameToUpdate) => {
-      setGameToUpdate(team);
+    (game: typeof gameToUpdate) => {
+      setGameToUpdate(game);
       onOpen();
     },
     [setGameToUpdate, onOpen]
@@ -99,7 +99,7 @@ export default function AdminGames({ teams, games }: Props) {
         isOpen={isOpen}
         onClose={handleCloseDialog}
         onSubmit={onSetGame}
-        loading={isLoadingSetTeam}
+        loading={isLoadingSetGame}
         gameToUpdate={gameToUpdate}
         teams={teams}
       />

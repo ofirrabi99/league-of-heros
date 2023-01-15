@@ -9,7 +9,7 @@ import client from "../../lib/apolloClient";
 import { requireAuth } from "../../lib/auth0";
 import { GET_TEAMS, SET_TEAM } from "../../queries/team";
 import TeamModel from "../api/graphql/team/team.model";
-import TeamsList from "../../components/teams/GamesList";
+import TeamsList from "../../components/teams/TeamsList";
 import {
   GENERAL_ERROR_TOAST,
   GENERAL_SUCCESS_TOAST,

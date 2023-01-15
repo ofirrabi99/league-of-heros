@@ -57,6 +57,9 @@ function Game({ game, onEditClick, onAfterDeleteClick }: Props) {
           </Box>
         </HStack>
 
+        {/* <Box>{new Date(game.date).toLocaleDateString()}</Box> */}
+        {/* <Box>{new Date(game.date).toLocaleString()}</Box> */}
+
         <HStack mt={8} spacing={4}>
           <Button
             onClick={() =>

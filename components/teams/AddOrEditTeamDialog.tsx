@@ -52,6 +52,7 @@ export default function AddOrEditTeamDialog({
       closeOnOverlayClick={false}
       isOpen={isOpen}
       onClose={onClose}
+      isCentered
     >
       <ModalOverlay />
       <ModalContent>

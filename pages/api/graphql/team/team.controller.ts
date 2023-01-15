@@ -2,6 +2,7 @@ import Team from "./team.model";
 import { getModelForClass } from "@typegoose/typegoose";
 import { Service } from "typedi";
 import { TeamInput } from "./team.types";
+import { Types } from "mongoose";
 
 @Service()
 class TeamController {
@@ -9,6 +10,10 @@ class TeamController {
 
   async findAll(): Promise<Team[]> {
     return await this.TeamModel.find({});
+  }
+
+  async findByIds(teamIds: Types.ObjectId[]): Promise<Team[]> {
+    return await this.TeamModel.find({ _id: teamIds });
   }
 
   async setTeam(teamInput: TeamInput): Promise<Team> {

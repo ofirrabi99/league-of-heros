@@ -2,77 +2,84 @@ import useMyMutation from "../../hooks/useMyMutation";
 import { Box, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import TopPage from "../../components/shared/TopPage";
-import AddOrEditTeamDialog, {
-  FormData,
-} from "../../components/teams/AddOrEditTeamDialog";
 import client from "../../lib/apolloClient";
 import { requireAuth } from "../../lib/auth0";
-import { GET_TEAMS, SET_TEAM } from "../../queries/team";
 import TeamModel from "../api/graphql/team/team.model";
-import TeamsList from "../../components/teams/TeamsList";
-import { GENERAL_ERROR_TOAST } from "../../utils/constants";
+import GameModel from "../api/graphql/game/game.model";
+import {
+  GENERAL_ERROR_TOAST,
+  GENERAL_SUCCESS_TOAST,
+} from "../../utils/constants";
+import { GET_GAMES_AND_TEAMS, SET_GAME } from "../../queries/game";
+import AddOrEditGameDialog, {
+  FormData,
+} from "../../components/games/AddOrEditGameDialog";
+import GamesList from "../../components/teams/GamesList";
 
 export const getServerSideProps = requireAuth({
   async getServerSideProps(ctx) {
     const {
-      data: { teams },
+      data: { teams, games },
     } = await client.query({
-      query: GET_TEAMS,
+      query: GET_GAMES_AND_TEAMS,
     });
 
     return {
-      props: { teams },
+      props: { teams, games },
     };
   },
 });
 
 interface Props {
   teams: TeamModel[];
+  games: GameModel[];
 }
 
-export default function AdminGames({ teams }: Props) {
+export default function AdminGames({ teams, games }: Props) {
   const toast = useToast();
-  const [teamsList, setTeamsList] = useState<TeamModel[]>(teams);
+  const [gamesList, setGamesList] = useState<GameModel[]>(games);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     action: setTeam,
     options: { loading: isLoadingSetTeam },
   } = useMyMutation(
-    SET_TEAM,
+    SET_GAME,
     (data) => {
-      setTeamsList([...data.setTeam]);
+      setGamesList([...data.setGame]);
       handleCloseDialog();
-      toast({ status: "success", title: "Your changes has been saved!" });
+      toast(GENERAL_SUCCESS_TOAST);
     },
     () => toast(GENERAL_ERROR_TOAST)
   );
-  const [teamToUpdate, setTeamToUpdate] = useState<TeamModel>();
+  const [gameToUpdate, setGameToUpdate] = useState<GameModel>();
 
-  const onSetTeam = ({ imageUrl, name }: FormData) => {
+  const onSetGame = ({ date, homeTeam, awayTeam }: FormData) => {
     setTeam({
-      variables: { team: { name, imageUrl, _id: teamToUpdate?._id } },
+      variables: {
+        game: { date, teamsId: [homeTeam, awayTeam], _id: gameToUpdate?._id },
+      },
     });
   };
 
-  const onAfterDeleteTeam = useCallback(
-    (teams: TeamModel[]) => {
-      setTeamsList([...teams]);
+  const onAfterDeleteGame = useCallback(
+    (games: GameModel[]) => {
+      setGamesList([...games]);
     },
-    [setTeamsList]
+    [setGamesList]
   );
 
-  const onBeforeUpdateTeam = useCallback(
-    (team: typeof teamToUpdate) => {
-      setTeamToUpdate(team);
+  const onBeforeUpdateGame = useCallback(
+    (team: typeof gameToUpdate) => {
+      setGameToUpdate(team);
       onOpen();
     },
-    [setTeamToUpdate, onOpen]
+    [setGameToUpdate, onOpen]
   );
 
   const handleCloseDialog = useCallback(() => {
-    setTeamToUpdate(undefined);
+    setGameToUpdate(undefined);
     onClose();
-  }, [setTeamToUpdate, onClose]);
+  }, [setGameToUpdate, onClose]);
 
   return (
     <>
@@ -82,18 +89,19 @@ export default function AdminGames({ teams }: Props) {
           ADD NEW GAME
         </Button>
       </Box>
-      <TeamsList
-        teamsList={teamsList}
-        onEditClick={onBeforeUpdateTeam}
-        onAfterDeleteClick={onAfterDeleteTeam}
+      <GamesList
+        gamesList={gamesList}
+        onEditClick={onBeforeUpdateGame}
+        onAfterDeleteClick={onAfterDeleteGame}
       />
       <br />
-      <AddOrEditTeamDialog
+      <AddOrEditGameDialog
         isOpen={isOpen}
         onClose={handleCloseDialog}
-        onSubmit={onSetTeam}
+        onSubmit={onSetGame}
         loading={isLoadingSetTeam}
-        teamToUpdate={teamToUpdate}
+        gameToUpdate={gameToUpdate}
+        teams={teams}
       />
     </>
   );

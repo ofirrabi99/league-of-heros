@@ -9,8 +9,11 @@ import client from "../../lib/apolloClient";
 import { requireAuth } from "../../lib/auth0";
 import { GET_TEAMS, SET_TEAM } from "../../queries/team";
 import TeamModel from "../api/graphql/team/team.model";
-import TeamsList from "../../components/teams/TeamsList";
-import { GENERAL_ERROR_TOAST } from "../../utils/constants";
+import TeamsList from "../../components/teams/GamesList";
+import {
+  GENERAL_ERROR_TOAST,
+  GENERAL_SUCCESS_TOAST,
+} from "../../utils/constants";
 
 export const getServerSideProps = requireAuth({
   async getServerSideProps(ctx) {
@@ -42,7 +45,7 @@ export default function AdminTeams({ teams }: Props) {
     (data) => {
       setTeamsList([...data.setTeam]);
       handleCloseDialog();
-      toast({ status: "success", title: "Your changes has been saved!" });
+      toast(GENERAL_SUCCESS_TOAST);
     },
     () => toast(GENERAL_ERROR_TOAST)
   );

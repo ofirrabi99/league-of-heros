@@ -10,3 +10,8 @@ export const GENERAL_ERROR_TOAST: UseToastOptions = {
   description: "Please try again!",
   status: "error",
 };
+
+export const GENERAL_SUCCESS_TOAST: UseToastOptions = {
+  title: "Your changes has been saved!",
+  status: "success",
+};

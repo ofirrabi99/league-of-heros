@@ -1,4 +1,4 @@
-import { prop, PropType, Ref } from "@typegoose/typegoose";
+import { prop, PropType } from "@typegoose/typegoose";
 import { Types } from "mongoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import Team from "../team/team.model";

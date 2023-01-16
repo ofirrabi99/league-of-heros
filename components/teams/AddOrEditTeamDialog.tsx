@@ -112,14 +112,22 @@ export default function AddOrEditTeamDialog({
                 <Button
                   width={"100%"}
                   colorScheme="purple"
-                  // onClick={() => prepend("Name")}
+                  onClick={() =>
+                    prepend({
+                      _id: "",
+                      name: "Name",
+                      imageUrl: "",
+                      team: teamToUpdate?._id || "",
+                      price: 0,
+                    })
+                  }
                 >
                   ADD NEW PLAYER
                 </Button>
                 {players.map((player, index) => (
                   <Input
                     variant="outline"
-                    key={player._id}
+                    key={player._id || index}
                     {...register(`players.${index}.name` as const)}
                   />
                 ))}

@@ -28,7 +28,9 @@ class TeamResolver {
 
   @Mutation((_returns) => [Team])
   async setTeam(@Arg("team") team: TeamInput): Promise<Team[]> {
-    await this.teamController.setTeam(team);
+    const { teamPlayers, ...rest } = team;
+    await this.teamController.setTeam(rest);
+    await this.playerController.setPlayers(teamPlayers || []);
     return await this.teams();
   }
 

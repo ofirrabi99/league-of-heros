@@ -51,9 +51,11 @@ export default function AdminTeams({ teams }: Props) {
   );
   const [teamToUpdate, setTeamToUpdate] = useState<TeamModel>();
 
-  const onSetTeam = ({ imageUrl, name }: FormData) => {
+  const onSetTeam = ({ imageUrl, name, players }: FormData) => {
     setTeam({
-      variables: { team: { name, imageUrl, _id: teamToUpdate?._id } },
+      variables: {
+        team: { name, imageUrl, _id: teamToUpdate?._id, teamPlayers: players },
+      },
     });
   };
 

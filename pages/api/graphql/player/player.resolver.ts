@@ -14,11 +14,11 @@ class PlayerResolver {
     return await this.playerController.findByTeamId(teamId);
   }
 
-  @Mutation((_returns) => [Player])
-  async setPlayer(@Arg("player") player: PlayerInput): Promise<Player[]> {
-    await this.playerController.setPlayer(player);
-    return await this.players(player.team);
-  }
+  // @Mutation((_returns) => [Player])
+  // async setPlayer(@Arg("player") player: PlayerInput): Promise<Player[]> {
+  //   await this.playerController.setPlayer(player);
+  //   return await this.players(player.team);
+  // }
 }
 
 export default PlayerResolver;

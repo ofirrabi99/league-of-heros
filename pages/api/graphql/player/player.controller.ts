@@ -14,16 +14,42 @@ class PlayerController {
     return await this.PlayerModel.find({ team: teamId });
   }
 
-  async setPlayer(teamInput: PlayerInput): Promise<Player> {
-    let { _id, ...rest } = teamInput;
-    const player = new this.PlayerModel({
-      _id,
-      ...rest,
-    });
+  // async setPlayer(teamInput: PlayerInput): Promise<Player> {
+  //   let { _id, ...rest } = teamInput;
+  //   const player = new this.PlayerModel({
+  //     _id,
+  //     ...rest,
+  //   });
 
-    player.isNew = !_id;
+  //   player.isNew = !_id;
 
-    return await player.save();
+  //   return await player.save();
+  // }
+
+  async setPlayers(players: PlayerInput[]): Promise<Player[]> {
+    // let { _id, ...rest } = teamInput;
+    // const player = new this.PlayerModel({
+    //   _id,
+    //   ...rest,
+    // });
+
+    // player.isNew = !_id;
+
+    // return await player.save();
+
+    const res = await this.PlayerModel.bulkWrite(
+      players.map((player) => ({
+        updateOne: {
+          filter: { _id: player._id },
+          update: { $set: player },
+          upsert: true,
+        },
+      }))
+    );
+
+    console.log(res);
+
+    return [];
   }
 
   // async deleteTeam(teamId: String): Promise<Team | null> {

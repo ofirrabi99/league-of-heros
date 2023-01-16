@@ -2,7 +2,6 @@ import Team from "./team.model";
 import { getModelForClass } from "@typegoose/typegoose";
 import { Service } from "typedi";
 import { TeamInput } from "./team.types";
-import { Types } from "mongoose";
 
 @Service()
 class TeamController {

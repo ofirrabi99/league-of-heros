@@ -12,7 +12,4 @@ export class TeamInput implements Partial<Team> {
 
   @Field()
   imageUrl!: string;
-
-  @Field((_type) => [PlayerInput])
-  teamPlayers?: PlayerInput[];
 }

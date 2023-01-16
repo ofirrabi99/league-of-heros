@@ -14,8 +14,6 @@ class Team {
   @Field()
   @prop({ required: true })
   imageUrl!: string;
-
-  players?: Player[];
 }
 
 export default Team;

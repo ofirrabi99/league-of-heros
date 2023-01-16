@@ -28,9 +28,7 @@ class TeamResolver {
 
   @Mutation((_returns) => [Team])
   async setTeam(@Arg("team") team: TeamInput): Promise<Team[]> {
-    const { teamPlayers, ...rest } = team;
-    await this.teamController.setTeam(rest);
-    await this.playerController.setPlayers(teamPlayers || []);
+    await this.teamController.setTeam(team);
     return await this.teams();
   }
 
@@ -38,11 +36,6 @@ class TeamResolver {
   async deleteTeam(@Arg("teamId") teamId: String): Promise<Team[]> {
     await this.teamController.deleteTeam(teamId);
     return await this.teams();
-  }
-
-  @FieldResolver((_returns) => [Player])
-  async players(@Root("_doc") team: Team): Promise<Player[]> {
-    return await this.playerController.findByTeamId(team._id);
   }
 }
 

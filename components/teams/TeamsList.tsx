@@ -22,7 +22,7 @@ export default function TeamsList({
     >
       {teamsList.map((team) => (
         <Team
-          key={team._id.toString()}
+          key={team._id}
           team={team}
           onEditClick={onEditClick}
           onAfterDeleteClick={onAfterDeleteClick}

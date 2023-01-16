@@ -6,7 +6,7 @@ import Team from "../team/team.model";
 @ObjectType()
 class Game {
   @Field((_type) => ID)
-  _id!: Types.ObjectId;
+  _id!: string;
 
   @Field()
   @prop({ required: true })

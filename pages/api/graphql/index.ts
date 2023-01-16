@@ -8,6 +8,7 @@ import mongoose from "../../../lib/mongoose";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import TeamResolver from "./team/team.resolver";
 import GameResolver from "./game/game.resolver";
+import PlayerResolver from "./player/player.resolver";
 
 export default withApiAuthRequired(async function handler(
   req: NextApiRequest,
@@ -19,7 +20,7 @@ export default withApiAuthRequired(async function handler(
   // Create yoga server
   await createYoga({
     schema: await buildSchema({
-      resolvers: [UserResolver, TeamResolver, GameResolver],
+      resolvers: [UserResolver, TeamResolver, GameResolver, PlayerResolver],
       container: Container,
       validate: {
         forbidUnknownValues: false,

@@ -12,7 +12,7 @@ class TeamController {
     return await this.TeamModel.find({});
   }
 
-  async findByIds(teamIds: Types.ObjectId[]): Promise<Team[]> {
+  async findByIds(teamIds: string[]): Promise<Team[]> {
     return await this.TeamModel.find({ _id: teamIds });
   }
 

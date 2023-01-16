@@ -1,11 +1,11 @@
 import { prop } from "@typegoose/typegoose";
-import { Types } from "mongoose";
 import { ObjectType, Field, ID } from "type-graphql";
+import Player from "../player/player.model";
 
 @ObjectType()
 class Team {
   @Field((_type) => ID)
-  _id!: Types.ObjectId;
+  _id!: string;
 
   @Field()
   @prop({ required: true, unique: true })
@@ -14,6 +14,8 @@ class Team {
   @Field()
   @prop({ required: true })
   imageUrl!: string;
+
+  players?: Player[];
 }
 
 export default Team;

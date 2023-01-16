@@ -14,12 +14,21 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import PlayerModel from "../../pages/api/graphql/player/player.model";
 import Team from "../../pages/api/graphql/team/team.model";
+
+class PlayerObj implements PlayerModel {
+  _id!: string;
+  name!: string;
+  imageUrl!: string;
+  price!: number;
+  team!: string;
+}
 
 export interface FormData {
   name: string;
   imageUrl: string;
-  players: String[];
+  players: PlayerObj[];
 }
 
 interface Props {
@@ -57,7 +66,11 @@ export default function AddOrEditTeamDialog({
   });
 
   useEffect(() => {
-    reset({ ...teamToUpdate });
+    reset({
+      name: teamToUpdate?.name,
+      imageUrl: teamToUpdate?.imageUrl,
+      players: (teamToUpdate?.players as PlayerObj[]) || [],
+    });
   }, [teamToUpdate, isOpen, reset]);
 
   return (
@@ -99,15 +112,15 @@ export default function AddOrEditTeamDialog({
                 <Button
                   width={"100%"}
                   colorScheme="purple"
-                  onClick={() => prepend("Name")}
+                  // onClick={() => prepend("Name")}
                 >
                   ADD NEW PLAYER
                 </Button>
                 {players.map((player, index) => (
                   <Input
                     variant="outline"
-                    key={player.id} // important to include key with field's id
-                    {...register(`players.${index}` as const)}
+                    key={player._id}
+                    {...register(`players.${index}.name` as const)}
                   />
                 ))}
               </FormControl>

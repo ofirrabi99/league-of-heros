@@ -16,6 +16,10 @@ export const GET_TEAMS = gql`
       _id
       name
       imageUrl
+      players {
+        _id
+        name
+      }
     }
   }
 `;

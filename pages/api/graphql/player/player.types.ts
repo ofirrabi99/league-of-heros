@@ -1,9 +1,9 @@
 import { Types } from "mongoose";
 import { InputType, Field, ID } from "type-graphql";
-import Team from "./team.model";
+import Player from "./player.model";
 
 @InputType()
-export class TeamInput implements Partial<Team> {
+export class PlayerInput implements Partial<Player> {
   @Field((_type) => ID, { nullable: true })
   _id?: string;
 
@@ -12,4 +12,10 @@ export class TeamInput implements Partial<Team> {
 
   @Field()
   imageUrl!: string;
+
+  @Field()
+  price!: number;
+
+  @Field((_type) => String)
+  team!: string;
 }

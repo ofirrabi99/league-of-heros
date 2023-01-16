@@ -22,7 +22,7 @@ export default function GamesList({
     >
       {gamesList.map((game) => (
         <Game
-          key={game._id.toString()}
+          key={game._id}
           game={game}
           onEditClick={onEditClick}
           onAfterDeleteClick={onAfterDeleteClick}

@@ -52,13 +52,13 @@ export default function AddOrEditGameDialog({
   useEffect(() => {
     reset({
       date: gameToUpdate?.date,
-      homeTeam: gameToUpdate?.teams[0]?._id.toString(),
-      awayTeam: gameToUpdate?.teams[1]?._id.toString(),
+      homeTeam: gameToUpdate?.teams[0]?._id,
+      awayTeam: gameToUpdate?.teams[1]?._id,
     });
   }, [gameToUpdate, isOpen, reset]);
 
   const teamsList = teams.map((team) => (
-    <option key={team._id.toString()} value={team._id.toString()}>
+    <option key={team._id} value={team._id}>
       {team.name}
     </option>
   ));

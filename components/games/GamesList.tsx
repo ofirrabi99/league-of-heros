@@ -15,7 +15,7 @@ export default function GamesList({
 }: Props) {
   return (
     <Grid
-      templateColumns="repeat(auto-fill, 25rem)"
+      templateColumns="repeat(auto-fill, 20rem)"
       gap={4}
       justifyContent="space-around"
       mx={4}

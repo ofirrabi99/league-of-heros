@@ -51,13 +51,13 @@ function Game({ game, onEditClick, onAfterDeleteClick }: Props) {
     >
       <HStack spacing={4}>
         <Box flex={1}>
-          <Avatar size={"xl"} src={game.teams[0].imageUrl} />
-          <Heading fontSize={"2xl"}>{game.teams[0].name}</Heading>
+          <Avatar size={"lg"} src={game.teams[0].imageUrl} />
+          <Heading fontSize={"md"}>{game.teams[0].name}</Heading>
         </Box>
         <Box>VS</Box>
         <Box flex={1}>
-          <Avatar size={"xl"} src={game.teams[1].imageUrl} />
-          <Heading fontSize={"2xl"}>{game.teams[1].name}</Heading>
+          <Avatar size={"lg"} src={game.teams[1].imageUrl} />
+          <Heading fontSize={"md"}>{game.teams[1].name}</Heading>
         </Box>
       </HStack>
 

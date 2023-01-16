@@ -3,6 +3,8 @@ import { UseToastOptions } from "@chakra-ui/react";
 export const Links = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Profile", href: "/profile" },
+  { name: "Admin - Teams", href: "/admin/teams" },
+  { name: "Admin - Games", href: "/admin/games" },
 ];
 
 export const GENERAL_ERROR_TOAST: UseToastOptions = {

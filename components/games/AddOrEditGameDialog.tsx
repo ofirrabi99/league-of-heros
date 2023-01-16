@@ -51,7 +51,7 @@ export default function AddOrEditGameDialog({
 
   useEffect(() => {
     reset({
-      date: gameToUpdate?.date || new Date().toISOString(),
+      date: gameToUpdate?.date,
       homeTeam: gameToUpdate?.teams[0]?._id.toString(),
       awayTeam: gameToUpdate?.teams[1]?._id.toString(),
     });
@@ -85,13 +85,14 @@ export default function AddOrEditGameDialog({
                   control={control}
                   name="date"
                   render={({ field }) => (
-                    <DatePicker
-                      placeholderText="Select date"
-                      onChange={(date) => field.onChange(date?.toISOString())}
-                      selected={new Date(field.value)}
-                      showTimeInput
-                      dateFormat="MMMM d, yyyy h:mm aa"
-                      customInput={<Input />}
+                    <Input
+                      placeholder="Select Date and Time"
+                      size="md"
+                      type="datetime-local"
+                      value={field.value}
+                      onChange={(date) => {
+                        field.onChange(date.target.value);
+                      }}
                     />
                   )}
                 />

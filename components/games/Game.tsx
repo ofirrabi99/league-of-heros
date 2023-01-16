@@ -8,7 +8,7 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import useMyMutation from "../../hooks/useMyMutation";
 import GameModel from "../../pages/api/graphql/game/game.model";
 import { DELETE_GAME } from "../../queries/game";
@@ -22,6 +22,7 @@ interface Props {
 }
 function Game({ game, onEditClick, onAfterDeleteClick }: Props) {
   const toast = useToast();
+  const [date, setDate] = useState<Date>();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const {
     action: deleteGame,
@@ -36,62 +37,63 @@ function Game({ game, onEditClick, onAfterDeleteClick }: Props) {
     deleteGame({ variables: { gameId: game._id } });
   };
 
+  useEffect(() => {
+    setDate(new Date(game.date));
+  }, [game.date]);
+
   return (
-    <>
-      <VStack
-        bg={useColorModeValue("gray.200", "gray.700")}
-        rounded={"lg"}
-        p={6}
-        textAlign={"center"}
-        justifyContent="space-between"
-      >
-        <HStack spacing={4}>
-          <Box flex={1}>
-            <Avatar size={"xl"} src={game.teams[0].imageUrl} />
-            <Heading fontSize={"2xl"}>{game.teams[0].name}</Heading>
-          </Box>
-          <Box>VS</Box>
-          <Box flex={1}>
-            <Avatar size={"xl"} src={game.teams[1].imageUrl} />
-            <Heading fontSize={"2xl"}>{game.teams[1].name}</Heading>
-          </Box>
-        </HStack>
+    <VStack
+      bg={useColorModeValue("gray.200", "gray.700")}
+      rounded={"lg"}
+      p={6}
+      textAlign={"center"}
+      justifyContent="space-between"
+    >
+      <HStack spacing={4}>
+        <Box flex={1}>
+          <Avatar size={"xl"} src={game.teams[0].imageUrl} />
+          <Heading fontSize={"2xl"}>{game.teams[0].name}</Heading>
+        </Box>
+        <Box>VS</Box>
+        <Box flex={1}>
+          <Avatar size={"xl"} src={game.teams[1].imageUrl} />
+          <Heading fontSize={"2xl"}>{game.teams[1].name}</Heading>
+        </Box>
+      </HStack>
 
-        {/* <Box>{new Date(game.date).toLocaleDateString()}</Box> */}
-        {/* <Box>{new Date(game.date).toLocaleString()}</Box> */}
+      <Box>{date?.toLocaleString()}</Box>
 
-        <HStack mt={8} spacing={4}>
-          <Button
-            onClick={() =>
-              fireAreYouSureDialog(
-                {
-                  title: `Delete game`,
-                  description:
-                    "Are you sure? You can't undo this action afterwards.",
-                },
-                onDelete
-              )
-            }
-            colorScheme="red"
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-            isLoading={isLoadingDeleteGame}
-          >
-            Delete
-          </Button>
-          <Button
-            onClick={() => onEditClick(game)}
-            colorScheme="purple"
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-          >
-            Edit
-          </Button>
-        </HStack>
-      </VStack>
-    </>
+      <HStack mt={8} spacing={4}>
+        <Button
+          onClick={() =>
+            fireAreYouSureDialog(
+              {
+                title: `Delete game`,
+                description:
+                  "Are you sure? You can't undo this action afterwards.",
+              },
+              onDelete
+            )
+          }
+          colorScheme="red"
+          flex={1}
+          fontSize={"sm"}
+          rounded={"full"}
+          isLoading={isLoadingDeleteGame}
+        >
+          Delete
+        </Button>
+        <Button
+          onClick={() => onEditClick(game)}
+          colorScheme="purple"
+          flex={1}
+          fontSize={"sm"}
+          rounded={"full"}
+        >
+          Edit
+        </Button>
+      </HStack>
+    </VStack>
   );
 }
 

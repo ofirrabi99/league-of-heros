@@ -26,7 +26,7 @@ export default function PlayerPreview({
       onClick={onClick ? () => onClick(_id) : undefined}
     >
       <VStack mb={2} alignItems="flex-start">
-        <Image src={imageUrl} objectFit="cover" />
+        <Image src={imageUrl} objectFit="cover" alt={name} />
         <Box>
           <Text fontWeight="bold">{name}</Text>
           <Text fontSize="lg" fontWeight="bold">

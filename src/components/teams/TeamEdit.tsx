@@ -38,7 +38,7 @@ export default function TeamEdit({ team }: Props) {
         },
       });
     },
-    [setTeam]
+    [setTeam, team?._id]
   );
 
   return (

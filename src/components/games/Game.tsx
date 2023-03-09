@@ -30,11 +30,11 @@ function Game({ game, hideEdit }: Props) {
         deleteGame({ variables: { gameId: game._id } });
       }
     );
-  }, [fireAreYouSureDialog, game._id]);
+  }, [fireAreYouSureDialog, game._id, deleteGame]);
 
   const handleEditClick = useCallback(() => {
     router.push(`/admin/games/${game._id}`);
-  }, [game._id]);
+  }, [game._id, router]);
 
   return (
     <VStack>

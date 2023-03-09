@@ -1,4 +1,5 @@
-import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import type { Ref } from "@typegoose/typegoose";
 import { Field as GQLField, ID, ObjectType as GQLType } from "type-graphql";
 import { Team } from "../team/team.model";
 import { GameResult } from "../user/user.model";

@@ -24,11 +24,11 @@ function Team({ team }: Props) {
         deleteTeam({ variables: { teamId: team._id } });
       }
     );
-  }, [fireAreYouSureDialog, team.name]);
+  }, [fireAreYouSureDialog, team.name, deleteTeam, team._id]);
 
   const handleEditClick = useCallback(() => {
     router.push(`/admin/teams/${team._id}`);
-  }, [team._id]);
+  }, [team._id, router]);
 
   return (
     <VStack>

@@ -11,12 +11,12 @@ export default function useMyMutation(
   useEffect(() => {
     if (!data || !successCallback) return;
     successCallback(data);
-  }, [data]);
+  }, [data, successCallback]);
 
   useEffect(() => {
     if (!error || !errorCallback) return;
     errorCallback(data);
-  }, [error]);
+  }, [error, errorCallback]);
 
   return { action, options: { data, loading, error } };
 }

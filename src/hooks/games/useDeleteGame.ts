@@ -15,7 +15,7 @@ export default function useDeleteGame() {
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);
-  }, [toast, GENERAL_ERROR_TOAST]);
+  }, [toast]);
 
   const {
     action: deleteGame,

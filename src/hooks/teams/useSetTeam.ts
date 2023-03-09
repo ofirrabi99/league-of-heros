@@ -25,7 +25,7 @@ export default function useSetTeam({ isInEditMode }: Props) {
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);
-  }, [toast, GENERAL_ERROR_TOAST]);
+  }, [toast]);
 
   const {
     action: setTeam,

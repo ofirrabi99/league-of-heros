@@ -15,7 +15,7 @@ export default function useMyMutation(
 
   useEffect(() => {
     if (!error || !errorCallback) return;
-    errorCallback(data);
+    errorCallback(error);
   }, [error, errorCallback]);
 
   return { action, options: { data, loading, error } };

@@ -20,7 +20,7 @@ export default function useSetGame({ isInEditMode }: Props) {
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);
-  }, [toast, GENERAL_ERROR_TOAST]);
+  }, [toast]);
 
   const {
     action: setGame,

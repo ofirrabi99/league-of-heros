@@ -16,7 +16,7 @@ export default function useSetGameResult() {
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);
-  }, [toast, GENERAL_ERROR_TOAST]);
+  }, [toast]);
 
   const {
     action: setGameResult,

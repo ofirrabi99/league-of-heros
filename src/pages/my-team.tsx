@@ -20,12 +20,12 @@ interface GetNextGamesResponse {
 }
 
 interface GetUserResponse {
-  user: User;
+  user?: User;
 }
 
 interface Props {
   nextGames: GetNextGamesResponse["nextGames"];
-  user: GetUserResponse["user"];
+  user?: GetUserResponse["user"];
   players: Player[];
 }
 export default function MyTeam({ nextGames, players, user }: Props) {
@@ -33,7 +33,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
   const gameday = nextGames[0] ? formatDate(new Date(nextGames[0].time)) : null;
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
     new Set(
-      user.gameResults
+      user?.gameResults
         ?.find((game) => game.gameday === gameday)
         ?.players.map((player) => player.playerId)
     )

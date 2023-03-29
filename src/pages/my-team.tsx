@@ -1,4 +1,4 @@
-import { Button, Heading } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, Heading, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import Game from "../components/games/Game";
 import Page from "../components/_layout/Page";
@@ -57,12 +57,20 @@ export default function MyTeam({ nextGames, players, user }: Props) {
   return (
     <Page>
       <Heading>Upcoming Games:</Heading>
-      <DynamicList maxSize="100%">
+      <br />
+      <DynamicList maxSize="40rem">
         {nextGames.map((game) => (
           <Game key={game._id} game={game} hideEdit={true} />
         ))}
       </DynamicList>
+      <br />
       <Heading>Your Lineup:</Heading>
+      <br />
+      <Alert status="info">
+        <AlertIcon />
+        Choose as many players as you want, as long as you stay within your
+        budget.
+      </Alert>
       <DynamicList maxSize="10rem">
         {chosenPlayers.map((player) => (
           <PlayerPreview
@@ -72,6 +80,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
           />
         ))}
       </DynamicList>
+      <br />
       <Button
         colorScheme="purple"
         isLoading={isLoadingSetLineup}

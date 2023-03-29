@@ -1,4 +1,11 @@
-import { Avatar, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  Heading,
+  HStack,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 import { isDocument } from "@typegoose/typegoose";
 import { useRouter } from "next/router";
 import { memo, useCallback } from "react";
@@ -37,7 +44,11 @@ function Game({ game, hideEdit }: Props) {
   }, [game._id, router]);
 
   return (
-    <VStack>
+    <VStack
+      bg={useColorModeValue("gray.300", "gray.700")}
+      padding="1rem"
+      borderRadius={"1rem"}
+    >
       <HStack>
         <VStack textAlign={"center"}>
           <Avatar size={"xl"} src={homeTeam.imageUrl} />

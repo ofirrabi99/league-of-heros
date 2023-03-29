@@ -1,7 +1,15 @@
-import { Alert, AlertIcon, Button, Heading, Text } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Button,
+  Divider,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import Game from "../components/games/Game";
 import Page from "../components/_layout/Page";
+import Alertify from "../components/_shared/Alertify";
 import DynamicList from "../components/_shared/DynamicList";
 import PlayerPreview from "../components/_shared/PlayerPreview";
 import useSetLineup from "../hooks/users/useSetLineup";
@@ -66,11 +74,21 @@ export default function MyTeam({ nextGames, players, user }: Props) {
       <br />
       <Heading>Your Lineup:</Heading>
       <br />
-      <Alert status="info">
-        <AlertIcon />
-        Choose as many players as you want, as long as you stay within your
-        budget.
-      </Alert>
+      {Boolean(chosenPlayers.length) && (
+        <>
+          <Alertify>
+            Choose as many players as you want, as long as you stay within your
+            budget.
+          </Alertify>
+          <br />
+        </>
+      )}
+      {Boolean(!chosenPlayers.length) && (
+        <>
+          <Alertify status="warning">No players selected yet</Alertify>
+          <br />
+        </>
+      )}
       <DynamicList maxSize="10rem">
         {chosenPlayers.map((player) => (
           <PlayerPreview
@@ -80,31 +98,39 @@ export default function MyTeam({ nextGames, players, user }: Props) {
           />
         ))}
       </DynamicList>
-      <br />
-      <Button
-        colorScheme="purple"
-        isLoading={isLoadingSetLineup}
-        width="100%"
-        onClick={() => {
-          setLineup({
-            variables: {
-              lineup: {
-                gameday,
-                players: Array.from(chosenPlayersId).map((player) => ({
-                  playerId: player,
-                  score: 0,
-                })),
+      <DynamicList maxSize="30rem">
+        <Button
+          colorScheme="purple"
+          isLoading={isLoadingSetLineup}
+          width="100%"
+          onClick={() => {
+            setLineup({
+              variables: {
+                lineup: {
+                  gameday,
+                  players: Array.from(chosenPlayersId).map((player) => ({
+                    playerId: player,
+                    score: 0,
+                  })),
+                },
               },
-            },
-          });
-        }}
-      >
-        SAVE LINEUP
-      </Button>
+            });
+          }}
+        >
+          SAVE LINEUP
+        </Button>
+      </DynamicList>
+      <br />
+      <br />
       <Heading>Available Players:</Heading>
       <DynamicList maxSize="10rem">
         {players.map((player) => (
-          <PlayerPreview key={player._id} player={player} onClick={addPlayer} />
+          <PlayerPreview
+            key={player._id}
+            player={player}
+            onClick={addPlayer}
+            picked={chosenPlayersId.has(player._id)}
+          />
         ))}
       </DynamicList>
     </Page>

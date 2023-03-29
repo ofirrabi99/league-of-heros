@@ -1,4 +1,14 @@
-import { Box, Image, Input, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Fade,
+  Image,
+  Input,
+  Stat,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+  VStack,
+} from "@chakra-ui/react";
 import { Player } from "../../pages/api/graphql/features/player/player.model";
 
 interface Props {
@@ -7,6 +17,7 @@ interface Props {
   onClick?: (playerId: Player["_id"]) => void;
   onEditScore?: (playerId: Player["_id"], score: number) => void;
   score?: number;
+  picked?: boolean;
 }
 
 export default function PlayerPreview({
@@ -15,6 +26,7 @@ export default function PlayerPreview({
   inEditGame = false,
   onEditScore,
   score,
+  picked = false,
 }: Props) {
   const { _id, imageUrl, name, price } = player;
 
@@ -28,10 +40,13 @@ export default function PlayerPreview({
       <VStack mb={2} alignItems="flex-start">
         <Image src={imageUrl} objectFit="cover" alt={name} />
         <Box>
-          <Text fontWeight="bold">{name}</Text>
-          <Text fontSize="lg" fontWeight="bold">
-            ${price}
-          </Text>
+          <Stat>
+            <StatLabel>{name}</StatLabel>
+            <StatNumber>${price}</StatNumber>
+            <Fade in={picked}>
+              <StatHelpText>{picked && "picked"}</StatHelpText>
+            </Fade>
+          </Stat>
         </Box>
         {inEditGame && (
           <Input

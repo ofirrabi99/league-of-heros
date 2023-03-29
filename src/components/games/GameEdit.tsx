@@ -21,7 +21,11 @@ const TeamsOptions = ({ teams }: { teams: Team[] }) => (
   </>
 );
 
-export interface FormContext {}
+export interface FormContext {
+  homeTeam: string;
+  awayTeam: string;
+  time: string;
+}
 
 interface Props {
   teams: Team[];
@@ -35,7 +39,7 @@ export default function GameEdit({ teams }: Props) {
   const { setGame, isLoadingSetGame } = useSetGame({ isInEditMode: false });
   const onSubmit = useCallback(
     (form: FormContext) => {
-      setGame({ variables: { game: form } });
+      setGame({ variables: { game: { ...form, time: new Date(form.time) } } });
     },
     [setGame]
   );

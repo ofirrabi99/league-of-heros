@@ -22,27 +22,7 @@ export class GameService {
       time: { $gt: new Date() },
     }).populate(["homeTeam", "awayTeam"]);
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    let closestDayDiff = Infinity;
-    let closestDays: Game[] = [];
-
-    for (const game of nextGames) {
-      const absoluteGameDate = new Date(game.time);
-      absoluteGameDate.setHours(0, 0, 0, 0);
-      const dayDiff = Math.ceil(
-        (absoluteGameDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-      );
-
-      if (dayDiff < closestDayDiff) {
-        closestDayDiff = dayDiff;
-        closestDays = [game];
-      } else if (dayDiff === closestDayDiff) {
-        closestDays.push(game);
-      }
-    }
-
-    return closestDays;
+    return nextGames;
   }
 
   async setGame(input: GameInput): Promise<Game> {

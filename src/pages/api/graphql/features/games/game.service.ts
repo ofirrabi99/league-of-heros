@@ -23,13 +23,16 @@ export class GameService {
     }).populate(["homeTeam", "awayTeam"]);
 
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     let closestDayDiff = Infinity;
     let closestDays: Game[] = [];
 
     for (const game of nextGames) {
-      const dayDiff =
-        Math.abs(new Date(game.time).getTime() - today.getTime()) /
-        (1000 * 60 * 60 * 24);
+      const absoluteGameDate = new Date(game.time);
+      absoluteGameDate.setHours(0, 0, 0, 0);
+      const dayDiff = Math.ceil(
+        (absoluteGameDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+      );
 
       if (dayDiff < closestDayDiff) {
         closestDayDiff = dayDiff;

@@ -38,7 +38,7 @@ export const UserModel = getModelForClass(User, {
 @GQLType()
 export class GameResult {
   @GQLField((_type) => String)
-  @Property({ required: true, unique: true })
+  @Property({ required: true })
   gameday!: string;
 
   @GQLField((_type) => [PlayerResult])
@@ -49,7 +49,7 @@ export class GameResult {
 @GQLType()
 export class PlayerResult {
   @GQLField((_type) => String)
-  @Property({ required: true, unique: true })
+  @Property({ required: true })
   playerId!: Player["_id"];
 
   @GQLField((_type) => Number)

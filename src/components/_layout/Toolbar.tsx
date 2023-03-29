@@ -46,6 +46,8 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   </Link>
 );
 
+const TOOLBAR_HEIGHT = 16;
+
 export default function Toolbar() {
   const { user, isLoading: isLoadingUser } = useUser();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -65,64 +67,84 @@ export default function Toolbar() {
   ));
 
   return (
-    <Box ref={ref} bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <IconButton
-          size={"md"}
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={"Open Menu"}
-          display={{ md: "none" }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-        <HStack spacing={8} alignItems={"center"} justifyContent="flex-start">
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {LinksList}
+    <>
+      <Box h={TOOLBAR_HEIGHT} />
+      <Box
+        ref={ref}
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        zIndex={1}
+      >
+        <Flex
+          h={TOOLBAR_HEIGHT}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <IconButton
+            size={"md"}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <HStack spacing={8} alignItems={"center"} justifyContent="flex-start">
+            <HStack
+              as={"nav"}
+              spacing={4}
+              display={{ base: "none", md: "flex" }}
+            >
+              {LinksList}
+            </HStack>
           </HStack>
-        </HStack>
-        <Flex alignItems={"center"}>
-          {!user && !isLoadingUser && (
-            <NextLink href="/api/auth/login">
-              <Button colorScheme="purple">Sign In</Button>
-            </NextLink>
-          )}
-          {user && (
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-              >
-                <Avatar
-                  size={"sm"}
-                  src={user.picture ?? ""}
-                  referrerPolicy="no-referrer"
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem
-                  onClick={toggleColorMode}
-                  icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
+          <Flex alignItems={"center"}>
+            {!user && !isLoadingUser && (
+              <NextLink href="/api/auth/login">
+                <Button colorScheme="purple">Sign In</Button>
+              </NextLink>
+            )}
+            {user && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
                 >
-                  {isDarkMode ? "Light Mode" : "Dark Mode"}
-                </MenuItem>
-                <MenuDivider />
-                <NextLink href="/api/auth/logout">
-                  <MenuItem icon={<UnlockIcon />}>Sign Out</MenuItem>
-                </NextLink>
-              </MenuList>
-            </Menu>
-          )}
+                  <Avatar
+                    size={"sm"}
+                    src={user.picture ?? ""}
+                    referrerPolicy="no-referrer"
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={toggleColorMode}
+                    icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
+                  >
+                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                  </MenuItem>
+                  <MenuDivider />
+                  <NextLink href="/api/auth/logout">
+                    <MenuItem icon={<UnlockIcon />}>Sign Out</MenuItem>
+                  </NextLink>
+                </MenuList>
+              </Menu>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
 
-      <Collapse in={isOpen}>
-        <Box pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
-            {LinksList}
-          </Stack>
-        </Box>
-      </Collapse>
-    </Box>
+        <Collapse in={isOpen}>
+          <Box pb={4} display={{ md: "none" }}>
+            <Stack as={"nav"} spacing={4} onClick={onClose}>
+              {LinksList}
+            </Stack>
+          </Box>
+        </Collapse>
+      </Box>
+    </>
   );
 }

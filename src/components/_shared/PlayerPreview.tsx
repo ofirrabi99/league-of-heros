@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Fade,
   Image,
@@ -44,7 +45,11 @@ export default function PlayerPreview({
             <StatLabel>{name}</StatLabel>
             <StatNumber>${price}</StatNumber>
             <Fade in={picked}>
-              <StatHelpText>{picked && "picked"}</StatHelpText>
+              <StatHelpText>
+                <Badge variant="subtle" colorScheme="green">
+                  picked
+                </Badge>
+              </StatHelpText>
             </Fade>
           </Stat>
         </Box>

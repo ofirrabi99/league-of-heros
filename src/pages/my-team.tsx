@@ -1,17 +1,11 @@
-import {
-  Alert,
-  AlertIcon,
-  Button,
-  Divider,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Heading, Progress } from "@chakra-ui/react";
 import { useState } from "react";
 import Game from "../components/games/Game";
 import Page from "../components/_layout/Page";
 import Alertify from "../components/_shared/Alertify";
 import DynamicList from "../components/_shared/DynamicList";
 import PlayerPreview from "../components/_shared/PlayerPreview";
+import Progressify from "../components/_shared/Progressify";
 import useSetLineup from "../hooks/users/useSetLineup";
 import client from "../lib/apolloClient";
 import { requireAuth } from "../lib/auth0";
@@ -51,6 +45,14 @@ export default function MyTeam({ nextGames, players, user }: Props) {
     chosenPlayersId.has(player._id)
   );
 
+  const maxLineupCost = 100;
+  const lineupCost = chosenPlayers.reduce(
+    (prev, current) => prev + current.price,
+    0
+  );
+
+  const isOutOfMoney = maxLineupCost < lineupCost;
+
   const addPlayer = (playerId: Player["_id"]) => {
     setChosenPlayersId((prev) => new Set([...prev, playerId]));
   };
@@ -81,6 +83,18 @@ export default function MyTeam({ nextGames, players, user }: Props) {
             budget.
           </Alertify>
           <br />
+          <DynamicList maxSize="30rem">
+            <Progressify
+              value={lineupCost}
+              max={maxLineupCost}
+              colorScheme={isOutOfMoney ? "red" : "yellow"}
+            >
+              {isOutOfMoney &&
+                `Money's tight, it's time to cut some players and set things right`}
+              {!isOutOfMoney && `${maxLineupCost - lineupCost}$ left`}
+            </Progressify>
+          </DynamicList>
+          <br />
         </>
       )}
       {Boolean(!chosenPlayers.length) && (
@@ -101,6 +115,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
       <DynamicList maxSize="30rem">
         <Button
           colorScheme="purple"
+          isDisabled={isOutOfMoney}
           isLoading={isLoadingSetLineup}
           width="100%"
           onClick={() => {

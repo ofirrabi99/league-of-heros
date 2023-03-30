@@ -9,8 +9,14 @@ export class PlayerService {
     return await PlayerModel.find();
   }
 
-  async getByTeam(teamId: string): Promise<Player[]> {
-    return await PlayerModel.find({ team: teamId });
+  async getByTeam(
+    teamId: string,
+    withoutHiddenPlayers: boolean
+  ): Promise<Player[]> {
+    return await PlayerModel.find({
+      team: teamId,
+      ...(withoutHiddenPlayers && { isHidden: false }),
+    });
   }
 
   async setPlayer(input: PlayerInput): Promise<Player> {

@@ -42,7 +42,10 @@ export class TeamResolver {
   }
 
   @FieldResolver((_returns) => [Player])
-  async players(@Root("_doc") team: Team): Promise<Player[]> {
-    return await this.playerService.getByTeam(team._id);
+  async players(
+    @Root("_doc") team: Team,
+    @Arg("withoutHiddenPlayers") withoutHiddenPlayers: boolean
+  ): Promise<Player[]> {
+    return await this.playerService.getByTeam(team._id, withoutHiddenPlayers);
   }
 }

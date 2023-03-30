@@ -66,7 +66,7 @@ export const GET_NEXT_GAMES = gql`
         _id
         name
         imageUrl
-        players {
+        players(withoutHiddenPlayers: true) {
           _id
           name
           imageUrl
@@ -77,7 +77,7 @@ export const GET_NEXT_GAMES = gql`
         _id
         name
         imageUrl
-        players {
+        players(withoutHiddenPlayers: true) {
           _id
           name
           imageUrl

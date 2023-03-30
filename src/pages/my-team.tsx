@@ -51,6 +51,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
     0
   );
 
+  // TODO - Check on server also
   const isOutOfMoney = maxLineupCost < lineupCost;
 
   const addPlayer = (playerId: Player["_id"]) => {

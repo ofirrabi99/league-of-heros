@@ -23,6 +23,10 @@ export class Player {
   @GQLField((_type) => String)
   @Property({ ref: "Team", required: true })
   team!: Ref<Team, string>;
+
+  @GQLField()
+  @Property({ required: true, default: false })
+  isHidden!: boolean;
 }
 
 export const PlayerModel = getModelForClass(Player, {

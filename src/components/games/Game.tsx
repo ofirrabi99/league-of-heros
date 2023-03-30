@@ -6,10 +6,10 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { isDocument } from "@typegoose/typegoose";
 import { useRouter } from "next/router";
 import { memo, useCallback } from "react";
 import useDeleteGame from "../../hooks/games/useDeleteGame";
+import useCard from "../../hooks/_shared/useCard";
 import { Game as GameClass } from "../../pages/api/graphql/features/games/game.model";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
@@ -21,6 +21,7 @@ interface Props {
 
 function Game({ game, hideEdit }: Props) {
   const router = useRouter();
+  const card = useCard();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const { deleteGame, isLoadingDeleteGame } = useDeleteGame();
 
@@ -44,11 +45,7 @@ function Game({ game, hideEdit }: Props) {
   }, [game._id, router]);
 
   return (
-    <VStack
-      bg={useColorModeValue("gray.300", "gray.700")}
-      padding="1rem"
-      borderRadius={"1rem"}
-    >
+    <VStack {...card}>
       <HStack>
         <VStack textAlign={"center"}>
           <Avatar size={"xl"} src={homeTeam.imageUrl} />

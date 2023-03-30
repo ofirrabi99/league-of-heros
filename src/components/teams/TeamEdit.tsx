@@ -11,6 +11,7 @@ import useSetTeam from "../../hooks/teams/useSetTeam";
 import { Form, Formik, Field, FieldArray } from "formik";
 import { PlayerInput } from "../../pages/api/graphql/features/player/player.types";
 import Player from "./Player";
+import DynamicList from "../_shared/DynamicList";
 
 export interface FormContext {
   name: string;
@@ -60,14 +61,11 @@ export default function TeamEdit({ team }: Props) {
             <FieldArray name="players" validateOnChange>
               {({ push }) => (
                 <>
-                  {values.players.map((player, playerIndex) => (
-                    <React.Fragment key={playerIndex}>
-                      <Player index={playerIndex} />
-                      <br />
-                      <hr />
-                      <br />
-                    </React.Fragment>
-                  ))}
+                  <DynamicList maxSize="15rem">
+                    {values.players.map((_player, playerIndex) => (
+                      <Player index={playerIndex} key={playerIndex} />
+                    ))}
+                  </DynamicList>
 
                   <Button
                     colorScheme="green"
@@ -76,6 +74,7 @@ export default function TeamEdit({ team }: Props) {
                         name: "",
                         imageUrl: "",
                         price: 1,
+                        isHidden: false,
                       };
                       push(newPlayer);
                     }}

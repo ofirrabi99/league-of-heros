@@ -17,4 +17,7 @@ export class PlayerInput implements Partial<Player> {
 
   @Field({ nullable: true })
   team?: string;
+
+  @Field()
+  isHidden!: boolean;
 }

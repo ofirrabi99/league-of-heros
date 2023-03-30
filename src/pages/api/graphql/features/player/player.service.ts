@@ -25,9 +25,10 @@ export class PlayerService {
     player.name = input.name;
     player.imageUrl = input.imageUrl;
     player.price = input.price;
+    player.isHidden = input.isHidden;
     player.team = team._id;
 
-    return await await player.save();
+    return await player.save();
   }
 }
 

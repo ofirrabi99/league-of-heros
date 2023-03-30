@@ -27,7 +27,7 @@ export default function Progressify({
         size={size}
         {...rest}
         sx={{
-          "& > div:first-child": {
+          "& > div:first-of-type": {
             transition: "all 1s",
           },
         }}

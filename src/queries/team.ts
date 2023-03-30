@@ -31,6 +31,7 @@ export const GET_TEAM = gql`
         name
         imageUrl
         price
+        isHidden
       }
     }
   }

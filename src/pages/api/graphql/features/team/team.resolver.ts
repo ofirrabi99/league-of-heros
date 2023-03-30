@@ -44,8 +44,9 @@ export class TeamResolver {
   @FieldResolver((_returns) => [Player])
   async players(
     @Root("_doc") team: Team,
-    @Arg("withoutHiddenPlayers") withoutHiddenPlayers: boolean
+    @Arg("withoutHiddenPlayers", { nullable: true })
+    withoutHiddenPlayers: boolean
   ): Promise<Player[]> {
-    return await this.playerService.getByTeam(team._id, withoutHiddenPlayers);
+    return await this.playerService.getByTeam(team._id, !!withoutHiddenPlayers);
   }
 }

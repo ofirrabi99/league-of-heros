@@ -1,4 +1,9 @@
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import {
+  prop as Property,
+  getModelForClass,
+  ModelOptions,
+  Severity,
+} from "@typegoose/typegoose";
 import {
   Field as GQLField,
   ID,
@@ -7,6 +12,7 @@ import {
 } from "type-graphql";
 import { Player } from "../player/player.model";
 
+@ModelOptions({ options: { allowMixed: Severity.ALLOW } })
 @GQLType()
 export class User {
   @GQLField((_type) => String)
@@ -35,6 +41,7 @@ export const UserModel = getModelForClass(User, {
   },
 });
 
+@ModelOptions({ options: { allowMixed: Severity.ALLOW } })
 @GQLType()
 export class GameResult {
   @GQLField((_type) => String)

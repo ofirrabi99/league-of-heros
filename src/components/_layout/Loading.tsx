@@ -1,4 +1,10 @@
-import { Box, Fade, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  Spinner,
+} from "@chakra-ui/react";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 
@@ -16,19 +22,36 @@ export default function Loading() {
   }, [Router.events]);
 
   return (
-    <Box
-      top={0}
-      position="absolute"
-      height="100dvh"
-      width="100dvw"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      zIndex={2}
-      backdropFilter="blur(30px)"
-      visibility={loading ? "visible" : "hidden"}
+    <Modal
+      blockScrollOnMount
+      isOpen={loading}
+      onClose={() => setLoading(false)}
+      isCentered
     >
-      <Spinner />
-    </Box>
+      <ModalOverlay backdropFilter="blur(30px)" />
+
+      <ModalContent
+        alignItems={"center"}
+        sx={{
+          "& > section:first-of-type": {
+            width: "0",
+          },
+        }}
+      >
+        <Box position="absolute">
+          <Spinner />
+        </Box>
+        {/* <ModalHeader>Modal Title</ModalHeader> */}
+        {/* <ModalCloseButton /> */}
+        {/* <ModalBody></ModalBody> */}
+
+        {/* <ModalFooter>
+          <Button colorScheme="blue" mr={3}>
+            Close
+          </Button>
+          <Button variant="ghost">Secondary Action</Button>
+        </ModalFooter> */}
+      </ModalContent>
+    </Modal>
   );
 }

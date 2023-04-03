@@ -45,6 +45,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
     chosenPlayersId.has(player._id)
   );
 
+  // TODO - set on admin page
   const maxLineupCost = 100;
   const lineupCost = chosenPlayers.reduce(
     (prev, current) => prev + current.price,

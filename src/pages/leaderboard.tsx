@@ -25,20 +25,22 @@ export default function Leaderboard({ users }: Props) {
   return (
     <Page>
       <TableContainer>
-        <Table variant="striped" colorScheme="purple">
+        <Table size="sm" variant="striped" colorScheme="purple">
           <Thead>
             <Tr>
               <Th>place</Th>
-              <Th>id</Th>
               <Th isNumeric>score</Th>
+              <Th>name</Th>
+              <Th>team name</Th>
             </Tr>
           </Thead>
           <Tbody>
             {users.map((user, index) => (
               <Tr key={user.subId}>
                 <Td>{index + 1}</Td>
-                <Td>{user.subId}</Td>
                 <Td isNumeric>{user.totalScore || 0}</Td>
+                <Td>{user.name}</Td>
+                <Td>{user.teamName}</Td>
               </Tr>
             ))}
           </Tbody>

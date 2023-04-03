@@ -5,6 +5,7 @@ import client from "../../../lib/apolloClient";
 import DynamicList from "../../../components/_shared/DynamicList";
 import Page from "../../../components/_layout/Page";
 import { GET_GAMES } from "../../../queries/game";
+import { Heading } from "@chakra-ui/react";
 
 interface GetGamesResponse {
   games: GameClass[];
@@ -15,10 +16,29 @@ interface Props {
 }
 
 export default function AdminGames({ games }: Props) {
+  const nextGames = games.filter(
+    (game) => new Date(game.time).getTime() > new Date().getTime()
+  );
+  const historyGames = games.filter(
+    (game) => new Date(game.time).getTime() <= new Date().getTime()
+  );
   return (
     <Page title="Control Your Games with Ease">
+      <Heading>Upcoming Games:</Heading>
+      <br />
       <DynamicList maxSize="20rem">
-        {games.map((game) => (
+        {nextGames.map((game) => (
+          <Game key={game._id} game={game} />
+        ))}
+      </DynamicList>
+
+      <br />
+      <br />
+
+      <Heading>History Games:</Heading>
+      <br />
+      <DynamicList maxSize="20rem">
+        {historyGames.map((game) => (
           <Game key={game._id} game={game} />
         ))}
       </DynamicList>
@@ -36,7 +56,9 @@ export const getServerSideProps = requireAuth({
     });
 
     return {
-      props: { games },
+      props: {
+        games,
+      },
     };
   },
 });

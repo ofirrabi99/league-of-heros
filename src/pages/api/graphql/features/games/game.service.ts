@@ -8,7 +8,9 @@ import { GameInput } from "./game.types";
 @Service()
 export class GameService {
   async getAll(): Promise<Game[]> {
-    return await GameModel.find().populate(["homeTeam", "awayTeam"]);
+    return await GameModel.find()
+      .populate(["homeTeam", "awayTeam"])
+      .sort("-time");
   }
 
   async getById(gameId: string): Promise<Game | null> {

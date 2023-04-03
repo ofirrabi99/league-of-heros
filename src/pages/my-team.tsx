@@ -11,7 +11,7 @@ import client from "../lib/apolloClient";
 import { requireAuth } from "../lib/auth0";
 import { GET_NEXT_GAMES } from "../queries/game";
 import { GET_USER } from "../queries/user";
-import { formatDate } from "../utils/functions";
+import { calculateTotalScoreOfUser, formatDate } from "../utils/functions";
 import { Game as GameClass } from "./api/graphql/features/games/game.model";
 import { Player } from "./api/graphql/features/player/player.model";
 import { Team } from "./api/graphql/features/team/team.model";
@@ -29,8 +29,14 @@ interface Props {
   nextGames: GetNextGamesResponse["nextGames"];
   user?: GetUserResponse["user"];
   players: Player[];
+  totalScore: number;
 }
-export default function MyTeam({ nextGames, players, user }: Props) {
+export default function MyTeam({
+  nextGames,
+  players,
+  user,
+  totalScore,
+}: Props) {
   const { setLineup, isLoadingSetLineup } = useSetLineup();
   const gameday = nextGames[0] ? formatDate(new Date(nextGames[0].time)) : null;
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
@@ -74,6 +80,10 @@ export default function MyTeam({ nextGames, players, user }: Props) {
           <Game key={game._id} game={game} hideEdit={true} />
         ))}
       </DynamicList>
+      <br />
+      <Alertify status="success">
+        {`Your total score is ${totalScore}`}
+      </Alertify>
       <br />
       <Heading>Your Lineup:</Heading>
       <br />
@@ -175,7 +185,12 @@ export const getServerSideProps = requireAuth({
     );
 
     return {
-      props: { nextGames, players, user },
+      props: {
+        nextGames,
+        players,
+        user,
+        totalScore: user ? calculateTotalScoreOfUser(user) : 0,
+      },
     };
   },
 });

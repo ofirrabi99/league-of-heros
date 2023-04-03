@@ -27,3 +27,21 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_USERS_SCORE = gql`
+  query users {
+    users {
+      subId
+      totalScore
+      name
+      teamName
+      gameResults {
+        gameday
+        players {
+          playerId
+          score
+        }
+      }
+    }
+  }
+`;

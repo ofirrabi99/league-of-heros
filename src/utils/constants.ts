@@ -6,6 +6,7 @@ export const Links = [
   { name: "Admin - Games", href: "/admin/games" },
   { name: "Admin - Add Game", href: "/admin/games/add" },
   { name: "My Team", href: "/my-team" },
+  { name: "Leaderboard", href: "/leaderboard" },
 ];
 
 export const GENERAL_ERROR_TOAST: UseToastOptions = {

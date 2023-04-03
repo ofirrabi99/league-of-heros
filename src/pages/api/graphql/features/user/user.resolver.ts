@@ -11,8 +11,9 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query((_returns) => [User])
-  users() {
-    return this.userService.getAll();
+  async users() {
+    const users = await this.userService.getAll();
+    return users;
   }
 
   @Query((_returns) => User, { nullable: true })

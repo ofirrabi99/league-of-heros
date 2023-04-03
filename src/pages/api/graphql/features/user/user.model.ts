@@ -33,6 +33,9 @@ export class User {
   @GQLField((_type) => [GameResult])
   @Property({ required: true })
   gameResults?: GameResult[];
+
+  @GQLField((_type) => Number)
+  totalScore?: number;
 }
 
 export const UserModel = getModelForClass(User, {

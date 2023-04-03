@@ -26,7 +26,6 @@ export default function Loading() {
       alignItems="center"
       zIndex={2}
       backdropFilter="blur(30px)"
-      transition={"all 2s"}
       visibility={loading ? "visible" : "hidden"}
     >
       <Spinner />

@@ -1,8 +1,11 @@
 import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
-  Button,
   Center,
-  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -10,11 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form } from "formik";
 import useCard from "../../hooks/_shared/useCard";
+import { Player as PlayerClass } from "../../pages/api/graphql/features/player/player.model";
+import { PlayerInput } from "../../pages/api/graphql/features/player/player.types";
+import PlayerPreview from "../_shared/PlayerPreview";
 
 interface Props {
   index: number;
+  player: PlayerInput;
 }
-export default function Player({ index }: Props) {
+export default function Player({ index, player }: Props) {
   const card = useCard();
   return (
     <Box {...card}>
@@ -63,6 +70,24 @@ export default function Player({ index }: Props) {
           />
         </FormControl>
       </Center>
+
+      <br />
+
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                Show Preview
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel>
+            <PlayerPreview player={player as PlayerClass} />
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </Box>
   );
 }

@@ -62,8 +62,12 @@ export default function TeamEdit({ team }: Props) {
               {({ push }) => (
                 <>
                   <DynamicList maxSize="15rem">
-                    {values.players.map((_player, playerIndex) => (
-                      <Player index={playerIndex} key={playerIndex} />
+                    {values.players.map((player, playerIndex) => (
+                      <Player
+                        index={playerIndex}
+                        key={playerIndex}
+                        player={player}
+                      />
                     ))}
                   </DynamicList>
 

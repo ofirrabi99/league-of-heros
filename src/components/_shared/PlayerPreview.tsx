@@ -44,13 +44,13 @@ export default function PlayerPreview({
           <Stat>
             <StatLabel>{name}</StatLabel>
             <StatNumber>${price}</StatNumber>
-            <Fade in={picked}>
+            {picked && (
               <StatHelpText>
                 <Badge variant="subtle" colorScheme="green">
                   picked
                 </Badge>
               </StatHelpText>
-            </Fade>
+            )}
           </Stat>
         </Box>
         {inEditGame && (

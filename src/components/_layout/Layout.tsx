@@ -1,6 +1,7 @@
 import Toolbar from "./Toolbar";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import AreYouSureDialog from "./AreYouSureDialog";
+import Loading from "./Loading";
 
 interface Props {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Toolbar />
+      <Loading />
       {children}
       <AreYouSureDialog
         isOpen={areYouSureDialog.isOpen}

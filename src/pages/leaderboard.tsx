@@ -1,5 +1,7 @@
+import { useQuery } from "@apollo/client";
 import {
-  Heading,
+  Skeleton,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -9,7 +11,6 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import Page from "../components/_layout/Page";
-import client from "../lib/apolloClient";
 import { requireAuth } from "../lib/auth0";
 import { GET_USERS_SCORE } from "../queries/user";
 import { User } from "./api/graphql/features/user/user.model";
@@ -18,10 +19,10 @@ interface GetUsersResponse {
   users: User[];
 }
 
-interface Props {
-  users: GetUsersResponse["users"];
-}
-export default function Leaderboard({ users }: Props) {
+export default function Leaderboard() {
+  const { data, loading, error } = useQuery<GetUsersResponse>(GET_USERS_SCORE);
+  const users = data?.users || [];
+
   return (
     <Page>
       <TableContainer>
@@ -44,20 +45,16 @@ export default function Leaderboard({ users }: Props) {
           </Tbody>
         </Table>
       </TableContainer>
+      {loading && (
+        <Stack>
+          <Skeleton height={"20px"} />
+          <Skeleton height={"20px"} />
+          <Skeleton height={"20px"} />
+          <Skeleton height={"20px"} />
+        </Stack>
+      )}
     </Page>
   );
 }
 
-export const getServerSideProps = requireAuth({
-  async getServerSideProps(_ctx) {
-    const {
-      data: { users },
-    } = await client.query<GetUsersResponse>({
-      query: GET_USERS_SCORE,
-    });
-
-    return {
-      props: { users: users || [] },
-    };
-  },
-});
+export const getServerSideProps = requireAuth({});

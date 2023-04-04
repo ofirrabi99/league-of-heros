@@ -67,9 +67,11 @@ export default function MyTeam({ nextGames, players, user }: Props) {
     });
   };
   return (
-    <Page>
-      <Heading>Upcoming Games:</Heading>
-      <br />
+    // TODO: Change subtitle if no game available
+    <Page
+      title="MY TEAM"
+      subTitle="It's game time: Use our Team Selection page to put together the ultimate team for victory."
+    >
       <DynamicList maxSize="40rem">
         {nextGames.map((game) => (
           <Game key={game._id} game={game} hideEdit={true} />

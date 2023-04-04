@@ -20,11 +20,15 @@ interface GetUsersResponse {
 }
 
 export default function Leaderboard() {
-  const { data, loading, error } = useQuery<GetUsersResponse>(GET_USERS_SCORE);
+  // TODO - handle errors
+  const { data, loading } = useQuery<GetUsersResponse>(GET_USERS_SCORE);
   const users = data?.users || [];
 
   return (
-    <Page>
+    <Page
+      title="LEADERBOARD"
+      subTitle="Who's on top? Find out with our regularly updated leaderboard rankings."
+    >
       <TableContainer>
         <Table size="sm" variant="striped" colorScheme="purple">
           <Thead>

@@ -27,6 +27,7 @@ export default function Loading() {
       isOpen={loading}
       onClose={() => setLoading(false)}
       isCentered
+      closeOnOverlayClick={false}
     >
       <ModalOverlay backdropFilter="blur(30px)" />
 

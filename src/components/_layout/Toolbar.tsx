@@ -59,7 +59,7 @@ export default function Toolbar() {
   });
 
   const userRoles: string[] = user
-    ? (user[process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA!] as string[])
+    ? (user[process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA!] as string[]) || []
     : [];
 
   const isDarkMode = colorMode === "dark";

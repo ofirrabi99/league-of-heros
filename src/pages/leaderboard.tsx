@@ -29,18 +29,16 @@ export default function Leaderboard({ users }: Props) {
           <Thead>
             <Tr>
               <Th>place</Th>
-              <Th isNumeric>score</Th>
               <Th>name</Th>
-              <Th>team name</Th>
+              <Th isNumeric>score</Th>
             </Tr>
           </Thead>
           <Tbody>
             {users.map((user, index) => (
               <Tr key={user.subId}>
                 <Td>{index + 1}</Td>
-                <Td isNumeric>{user.totalScore || 0}</Td>
                 <Td>{user.name}</Td>
-                <Td>{user.teamName}</Td>
+                <Td isNumeric>{user.totalScore || 0}</Td>
               </Tr>
             ))}
           </Tbody>

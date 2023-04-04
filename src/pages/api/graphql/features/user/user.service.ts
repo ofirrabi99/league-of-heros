@@ -51,12 +51,15 @@ export class UserService {
     let user = (await UserModel.findOne({ subId })) ?? new UserModel({ subId });
 
     user.name = input.name;
-    user.teamName = input.teamName;
 
     return user.save();
   }
 
-  async setLineup(subId: string, input: LineupInput): Promise<User> {
+  async setLineup(
+    subId: string,
+    input: LineupInput,
+    userName: string
+  ): Promise<User> {
     let user = (await UserModel.findOne({ subId })) ?? new UserModel({ subId });
 
     if (!user.gameResults) user.gameResults = [];
@@ -65,8 +68,7 @@ export class UserService {
     );
 
     user.gameResults.push({ gameday: input.gameday, players: input.players });
-    user.name = "a";
-    user.teamName = "b";
+    user.name = userName;
 
     return user.save();
   }

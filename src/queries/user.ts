@@ -34,7 +34,6 @@ export const GET_USERS_SCORE = gql`
       subId
       totalScore
       name
-      teamName
       gameResults {
         gameday
         players {

@@ -10,9 +10,6 @@ import {
 export class UserInput implements Partial<User> {
   @Field()
   name!: string;
-
-  @Field()
-  teamName!: string;
 }
 
 @InputType()

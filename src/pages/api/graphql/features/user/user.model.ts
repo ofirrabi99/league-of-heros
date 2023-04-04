@@ -26,10 +26,6 @@ export class User {
   @Property()
   name!: string;
 
-  @GQLField((_type) => String)
-  @Property()
-  teamName!: string;
-
   @GQLField((_type) => [GameResult])
   @Property({ required: true })
   gameResults?: GameResult[];

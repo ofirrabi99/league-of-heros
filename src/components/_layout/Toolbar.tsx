@@ -58,9 +58,17 @@ export default function Toolbar() {
     handler: onClose,
   });
 
+  const userRoles: string[] = user
+    ? (user[process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA!] as string[])
+    : [];
+
   const isDarkMode = colorMode === "dark";
 
-  const LinksList = Links.map((link) => (
+  const LinksList = Links.filter(
+    (link) =>
+      !link.roles?.length ||
+      Boolean(link.roles.find((role) => userRoles.includes(role)))
+  ).map((link) => (
     <NavLink key={link.href} href={link.href}>
       {link.name}
     </NavLink>

@@ -1,5 +1,6 @@
 import {
   Arg,
+  Authorized,
   FieldResolver,
   Mutation,
   Query,
@@ -31,11 +32,13 @@ export class TeamResolver {
     return this.teamService.getOne(teamId);
   }
 
+  @Authorized("Admin")
   @Mutation((_returns) => Team)
   setTeam(@Arg("team") team: TeamInput) {
     return this.teamService.setTeam(team);
   }
 
+  @Authorized("Admin")
   @Mutation((_returns) => Team, { nullable: true })
   async deleteTeam(@Arg("teamId") teamId: string): Promise<Team | null> {
     return await this.teamService.deleteTeam(teamId);

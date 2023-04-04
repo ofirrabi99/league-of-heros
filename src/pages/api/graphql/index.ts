@@ -7,6 +7,7 @@ import { UserResolver } from "./features/user/user.resolver";
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { TeamResolver } from "./features/team/team.resolver";
 import { GameResolver } from "./features/games/game.resolver";
+import { CheckRole } from "./middlewares/CheckRole";
 
 async function dbConnect() {
   console.log("START DB CONNECTION...");
@@ -32,6 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     validate: {
       forbidUnknownValues: false,
     },
+    authChecker: CheckRole,
   });
 
   await createYoga({

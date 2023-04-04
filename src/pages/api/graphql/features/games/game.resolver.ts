@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
 import { GameResult } from "../user/user.model";
 import { LineupInput } from "../user/user.types";
@@ -26,16 +26,19 @@ export class GameResolver {
     return this.gameService.getNextGames();
   }
 
+  @Authorized("Admin")
   @Mutation((_returns) => Game)
   setGame(@Arg("game") game: GameInput) {
     return this.gameService.setGame(game);
   }
 
+  @Authorized("Admin")
   @Mutation((_returns) => Game, { nullable: true })
   deleteGame(@Arg("gameId") gameId: string): Promise<Game | null> {
     return this.gameService.deleteGame(gameId);
   }
 
+  @Authorized("Admin")
   @Mutation((_returns) => GameResult)
   setGameResult(
     @Arg("gameResult") gameResult: LineupInput,

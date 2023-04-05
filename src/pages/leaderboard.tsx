@@ -1,7 +1,5 @@
 import { useQuery } from "@apollo/client";
 import {
-  Skeleton,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -10,30 +8,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import UsersRows from "../components/leaderboard/UsersRows";
 import Page from "../components/_layout/Page";
+import TableLoader from "../components/_shared/TableLoader";
 import { requireAuth } from "../lib/auth0";
 import { GET_USERS_SCORE } from "../queries/user";
 import { User } from "./api/graphql/features/user/user.model";
-
-const EMPTY_ROWS_AMOUNT = 10;
-
-const Loaders = () => (
-  <>
-    {[...Array(EMPTY_ROWS_AMOUNT)].map((_e, i) => (
-      <Tr key={i}>
-        <Td>
-          <Skeleton height={"1rem"} />
-        </Td>
-        <Td>
-          <Skeleton height={"1rem"} />
-        </Td>
-        <Td>
-          <Skeleton height={"1rem"} />
-        </Td>
-      </Tr>
-    ))}
-  </>
-);
 
 interface GetUsersResponse {
   users: User[];
@@ -59,14 +39,7 @@ export default function Leaderboard() {
             </Tr>
           </Thead>
           <Tbody>
-            {loading && <Loaders />}
-            {users.map((user, index) => (
-              <Tr key={user.subId}>
-                <Td>{index + 1}</Td>
-                <Td>{user.name}</Td>
-                <Td isNumeric>{user.totalScore || 0}</Td>
-              </Tr>
-            ))}
+            <UsersRows users={users} loading={loading} />
           </Tbody>
         </Table>
       </TableContainer>

@@ -1,18 +1,11 @@
 import { useQuery } from "@apollo/client";
-import {
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { useEffect } from "react";
 import UsersRows from "../components/leaderboard/UsersRows";
 import Page from "../components/_layout/Page";
-import TableLoader from "../components/_shared/TableLoader";
 import { requireAuth } from "../lib/auth0";
 import { GET_USERS_SCORE } from "../queries/user";
+import useUnexpectedErrorDialog from "../state/useUnexpectedErrorDialog";
 import { User } from "./api/graphql/features/user/user.model";
 
 interface GetUsersResponse {
@@ -20,9 +13,12 @@ interface GetUsersResponse {
 }
 
 export default function Leaderboard() {
-  // TODO - handle errors
-  const { data, loading } = useQuery<GetUsersResponse>(GET_USERS_SCORE);
+  const { fire } = useUnexpectedErrorDialog();
+  const { data, loading, error } = useQuery<GetUsersResponse>(GET_USERS_SCORE);
   const users = data?.users || [];
+  useEffect(() => {
+    if (error) fire();
+  }, [error]);
 
   return (
     <Page

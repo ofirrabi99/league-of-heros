@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Heading,
-  HStack,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Avatar, Button, Heading, HStack, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { memo, useCallback } from "react";
 import useDeleteGame from "../../hooks/games/useDeleteGame";

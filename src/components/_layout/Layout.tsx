@@ -1,6 +1,8 @@
 import Toolbar from "./Toolbar";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
+import useUnexpectedErrorDialog from "../../state/useUnexpectedErrorDialog";
 import AreYouSureDialog from "./AreYouSureDialog";
+import UnexpectedErrorDialog from "./UnexpectedErrorDialog";
 import Loading from "./Loading";
 
 interface Props {
@@ -9,6 +11,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const areYouSureDialog = useAreYouSureDialog();
+  const uexpectedErrorDialog = useUnexpectedErrorDialog();
 
   return (
     <>
@@ -23,6 +26,7 @@ export default function Layout({ children }: Props) {
       >
         {areYouSureDialog.description}
       </AreYouSureDialog>
+      <UnexpectedErrorDialog {...uexpectedErrorDialog} />
     </>
   );
 }

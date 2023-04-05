@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Button, Heading, Progress } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Game from "../components/games/Game";
 import Page from "../components/_layout/Page";
 import Alertify from "../components/_shared/Alertify";
@@ -42,12 +42,18 @@ export default function MyTeam() {
     ? formatDate(new Date(getNextGamesResponse.data?.nextGames[0].time))
     : null;
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
-    new Set(
-      getUserResponse.data?.user?.gameResults
-        ?.find((game) => game.gameday === gameday)
-        ?.players.map((player) => player.playerId)
-    )
+    new Set()
   );
+
+  useEffect(() => {
+    setChosenPlayersId(
+      new Set(
+        getUserResponse.data?.user?.gameResults
+          ?.find((game) => game.gameday === gameday)
+          ?.players.map((player) => player.playerId)
+      )
+    );
+  }, [getUserResponse, gameday]);
 
   const chosenPlayers = players.filter((player) =>
     chosenPlayersId.has(player._id)

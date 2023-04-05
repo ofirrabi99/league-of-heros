@@ -15,6 +15,26 @@ import { requireAuth } from "../lib/auth0";
 import { GET_USERS_SCORE } from "../queries/user";
 import { User } from "./api/graphql/features/user/user.model";
 
+const EMPTY_ROWS_AMOUNT = 10;
+
+const Loaders = () => (
+  <>
+    {[...Array(EMPTY_ROWS_AMOUNT)].map((_e, i) => (
+      <Tr key={i}>
+        <Td>
+          <Skeleton height={"1rem"} />
+        </Td>
+        <Td>
+          <Skeleton height={"1rem"} />
+        </Td>
+        <Td>
+          <Skeleton height={"1rem"} />
+        </Td>
+      </Tr>
+    ))}
+  </>
+);
+
 interface GetUsersResponse {
   users: User[];
 }
@@ -30,7 +50,7 @@ export default function Leaderboard() {
       subTitle="Who's on top? Find out with our regularly updated leaderboard rankings."
     >
       <TableContainer>
-        <Table size="sm" variant="striped" colorScheme="purple">
+        <Table size="sm" variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
               <Th>place</Th>
@@ -39,6 +59,7 @@ export default function Leaderboard() {
             </Tr>
           </Thead>
           <Tbody>
+            {loading && <Loaders />}
             {users.map((user, index) => (
               <Tr key={user.subId}>
                 <Td>{index + 1}</Td>
@@ -49,14 +70,6 @@ export default function Leaderboard() {
           </Tbody>
         </Table>
       </TableContainer>
-      {loading && (
-        <Stack>
-          <Skeleton height={"20px"} />
-          <Skeleton height={"20px"} />
-          <Skeleton height={"20px"} />
-          <Skeleton height={"20px"} />
-        </Stack>
-      )}
     </Page>
   );
 }

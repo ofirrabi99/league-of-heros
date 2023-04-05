@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import { Button, Heading, Progress } from "@chakra-ui/react";
 import { useState } from "react";
 import Game from "../components/games/Game";
@@ -25,17 +26,24 @@ interface GetUserResponse {
   user?: User;
 }
 
-interface Props {
-  nextGames: GetNextGamesResponse["nextGames"];
-  user?: GetUserResponse["user"];
-  players: Player[];
-}
-export default function MyTeam({ nextGames, players, user }: Props) {
+export default function MyTeam() {
+  const getNextGamesResponse = useQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
+  const getUserResponse = useQuery<GetUserResponse>(GET_USER);
+
+  const players =
+    getNextGamesResponse.data?.nextGames.flatMap((game) =>
+      ((game.homeTeam as Team).players ?? []).concat(
+        (game.awayTeam as Team).players ?? []
+      )
+    ) ?? [];
+
   const { setLineup, isLoadingSetLineup } = useSetLineup();
-  const gameday = nextGames[0] ? formatDate(new Date(nextGames[0].time)) : null;
+  const gameday = getNextGamesResponse.data?.nextGames[0]
+    ? formatDate(new Date(getNextGamesResponse.data?.nextGames[0].time))
+    : null;
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
     new Set(
-      user?.gameResults
+      getUserResponse.data?.user?.gameResults
         ?.find((game) => game.gameday === gameday)
         ?.players.map((player) => player.playerId)
     )
@@ -73,7 +81,7 @@ export default function MyTeam({ nextGames, players, user }: Props) {
       subTitle="It's game time: Use our Team Selection page to put together the ultimate team for victory."
     >
       <DynamicList maxSize="40rem">
-        {nextGames.map((game) => (
+        {getNextGamesResponse.data?.nextGames.map((game) => (
           <Game key={game._id} game={game} hideEdit={true} />
         ))}
       </DynamicList>
@@ -156,33 +164,4 @@ export default function MyTeam({ nextGames, players, user }: Props) {
   );
 }
 
-export const getServerSideProps = requireAuth({
-  async getServerSideProps(_ctx) {
-    // TOOD: Handle error
-    const {
-      data: { nextGames },
-    } = await client.query<GetNextGamesResponse>({
-      query: GET_NEXT_GAMES,
-    });
-
-    const {
-      data: { user },
-    } = await client.query<GetUserResponse>({
-      query: GET_USER,
-    });
-
-    const players = nextGames.flatMap((game) =>
-      (game.homeTeam as Team).players?.concat(
-        (game.awayTeam as Team).players ?? []
-      )
-    );
-
-    return {
-      props: {
-        nextGames,
-        players,
-        user,
-      },
-    };
-  },
-});
+export const getServerSideProps = requireAuth({});

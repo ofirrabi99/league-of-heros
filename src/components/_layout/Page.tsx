@@ -1,4 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
+import DynamicList from "../_shared/DynamicList";
 
 interface Props {
   title?: string;
@@ -8,7 +9,7 @@ interface Props {
 
 export default function Page({ title, children, subTitle }: Props) {
   return (
-    <Box p={3}>
+    <Box p={4}>
       <Box p={2}>
         {!!title && <Heading textAlign={"center"}>{title}</Heading>}
         {!!subTitle && (
@@ -17,7 +18,7 @@ export default function Page({ title, children, subTitle }: Props) {
           </Text>
         )}
       </Box>
-      {children}
+      <DynamicList maxSize="75rem">{children}</DynamicList>
     </Box>
   );
 }

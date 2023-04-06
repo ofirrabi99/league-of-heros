@@ -8,7 +8,8 @@ export const CheckRole: AuthChecker<ContextType> = async (
 ) => {
   const user = (await getSession(context.req, context.res))?.user;
   const userRoles = user
-    ? ([process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA as string] as string[]) || []
+    ? (user[process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA as string] as string[]) ||
+      []
     : [];
   const isRoleApproved = Boolean(
     roles.find((role) => userRoles.includes(role))

@@ -5,6 +5,7 @@ export const Links = [
   { name: "Admin - Add Team", href: "/admin/teams/add", roles: ["Admin"] },
   { name: "Admin - Games", href: "/admin/games", roles: ["Admin"] },
   { name: "Admin - Add Game", href: "/admin/games/add", roles: ["Admin"] },
+  { name: "Admin - Game Cycle", href: "/admin/game-cycle", roles: ["Admin"] },
   { name: "My Team", href: "/my-team" },
   { name: "Leaderboard", href: "/leaderboard" },
 ];

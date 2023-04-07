@@ -1,4 +1,4 @@
-import { Arg, Authorized, Mutation, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
 import { Cycle } from "./cycle.model";
 import { CycleInput } from "./cycle.types";
@@ -8,6 +8,11 @@ import { CycleService } from "./cycle.service";
 @Resolver((_of) => Cycle)
 export class CycleResolver {
   constructor(private readonly cycleService: CycleService) {}
+
+  @Query((_returns) => [Cycle])
+  cycles() {
+    return this.cycleService.getAllCycles();
+  }
 
   @Authorized("Admin")
   @Mutation((_returns) => Cycle)

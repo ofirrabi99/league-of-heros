@@ -4,13 +4,17 @@ import { Cycle, CycleModel } from "./cycle.model";
 
 @Service()
 export class CycleService {
-  addCycle(cycle: CycleInput): Promise<Cycle> {
+  async getAllCycles(): Promise<Cycle[]> {
+    return await CycleModel.find();
+  }
+
+  async addCycle(cycle: CycleInput): Promise<Cycle> {
     const newCycle = new CycleModel();
 
     newCycle.name = cycle.name;
     newCycle.fromTime = cycle.fromTime;
     newCycle.toTime = cycle.toTime;
 
-    return newCycle.save();
+    return await newCycle.save();
   }
 }

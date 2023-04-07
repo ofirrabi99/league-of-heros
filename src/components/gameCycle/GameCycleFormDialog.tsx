@@ -9,27 +9,39 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { CycleInput } from "../../pages/api/graphql/features/cycles/cycle.types";
 import GameCycleForm from "./GameCycleForm";
 
 interface FormContext {
   name: string;
-  timeFrom: string;
-  timeTo: string;
+  fromTime: string;
+  toTime: string;
 }
 
 const initialValues: FormContext = {
   name: "",
-  timeFrom: "",
-  timeTo: "",
+  fromTime: "",
+  toTime: "",
 };
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onAddCycle: (cycle: CycleInput) => void;
+  isLoading: boolean;
 }
-export default function GameCycleFormDialog({ isOpen, onClose }: Props) {
-  const onSubmit = (form: FormContext) => {
-    console.log(form);
+export default function GameCycleFormDialog({
+  isOpen,
+  onClose,
+  onAddCycle,
+  isLoading,
+}: Props) {
+  const onSubmit = async (form: FormContext) => {
+    onAddCycle({
+      ...form,
+      fromTime: new Date(form.fromTime),
+      toTime: new Date(form.toTime),
+    });
   };
   return (
     <Modal
@@ -50,7 +62,12 @@ export default function GameCycleFormDialog({ isOpen, onClose }: Props) {
               </ModalBody>
 
               <ModalFooter>
-                <Button colorScheme="purple" mr={3} type="submit">
+                <Button
+                  colorScheme="purple"
+                  mr={3}
+                  type="submit"
+                  isLoading={isLoading}
+                >
                   Add
                 </Button>
                 <Button onClick={onClose}>Cancel</Button>

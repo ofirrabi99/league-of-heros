@@ -14,12 +14,12 @@ export default function GameCycleForm() {
         gridTemplateColumns="repeat(auto-fit,minmax(10rem, 1fr))"
       >
         <FormControl isRequired>
-          <FormLabel htmlFor="timeFrom">From</FormLabel>
-          <Field as={Input} name="timeFrom" type="datetime-local" />
+          <FormLabel htmlFor="fromTime">From</FormLabel>
+          <Field as={Input} name="fromTime" type="datetime-local" />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="timeTo">To</FormLabel>
-          <Field as={Input} name="timeTo" type="datetime-local" />
+          <FormLabel htmlFor="toTime">To</FormLabel>
+          <Field as={Input} name="toTime" type="datetime-local" />
         </FormControl>
       </Grid>
     </VStack>

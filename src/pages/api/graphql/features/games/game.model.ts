@@ -3,6 +3,7 @@ import type { Ref } from "@typegoose/typegoose";
 import { Field as GQLField, ID, ObjectType as GQLType } from "type-graphql";
 import { Team } from "../team/team.model";
 import { GameResult } from "../user/user.model";
+import { Cycle } from "../cycles/cycle.model";
 
 @GQLType()
 export class Game {
@@ -16,6 +17,10 @@ export class Game {
   @GQLField((_type) => Team)
   @Property({ ref: () => Team, required: true })
   awayTeam!: Ref<Team, string>;
+
+  @GQLField((_type) => Cycle)
+  @Property({ ref: () => Cycle, required: true })
+  cycle!: Ref<Cycle, Cycle["_id"]>;
 
   @GQLField((_type) => Date)
   @Property({ required: true })

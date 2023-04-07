@@ -14,6 +14,11 @@ export class CycleResolver {
     return this.cycleService.getAllCycles();
   }
 
+  @Query((_returns) => Cycle, { nullable: true })
+  currentCycle() {
+    return this.cycleService.getCurrentCycle();
+  }
+
   @Authorized("Admin")
   @Mutation((_returns) => Cycle)
   addCycle(@Arg("cycle") cycle: CycleInput): Promise<Cycle> {

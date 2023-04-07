@@ -13,5 +13,8 @@ export class GameInput implements Partial<Game> {
   awayTeam!: string;
 
   @Field()
+  cycle!: string;
+
+  @Field()
   time!: Date;
 }

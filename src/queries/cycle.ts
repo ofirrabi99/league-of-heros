@@ -22,6 +22,14 @@ query cycles {
 }
 `;
 
+export const GET_CURRENT_CYCLE = gql`
+query currentCycle {
+  currentCycle {
+    ${cycleProps}
+  }
+}
+`;
+
 export const DELETE_CYCLE = gql`
   mutation deleteCycle($cycleId: String!) {
     deleteCycle(cycleId: $cycleId) {

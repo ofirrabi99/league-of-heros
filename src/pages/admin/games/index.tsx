@@ -49,15 +49,16 @@ export default function AdminGames({ games }: Props) {
 export const getServerSideProps = requireAuth({
   async getServerSideProps(_ctx) {
     // TOOD: Handle error
-    const {
-      data: { games },
-    } = await client.query<GetGamesResponse>({
+    const { data, error } = await client.query<GetGamesResponse>({
       query: GET_GAMES,
     });
 
+    console.log(data);
+    console.log(error);
+
     return {
       props: {
-        games,
+        games: data.games,
       },
     };
   },

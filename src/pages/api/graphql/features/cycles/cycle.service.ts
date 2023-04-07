@@ -8,6 +8,14 @@ export class CycleService {
     return await CycleModel.find();
   }
 
+  async getCurrentCycle(): Promise<Cycle | null> {
+    const currentCycle = await CycleModel.findOne({
+      toTime: { $gt: new Date() },
+    }).sort("toTime");
+
+    return currentCycle;
+  }
+
   async addCycle(cycle: CycleInput): Promise<Cycle> {
     const newCycle = new CycleModel();
 

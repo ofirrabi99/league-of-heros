@@ -13,6 +13,7 @@ import { requireAuth } from "../lib/auth0";
 import { GET_NEXT_GAMES } from "../queries/game";
 import { GET_USER } from "../queries/user";
 import { formatDate } from "../utils/functions";
+import { Cycle } from "./api/graphql/features/cycles/cycle.model";
 import { Game as GameClass } from "./api/graphql/features/games/game.model";
 import { Player } from "./api/graphql/features/player/player.model";
 import { Team } from "./api/graphql/features/team/team.model";
@@ -20,6 +21,7 @@ import { User } from "./api/graphql/features/user/user.model";
 
 interface GetNextGamesResponse {
   nextGames: GameClass[];
+  currentCycle: Cycle | null;
 }
 
 interface GetUserResponse {
@@ -38,9 +40,6 @@ export default function MyTeam() {
     ) ?? [];
 
   const { setLineup, isLoadingSetLineup } = useSetLineup();
-  const gameday = getNextGamesResponse.data?.nextGames[0]
-    ? formatDate(new Date(getNextGamesResponse.data?.nextGames[0].time))
-    : null;
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
     new Set()
   );
@@ -49,11 +48,14 @@ export default function MyTeam() {
     setChosenPlayersId(
       new Set(
         getUserResponse.data?.user?.gameResults
-          ?.find((game) => game.gameday === gameday)
+          ?.find(
+            (game) =>
+              game.cycle === getNextGamesResponse.data?.currentCycle?._id
+          )
           ?.players.map((player) => player.playerId)
       )
     );
-  }, [getUserResponse, gameday]);
+  }, [getUserResponse, getNextGamesResponse.data?.currentCycle?._id]);
 
   const chosenPlayers = players.filter((player) =>
     chosenPlayersId.has(player._id)
@@ -140,7 +142,7 @@ export default function MyTeam() {
             setLineup({
               variables: {
                 lineup: {
-                  gameday,
+                  cycle: getNextGamesResponse.data?.currentCycle?._id,
                   players: Array.from(chosenPlayersId).map((player) => ({
                     playerId: player,
                     score: 0,

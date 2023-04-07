@@ -10,7 +10,7 @@ import { GameInput } from "./game.types";
 export class GameService {
   async getAll(): Promise<Game[]> {
     return await GameModel.find()
-      .populate(["homeTeam", "awayTeam"])
+      .populate(["homeTeam", "awayTeam", "cycle"])
       .sort("-time");
   }
 
@@ -48,6 +48,7 @@ export class GameService {
 
     let game = (await GameModel.findOne({ _id: input._id })) ?? new GameModel();
 
+    game.cycle = input.cycle;
     game.time = input.time;
     game.homeTeam = homeTeam._id;
     game.awayTeam = awayTeam._id;
@@ -82,7 +83,7 @@ export class GameService {
         },
         {
           arrayFilters: [
-            { "result.gameday": gameResult.gameday },
+            { "result.cycle": gameResult.cycle },
             {
               "player.playerId": playerScore.playerId,
             },

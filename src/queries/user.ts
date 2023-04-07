@@ -4,7 +4,7 @@ export const SET_LINEUP = gql`
   mutation setLineup($lineup: LineupInput!) {
     setLineup(lineup: $lineup) {
       gameResults {
-        gameday
+        cycle
         players {
           playerId
           score
@@ -18,7 +18,7 @@ export const GET_USER = gql`
   query user {
     user {
       gameResults {
-        gameday
+        cycle
         players {
           playerId
           score
@@ -35,7 +35,7 @@ export const GET_USERS_SCORE = gql`
       totalScore
       name
       gameResults {
-        gameday
+        cycle
         players {
           playerId
           score

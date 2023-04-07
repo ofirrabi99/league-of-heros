@@ -1,10 +1,5 @@
 import { Field, InputType } from "type-graphql";
-import {
-  GameResult,
-  PlayerResult,
-  PlayerResultInput,
-  User,
-} from "./user.model";
+import { GameResult, PlayerResultInput, User } from "./user.model";
 
 @InputType()
 export class UserInput implements Partial<User> {
@@ -15,7 +10,7 @@ export class UserInput implements Partial<User> {
 @InputType()
 export class LineupInput implements Partial<GameResult> {
   @Field((_type) => String)
-  gameday!: string;
+  cycle!: string;
 
   @Field((_type) => [PlayerResultInput])
   players!: PlayerResultInput[];

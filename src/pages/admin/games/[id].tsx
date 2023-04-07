@@ -13,6 +13,7 @@ import { useState } from "react";
 import { PlayerResultInput } from "../../api/graphql/features/user/user.model";
 import { Button } from "@chakra-ui/react";
 import useSetGameResult from "../../../hooks/games/useSetGameResult";
+import { Cycle } from "../../api/graphql/features/cycles/cycle.model";
 
 interface GetGameResponse {
   game: Game;
@@ -31,7 +32,6 @@ export default function AdminGamesEdit({ game, players }: Props) {
       game.result?.players.map(({ playerId, score }) => [playerId, score])
     )
   );
-  const gameday = formatDate(new Date(game.time));
 
   return (
     <Page title="Edit game">
@@ -58,7 +58,7 @@ export default function AdminGamesEdit({ game, players }: Props) {
             variables: {
               gameId: game._id,
               gameResult: {
-                gameday,
+                cycle: (game.cycle as Cycle)._id,
                 players: Array.from(playerResults).map(([playerId, score]) => ({
                   playerId,
                   score: score || 0,

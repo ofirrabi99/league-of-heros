@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import { Form, Formik, Field } from "formik";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
 import useSetGame from "../../hooks/games/useSetGame";
+import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
 
 const TeamsOptions = ({ teams }: { teams: Team[] }) => (
   <>
@@ -21,20 +22,33 @@ const TeamsOptions = ({ teams }: { teams: Team[] }) => (
   </>
 );
 
+const CyclesOptions = ({ cycles }: { cycles: Cycle[] }) => (
+  <>
+    {cycles.map((cycle) => (
+      <option key={cycle._id} value={cycle._id}>
+        {cycle.name}
+      </option>
+    ))}
+  </>
+);
+
 export interface FormContext {
   homeTeam: string;
   awayTeam: string;
   time: string;
+  cycle: string;
 }
 
 interface Props {
   teams: Team[];
+  cycles: Cycle[];
 }
-export default function GameEdit({ teams }: Props) {
+export default function GameEdit({ teams, cycles }: Props) {
   const initialValues: FormContext = {
     homeTeam: "",
     awayTeam: "",
     time: "",
+    cycle: "",
   };
   const { setGame, isLoadingSetGame } = useSetGame({ isInEditMode: false });
   const onSubmit = useCallback(
@@ -60,6 +74,13 @@ export default function GameEdit({ teams }: Props) {
               <FormLabel htmlFor="awayTeam">Away Team</FormLabel>
               <Field as={Select} name="awayTeam" placeholder="Select Away Team">
                 <TeamsOptions teams={teams} />
+              </Field>
+            </FormControl>
+
+            <FormControl isRequired width="auto">
+              <FormLabel htmlFor="cycle">Cycle</FormLabel>
+              <Field as={Select} name="cycle" placeholder="Select cycle">
+                <CyclesOptions cycles={cycles} />
               </Field>
             </FormControl>
 

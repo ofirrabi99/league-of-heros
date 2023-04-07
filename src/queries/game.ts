@@ -4,9 +4,12 @@ export const GET_GAME = gql`
   query getGame($gameId: String!) {
     game(gameId: $gameId) {
       _id
+      cycle {
+        _id
+      }
       time
       result {
-        gameday
+        cycle
         players {
           playerId
           score
@@ -42,6 +45,9 @@ export const GET_GAMES = gql`
   query games {
     games {
       _id
+      cycle {
+        _id
+      }
       time
       homeTeam {
         _id
@@ -59,6 +65,9 @@ export const GET_GAMES = gql`
 
 export const GET_NEXT_GAMES = gql`
   query nextGames {
+    currentCycle {
+      _id
+    }
     nextGames {
       _id
       time
@@ -107,7 +116,7 @@ export const DELETE_GAME = gql`
 export const SET_GAME_RESULT = gql`
   mutation setGameResult($gameResult: LineupInput!, $gameId: String!) {
     setGameResult(gameResult: $gameResult, gameId: $gameId) {
-      gameday
+      cycle
     }
   }
 `;

@@ -64,10 +64,10 @@ export class UserService {
 
     if (!user.gameResults) user.gameResults = [];
     user.gameResults = user.gameResults.filter(
-      (game) => game.gameday !== input.gameday
+      (game) => game.cycle !== input.cycle
     );
 
-    user.gameResults.push({ gameday: input.gameday, players: input.players });
+    user.gameResults.push({ cycle: input.cycle, players: input.players });
     user.name = userName;
 
     return user.save();

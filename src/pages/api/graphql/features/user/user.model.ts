@@ -10,7 +10,9 @@ import {
   InputType,
   ObjectType as GQLType,
 } from "type-graphql";
+import { Cycle } from "../cycles/cycle.model";
 import { Player } from "../player/player.model";
+import type { Ref } from "@typegoose/typegoose";
 
 @ModelOptions({ options: { allowMixed: Severity.ALLOW } })
 @GQLType()
@@ -44,8 +46,8 @@ export const UserModel = getModelForClass(User, {
 @GQLType()
 export class GameResult {
   @GQLField((_type) => String)
-  @Property({ required: true })
-  gameday!: string;
+  @Property({ ref: "Cycle", required: true })
+  cycle!: Ref<Cycle, string>;
 
   @GQLField((_type) => [PlayerResult])
   @Property({ required: true })

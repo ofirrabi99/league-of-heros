@@ -1,4 +1,5 @@
 import { Service } from "typedi";
+import { CycleModel } from "../cycles/cycle.model";
 import { TeamModel } from "../team/team.model";
 import { GameResult, UserModel } from "../user/user.model";
 import { LineupInput } from "../user/user.types";
@@ -20,8 +21,14 @@ export class GameService {
   }
 
   async getNextGames(): Promise<Game[]> {
+    const currentCycle = await CycleModel.findOne({
+      toTime: { $gt: new Date() },
+    }).sort("toTime");
+
+    if (!currentCycle) return [];
+
     const nextGames = await GameModel.find({
-      time: { $gt: new Date() },
+      time: { $gte: currentCycle.fromTime, $lte: currentCycle.toTime },
     }).populate(["homeTeam", "awayTeam"]);
 
     return nextGames;

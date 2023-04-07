@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { Button, useDisclosure } from "@chakra-ui/react";
-import CyclePreview from "../../components/gameCycle/CyclePreview";
+import CyclesList from "../../components/gameCycle/CyclesList";
 import GameCycleFormDialog from "../../components/gameCycle/GameCycleFormDialog";
 import Page from "../../components/_layout/Page";
 import useAddCycle from "../../hooks/cycles/useAddCycle";
+import useDeleteCycle from "../../hooks/cycles/useDeleteCycle";
 import { requireAuth } from "../../lib/auth0";
 import { GET_ALL_CYCLES } from "../../queries/cycle";
 import { Cycle } from "../api/graphql/features/cycles/cycle.model";
@@ -14,15 +15,30 @@ interface GetCyclesResponse {
 }
 
 export default function GameCycle() {
-  const { data, loading, error } = useQuery<GetCyclesResponse>(GET_ALL_CYCLES);
+  const { data, loading, refetch } =
+    useQuery<GetCyclesResponse>(GET_ALL_CYCLES);
 
   const gameCycleDialogProps = useDisclosure();
   const { addCycle, isLoadingAddCycle } = useAddCycle({
-    onSuccessCallback: gameCycleDialogProps.onClose,
+    onSuccessCallback: () => {
+      refetch();
+      gameCycleDialogProps.onClose();
+    },
   });
   const onAddCycle = async (cycle: CycleInput) => {
     await addCycle({
       variables: { cycle },
+    });
+  };
+
+  const { deleteCycle, isLoadingDeleteCycle } = useDeleteCycle({
+    onSuccessCallback: () => {
+      refetch();
+    },
+  });
+  const onDeleteCycle = async (cycleId: Cycle["_id"]) => {
+    await deleteCycle({
+      variables: { cycleId },
     });
   };
 
@@ -41,9 +57,11 @@ export default function GameCycle() {
         {...gameCycleDialogProps}
       />
 
-      {data?.cycles.map((cycle) => (
-        <CyclePreview key={cycle._id} cycle={cycle} />
-      ))}
+      <CyclesList
+        cycles={data?.cycles}
+        isLoading={loading}
+        onDeleteCycle={onDeleteCycle}
+      />
     </Page>
   );
 }

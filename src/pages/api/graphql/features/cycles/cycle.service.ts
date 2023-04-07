@@ -17,4 +17,8 @@ export class CycleService {
 
     return await newCycle.save();
   }
+
+  async deleteCycle(cycleId: string): Promise<Cycle | null> {
+    return await CycleModel.findOneAndDelete({ _id: cycleId });
+  }
 }

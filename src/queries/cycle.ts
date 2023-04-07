@@ -21,3 +21,11 @@ query cycles {
   }
 }
 `;
+
+export const DELETE_CYCLE = gql`
+  mutation deleteCycle($cycleId: String!) {
+    deleteCycle(cycleId: $cycleId) {
+      ${cycleProps}
+    }
+  }
+`;

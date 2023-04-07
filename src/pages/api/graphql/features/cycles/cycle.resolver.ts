@@ -16,7 +16,13 @@ export class CycleResolver {
 
   @Authorized("Admin")
   @Mutation((_returns) => Cycle)
-  addCycle(@Arg("cycle") cycle: CycleInput) {
+  addCycle(@Arg("cycle") cycle: CycleInput): Promise<Cycle> {
     return this.cycleService.addCycle(cycle);
+  }
+
+  @Authorized("Admin")
+  @Mutation((_returns) => Cycle, { nullable: true })
+  deleteCycle(@Arg("cycleId") cycleId: string): Promise<Cycle | null> {
+    return this.cycleService.deleteCycle(cycleId);
   }
 }

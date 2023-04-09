@@ -28,7 +28,7 @@ interface GetUserResponse {
 export default function MyTeam() {
   const getNextGamesResponse = useQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
   const getUserResponse = useQuery<GetUserResponse>(GET_USER);
-  const { isLoading, startLoading, stopLoading } = useGlobalLoading();
+  const { startLoading, stopLoading } = useGlobalLoading();
 
   useEffect(() => {
     if (getNextGamesResponse.loading || getUserResponse.loading) {
@@ -49,7 +49,6 @@ export default function MyTeam() {
     return <UnexpectedErrorDialog isOpen={true} />;
 
   return (
-    // TODO: Change subtitle if no game available
     <Page
       title="MY TEAM"
       subTitle={

@@ -9,16 +9,21 @@ import {
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export default function UnexpectedErrorDialog({ isOpen, onClose }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xs" isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose ? onClose : () => {}}
+      size="xs"
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent bgColor={"red.600"} color="white">
         <ModalHeader>We have a little problem.</ModalHeader>
-        <ModalCloseButton />
+        {Boolean(onClose) && <ModalCloseButton />}
         <ModalBody>Please try again later while we fix the issue.</ModalBody>
       </ModalContent>
     </Modal>

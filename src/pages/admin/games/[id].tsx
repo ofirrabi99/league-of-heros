@@ -8,7 +8,6 @@ import { Game } from "../../api/graphql/features/games/game.model";
 import { Player } from "../../api/graphql/features/player/player.model";
 import { Team } from "../../api/graphql/features/team/team.model";
 import GamePreview from "../../../components/games/Game";
-import { formatDate } from "../../../utils/functions";
 import { useState } from "react";
 import { PlayerResultInput } from "../../api/graphql/features/user/user.model";
 import { Button } from "@chakra-ui/react";

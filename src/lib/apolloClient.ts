@@ -10,11 +10,9 @@ import { setContext } from "@apollo/client/link/context";
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: "no-cache",
-    errorPolicy: "all",
   },
   query: {
     fetchPolicy: "no-cache",
-    errorPolicy: "all",
   },
 };
 

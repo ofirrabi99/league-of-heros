@@ -17,7 +17,7 @@ export default function Layout({ children }: Props) {
   const uexpectedErrorDialog = useUnexpectedErrorDialog();
   const { isLoading, startLoading, stopLoading } = useGlobalLoading();
   useEffect(() => {
-    Router.events.on("routeChangeStart", () => startLoading);
+    Router.events.on("routeChangeStart", startLoading);
     Router.events.on("routeChangeComplete", stopLoading);
     Router.events.on("routeChangeError", stopLoading);
     return () => {

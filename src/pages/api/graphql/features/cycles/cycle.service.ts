@@ -1,6 +1,7 @@
 import { Service } from "typedi";
 import { CycleInput } from "./cycle.types";
 import { Cycle, CycleModel } from "./cycle.model";
+import { GameModel } from "../games/game.model";
 
 @Service()
 export class CycleService {
@@ -27,6 +28,12 @@ export class CycleService {
   }
 
   async deleteCycle(cycleId: string): Promise<Cycle | null> {
+    const gamesOfCycle = await GameModel.find({ cycle: cycleId });
+    // Cant delete cycle with games attached to it
+    if (gamesOfCycle.length > 0) {
+      return null;
+    }
+
     return await CycleModel.findOneAndDelete({ _id: cycleId });
   }
 }

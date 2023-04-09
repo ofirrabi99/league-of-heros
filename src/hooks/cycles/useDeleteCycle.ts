@@ -3,6 +3,11 @@ import { useCallback } from "react";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 import { DELETE_CYCLE } from "../../queries/cycle";
 import { useMutation } from "@apollo/client";
+import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
+
+interface DeleteDataProps {
+  deleteCycle: Cycle | null;
+}
 
 interface Props {
   onSuccessCallback: () => void;
@@ -10,13 +15,22 @@ interface Props {
 export default function useDeleteCycle({ onSuccessCallback }: Props) {
   const toast = useToast();
 
-  const onCompleted = useCallback(() => {
-    toast({
-      title: "Cycle has been deleted from the system!",
-      status: "success",
-    });
-    onSuccessCallback();
-  }, [toast, onSuccessCallback]);
+  const onCompleted = useCallback(
+    (data: DeleteDataProps) => {
+      if (data.deleteCycle)
+        toast({
+          title: "Cycle has been deleted from the system!",
+          status: "success",
+        });
+      else
+        toast({
+          title: "Cannot delete cycle with games attached to it!",
+          status: "error",
+        });
+      onSuccessCallback();
+    },
+    [toast, onSuccessCallback]
+  );
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);

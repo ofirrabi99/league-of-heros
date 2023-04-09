@@ -12,11 +12,13 @@ interface Props {
   userChosenPlayers: Player["_id"][];
   players: Player[];
   cycleId: Cycle["_id"];
+  isTransferWindowOpen: boolean;
 }
 export default function LineupBuilder({
   userChosenPlayers,
   players,
   cycleId,
+  isTransferWindowOpen,
 }: Props) {
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
     new Set()
@@ -42,10 +44,12 @@ export default function LineupBuilder({
   const isOutOfMoney = maxLineupCost < lineupCost;
 
   const addPlayer = (playerId: Player["_id"]) => {
+    if (!isTransferWindowOpen) return;
     setChosenPlayersId((prev) => new Set([...prev, playerId]));
   };
 
   const removePlayer = (playerId: Player["_id"]) => {
+    if (!isTransferWindowOpen) return;
     setChosenPlayersId((prev) => {
       const newSet = new Set(prev);
       newSet.delete(playerId);
@@ -96,7 +100,7 @@ export default function LineupBuilder({
       <DynamicList maxSize="30rem">
         <Button
           colorScheme="purple"
-          isDisabled={isOutOfMoney}
+          isDisabled={isOutOfMoney || !isTransferWindowOpen}
           isLoading={isLoadingSetLineup}
           width="100%"
           onClick={() => {

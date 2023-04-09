@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Game from "../components/games/Game";
 import LineupBuilder from "../components/myTeam/LineupBuilder";
 import Page from "../components/_layout/Page";
@@ -29,14 +29,7 @@ export default function MyTeam() {
   const getNextGamesResponse = useQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
   const getUserResponse = useQuery<GetUserResponse>(GET_USER);
   const { startLoading, stopLoading } = useGlobalLoading();
-
-  useEffect(() => {
-    if (getNextGamesResponse.loading || getUserResponse.loading) {
-      startLoading();
-    } else {
-      stopLoading();
-    }
-  }, [getNextGamesResponse.loading, getUserResponse.loading]);
+  const [isTransferWindowOpen, setIsTransferWindowOpen] = useState(false);
 
   const isThereGamesAvailable =
     (getNextGamesResponse.data?.nextGames.length ?? 0) > 0;
@@ -44,6 +37,35 @@ export default function MyTeam() {
   const players = getAllPlayersFromGamesArray(
     getNextGamesResponse.data?.nextGames ?? []
   );
+
+  const isCycleBegan =
+    new Date() >
+    new Date(getNextGamesResponse.data?.currentCycle?.fromTime ?? "");
+  console.log(isCycleBegan);
+
+  useEffect(() => {
+    if (getNextGamesResponse.loading || getUserResponse.loading) {
+      startLoading();
+    } else {
+      stopLoading();
+    }
+  }, [
+    getNextGamesResponse.loading,
+    getUserResponse.loading,
+    startLoading,
+    stopLoading,
+  ]);
+
+  useEffect(() => {
+    if (getNextGamesResponse.data?.currentCycle?.fromTime) {
+      setIsTransferWindowOpen(
+        new Date() > new Date(getNextGamesResponse.data?.currentCycle?.fromTime)
+      );
+    }
+  }, [
+    getNextGamesResponse.data?.currentCycle?.fromTime,
+    setIsTransferWindowOpen,
+  ]);
 
   if (getNextGamesResponse.error || getUserResponse.error)
     return <UnexpectedErrorDialog isOpen={true} />;
@@ -87,6 +109,7 @@ export default function MyTeam() {
               )
               ?.players.map((player) => player.playerId) ?? []
           }
+          isTransferWindowOpen={isTransferWindowOpen}
         />
       )}
     </Page>

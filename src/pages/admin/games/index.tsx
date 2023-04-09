@@ -53,9 +53,6 @@ export const getServerSideProps = requireAuth({
       query: GET_GAMES,
     });
 
-    console.log(data);
-    console.log(error);
-
     return {
       props: {
         games: data.games,

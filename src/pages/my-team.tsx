@@ -38,11 +38,6 @@ export default function MyTeam() {
     getNextGamesResponse.data?.nextGames ?? []
   );
 
-  const isCycleBegan =
-    new Date() >
-    new Date(getNextGamesResponse.data?.currentCycle?.fromTime ?? "");
-  console.log(isCycleBegan);
-
   useEffect(() => {
     if (getNextGamesResponse.loading || getUserResponse.loading) {
       startLoading();

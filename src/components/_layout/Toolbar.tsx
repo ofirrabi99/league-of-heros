@@ -29,6 +29,7 @@ import {
 } from "@chakra-ui/icons";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Links } from "../../utils/constants";
+import Image from "next/image";
 
 const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link
@@ -99,12 +100,19 @@ export default function Toolbar() {
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={"center"} justifyContent="flex-start">
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={TOOLBAR_HEIGHT * 4}
+            height={TOOLBAR_HEIGHT * 4}
+          />
+          <HStack
+            spacing={8}
+            alignItems={"center"}
+            justifyContent="flex-start"
+            display={{ base: "none", md: "flex" }}
+          >
+            <HStack as={"nav"} spacing={4}>
               {LinksList}
             </HStack>
           </HStack>

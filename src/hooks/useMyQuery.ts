@@ -19,7 +19,6 @@ export default function useMyQuery<TData = any>(
     if (error) fire();
   }, [error, fire]);
 
-  // TODO - Check this ASAP
   useEffect(() => {
     startLoading();
   }, [startLoading]);

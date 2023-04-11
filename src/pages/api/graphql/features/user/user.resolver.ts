@@ -13,7 +13,6 @@ export class UserResolver {
   @Query((_returns) => [User])
   async users() {
     const users = await this.userService.getAll();
-    console.timeEnd("all");
     return users;
   }
 

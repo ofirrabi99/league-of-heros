@@ -24,11 +24,8 @@ async function dbConnect() {
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.time("all");
-  console.time("db");
   await dbConnect();
-  console.timeEnd("db");
-  console.time("schema");
+
   const schema = await buildSchema({
     container: Container,
     resolvers: [UserResolver, TeamResolver, GameResolver, CycleResolver],
@@ -37,7 +34,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     },
     authChecker: CheckRole,
   });
-  console.timeEnd("schema");
 
   await createYoga({
     schema,

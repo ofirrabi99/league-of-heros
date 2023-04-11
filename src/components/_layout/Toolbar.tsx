@@ -125,6 +125,7 @@ export default function Toolbar() {
                   <Avatar
                     size={"sm"}
                     src={user.picture ?? ""}
+                    name={user.name ?? "profile"}
                     referrerPolicy="no-referrer"
                   />
                 </MenuButton>

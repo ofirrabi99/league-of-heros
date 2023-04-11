@@ -41,14 +41,14 @@ function Game({ game, hideEdit }: Props) {
     <VStack {...card}>
       <HStack>
         <VStack textAlign={"center"}>
-          <Avatar size={"xl"} src={homeTeam.imageUrl} />
+          <Avatar size={"xl"} src={homeTeam.imageUrl} name={homeTeam.name} />
           <Heading fontSize={"2xl"}>{homeTeam.name}</Heading>
         </VStack>
         <VStack>
           <Heading>VS</Heading>
         </VStack>
         <VStack textAlign={"center"}>
-          <Avatar size={"xl"} src={awayTeam.imageUrl} />
+          <Avatar size={"xl"} src={awayTeam.imageUrl} name={awayTeam.name} />
           <Heading fontSize={"2xl"}>{awayTeam.name}</Heading>
         </VStack>
       </HStack>

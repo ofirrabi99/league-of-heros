@@ -1,21 +1,19 @@
 import { Game as GameClass } from "../../api/graphql/features/games/game.model";
 import Game from "../../../components/games/Game";
 import { requireAuth } from "../../../lib/auth0";
-import client from "../../../lib/apolloClient";
 import DynamicList from "../../../components/_shared/DynamicList";
 import Page from "../../../components/_layout/Page";
 import { GET_GAMES } from "../../../queries/game";
 import { Heading } from "@chakra-ui/react";
+import useMyQuery from "../../../hooks/useMyQuery";
 
 interface GetGamesResponse {
   games: GameClass[];
 }
 
-interface Props {
-  games: GetGamesResponse["games"];
-}
-
-export default function AdminGames({ games }: Props) {
+export default function AdminGames() {
+  const { data } = useMyQuery<GetGamesResponse>(GET_GAMES);
+  const games = data?.games ?? [];
   const nextGames = games.filter(
     (game) => new Date(game.time).getTime() > new Date().getTime()
   );
@@ -46,17 +44,4 @@ export default function AdminGames({ games }: Props) {
   );
 }
 
-export const getServerSideProps = requireAuth({
-  async getServerSideProps(_ctx) {
-    // TOOD: Handle error
-    const { data, error } = await client.query<GetGamesResponse>({
-      query: GET_GAMES,
-    });
-
-    return {
-      props: {
-        games: data.games,
-      },
-    };
-  },
-});
+export const getServerSideProps = requireAuth({});

@@ -43,7 +43,11 @@ export default function TeamEdit({ team }: Props) {
   );
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      enableReinitialize
+    >
       {({ values }) => (
         <Form>
           <VStack spacing={3} justifyContent="center" alignItems={"center"}>

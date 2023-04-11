@@ -49,4 +49,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })(req, res);
 }
 
-export default withApiAuthRequired(handler);
+// export default withApiAuthRequired(handler);
+
+export default handler;

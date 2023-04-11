@@ -1,6 +1,6 @@
 import GameEdit from "../../../components/games/GameEdit";
 import Page from "../../../components/_layout/Page";
-import client from "../../../lib/apolloClient";
+import useMyQuery from "../../../hooks/useMyQuery";
 import { requireAuth } from "../../../lib/auth0";
 import { GET_ALL_CYCLES } from "../../../queries/cycle";
 import { GET_TEAMS } from "../../../queries/team";
@@ -15,36 +15,17 @@ interface GetTeamsResponse {
   teams: TeamClass[];
 }
 
-interface Props {
-  teams: GetTeamsResponse["teams"];
-  cycles: GetCyclesResponse["cycles"];
-}
-
-export default function AdminGamesAdd({ teams, cycles }: Props) {
+export default function AdminGamesAdd() {
+  const teamsResponse = useMyQuery<GetTeamsResponse>(GET_TEAMS);
+  const cyclesResponse = useMyQuery<GetCyclesResponse>(GET_ALL_CYCLES);
   return (
     <Page title="Create New League Games Effortlessly">
-      <GameEdit teams={teams} cycles={cycles} />
+      <GameEdit
+        teams={teamsResponse.data?.teams ?? []}
+        cycles={cyclesResponse.data?.cycles ?? []}
+      />
     </Page>
   );
 }
 
-export const getServerSideProps = requireAuth({
-  async getServerSideProps(_ctx) {
-    // TOOD: Handle error
-    const {
-      data: { teams },
-    } = await client.query<GetTeamsResponse>({
-      query: GET_TEAMS,
-    });
-
-    const {
-      data: { cycles },
-    } = await client.query<GetCyclesResponse>({
-      query: GET_ALL_CYCLES,
-    });
-
-    return {
-      props: { teams, cycles },
-    };
-  },
-});
+export const getServerSideProps = requireAuth({});

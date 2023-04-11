@@ -8,14 +8,13 @@ import {
 
 interface Props {
   isLoading: boolean;
-  stopLoading: () => void;
 }
-export default function Loading({ isLoading, stopLoading }: Props) {
+export default function Loading({ isLoading }: Props) {
   return (
     <Modal
       blockScrollOnMount
       isOpen={isLoading}
-      onClose={stopLoading}
+      onClose={() => {}}
       isCentered
       closeOnOverlayClick={false}
     >

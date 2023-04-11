@@ -1,16 +1,14 @@
-import { useQuery } from "@apollo/client";
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Game from "../components/games/Game";
 import LineupBuilder from "../components/myTeam/LineupBuilder";
 import Page from "../components/_layout/Page";
-import UnexpectedErrorDialog from "../components/_layout/UnexpectedErrorDialog";
 import DynamicList from "../components/_shared/DynamicList";
+import useMyQuery from "../hooks/useMyQuery";
 import { requireAuth } from "../lib/auth0";
 import { GET_NEXT_GAMES } from "../queries/game";
 import { GET_USER } from "../queries/user";
-import useGlobalLoading from "../state/useGlobalLoading";
 import { getAllPlayersFromGamesArray } from "../utils/functions";
 import { Cycle } from "./api/graphql/features/cycles/cycle.model";
 import { Game as GameClass } from "./api/graphql/features/games/game.model";
@@ -26,9 +24,8 @@ interface GetUserResponse {
 }
 
 export default function MyTeam() {
-  const getNextGamesResponse = useQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
-  const getUserResponse = useQuery<GetUserResponse>(GET_USER);
-  const { startLoading, stopLoading } = useGlobalLoading();
+  const getNextGamesResponse = useMyQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
+  const getUserResponse = useMyQuery<GetUserResponse>(GET_USER);
   const [isTransferWindowOpen, setIsTransferWindowOpen] = useState(false);
 
   const isThereGamesAvailable =
@@ -37,19 +34,6 @@ export default function MyTeam() {
   const players = getAllPlayersFromGamesArray(
     getNextGamesResponse.data?.nextGames ?? []
   );
-
-  useEffect(() => {
-    if (getNextGamesResponse.loading || getUserResponse.loading) {
-      startLoading();
-    } else {
-      stopLoading();
-    }
-  }, [
-    getNextGamesResponse.loading,
-    getUserResponse.loading,
-    startLoading,
-    stopLoading,
-  ]);
 
   useEffect(() => {
     if (getNextGamesResponse.data?.currentCycle?.fromTime) {
@@ -61,9 +45,6 @@ export default function MyTeam() {
     getNextGamesResponse.data?.currentCycle?.fromTime,
     setIsTransferWindowOpen,
   ]);
-
-  if (getNextGamesResponse.error || getUserResponse.error)
-    return <UnexpectedErrorDialog isOpen={true} />;
 
   return (
     <Page

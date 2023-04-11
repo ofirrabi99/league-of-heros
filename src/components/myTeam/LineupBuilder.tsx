@@ -59,7 +59,7 @@ export default function LineupBuilder({
 
   return (
     <>
-      <Heading>Your Lineup:</Heading>
+      <Heading>Your Lineup</Heading>
       <br />
       {Boolean(chosenPlayers.length) && (
         <>
@@ -122,7 +122,7 @@ export default function LineupBuilder({
       </DynamicList>
       <br />
       <br />
-      <Heading>Available Players:</Heading>
+      <Heading>Available Players</Heading>
       <DynamicList maxSize="10rem">
         {players.map((player) => (
           <PlayerPreview

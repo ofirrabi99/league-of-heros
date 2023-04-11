@@ -30,7 +30,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Toolbar />
-      <Loading isLoading={isLoading} stopLoading={stopLoading} />
+      <Loading isLoading={isLoading()} />
       {children}
       <AreYouSureDialog
         isOpen={areYouSureDialog.isOpen}

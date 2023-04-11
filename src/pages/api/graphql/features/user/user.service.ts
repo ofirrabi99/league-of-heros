@@ -6,7 +6,7 @@ import { LineupInput, UserInput } from "./user.types";
 export class UserService {
   async getAll(): Promise<User[]> {
     return await UserModel.aggregate([
-      { $unwind: "$gameResults" },
+      { $unwind: { path: "$gameResults", preserveNullAndEmptyArrays: true } },
       {
         $addFields: {
           totalScore: {

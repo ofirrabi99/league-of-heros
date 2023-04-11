@@ -10,11 +10,9 @@ interface RequireAuthProps {
 
 export const requireAuth = ({ getServerSideProps }: RequireAuthProps) =>
   withPageAuthRequired({
-    async getServerSideProps(ctx) {
-      injectCookies(ctx.req.headers.cookie);
-
-      if (!getServerSideProps) return { props: {} };
-
-      return getServerSideProps(ctx);
-    },
+    // async getServerSideProps(ctx) {
+    //   injectCookies(ctx.req.headers.cookie);
+    //   if (!getServerSideProps) return { props: {} };
+    //   return getServerSideProps(ctx);
+    // },
   });

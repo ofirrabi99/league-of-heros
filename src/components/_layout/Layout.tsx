@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
       Router.events.off("routeChangeComplete", stopLoading);
       Router.events.off("routeChangeError", stopLoading);
     };
-  }, [Router.events]);
+  }, [Router.events, startLoading, stopLoading]);
 
   return (
     <>

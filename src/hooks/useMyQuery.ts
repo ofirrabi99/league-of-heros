@@ -17,11 +17,12 @@ export default function useMyQuery<TData = any>(
 
   useEffect(() => {
     if (error) fire();
-  }, [error]);
+  }, [error, fire]);
 
+  // TODO - Check this ASAP
   useEffect(() => {
     startLoading();
-  }, []);
+  }, [startLoading]);
 
   return { data, loading, ...restQueryResults };
 }

@@ -26,7 +26,7 @@ async function dbConnect() {
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await dbConnect();
+  // await dbConnect();
 
   const schema = await buildSchema({
     container: Container,

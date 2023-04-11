@@ -37,7 +37,4 @@ export default function Leaderboard() {
   );
 }
 
-// export const getServerSideProps = requireAuth({});
-export const getServerSideProps = () => {
-  return { props: {} };
-};
+export const getServerSideProps = requireAuth({});

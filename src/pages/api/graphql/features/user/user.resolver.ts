@@ -12,9 +12,8 @@ export class UserResolver {
 
   @Query((_returns) => [User])
   async users() {
-    console.time("leaderboard");
     const users = await this.userService.getAll();
-    console.timeEnd("leaderboard");
+    console.timeEnd("all");
     return users;
   }
 

@@ -11,7 +11,6 @@ import { CheckRole } from "./middlewares/CheckRole";
 import { CycleResolver } from "./features/cycles/cycle.resolver";
 
 async function dbConnect() {
-  console.time("db");
   const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable");
@@ -20,18 +19,15 @@ async function dbConnect() {
   mongoose.set("strictQuery", false);
   mongoose.set("runValidators", true);
 
-  if (mongoose.connections[0].readyState) {
-    console.timeEnd("db");
-    return;
-  } else {
-    await mongoose.connect(MONGODB_URI);
-    console.timeEnd("db");
-  }
+  if (mongoose.connections[0].readyState) return;
+  await mongoose.connect(MONGODB_URI);
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.time("all");
+  console.time("db");
   await dbConnect();
-
+  console.timeEnd("db");
   console.time("schema");
   const schema = await buildSchema({
     container: Container,
@@ -49,6 +45,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   })(req, res);
 }
 
-// export default withApiAuthRequired(handler);
-
-export default handler;
+export default withApiAuthRequired(handler);

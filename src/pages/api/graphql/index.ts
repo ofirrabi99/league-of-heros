@@ -11,7 +11,7 @@ import { CheckRole } from "./middlewares/CheckRole";
 import { CycleResolver } from "./features/cycles/cycle.resolver";
 
 async function dbConnect() {
-  console.log("START DB CONNECTION...");
+  console.time("db");
   const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable");
@@ -20,14 +20,19 @@ async function dbConnect() {
   mongoose.set("strictQuery", false);
   mongoose.set("runValidators", true);
 
-  if (mongoose.connections[0].readyState) return;
-  await mongoose.connect(MONGODB_URI);
-  console.log("CREATED NEW DB CONNECTION!");
+  if (mongoose.connections[0].readyState) {
+    console.timeEnd("db");
+    return;
+  } else {
+    await mongoose.connect(MONGODB_URI);
+    console.timeEnd("db");
+  }
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // await dbConnect();
+  await dbConnect();
 
+  console.time("schema");
   const schema = await buildSchema({
     container: Container,
     resolvers: [UserResolver, TeamResolver, GameResolver, CycleResolver],
@@ -36,6 +41,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     },
     authChecker: CheckRole,
   });
+  console.timeEnd("schema");
 
   await createYoga({
     schema,

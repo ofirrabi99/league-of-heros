@@ -38,7 +38,7 @@ export default function MyTeam() {
   useEffect(() => {
     if (getNextGamesResponse.data?.currentCycle?.fromTime) {
       setIsTransferWindowOpen(
-        new Date() > new Date(getNextGamesResponse.data?.currentCycle?.fromTime)
+        new Date() < new Date(getNextGamesResponse.data?.currentCycle?.fromTime)
       );
     }
   }, [

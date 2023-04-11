@@ -67,6 +67,7 @@ export const GET_NEXT_GAMES = gql`
   query nextGames {
     currentCycle {
       _id
+      fromTime
     }
     nextGames {
       _id

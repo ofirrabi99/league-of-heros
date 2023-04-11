@@ -66,8 +66,12 @@ export class UserService {
     user.gameResults = user.gameResults.filter(
       (game) => game.cycle !== input.cycle
     );
-
-    user.gameResults.push({ cycle: input.cycle, players: input.players });
+    user.gameResults.push({
+      cycle: input.cycle,
+      players: Array.from(
+        new Set(input.players.map((player) => player.playerId))
+      ).map((playerId) => ({ playerId, score: 0 })),
+    });
     user.name = userName;
 
     return user.save();

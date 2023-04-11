@@ -1,4 +1,6 @@
 import { Service } from "typedi";
+import { CycleModel } from "../cycles/cycle.model";
+import { PlayerModel } from "../player/player.model";
 import { User, UserModel } from "./user.model";
 import { LineupInput, UserInput } from "./user.types";
 
@@ -61,6 +63,18 @@ export class UserService {
     userName: string
   ): Promise<User> {
     let user = (await UserModel.findOne({ subId })) ?? new UserModel({ subId });
+
+    const cycle = await CycleModel.findById(input.cycle);
+    if (!cycle) throw new Error("cycle is not exists");
+
+    const players = await PlayerModel.find({
+      _id: { $in: input.players.map((player) => player.playerId) },
+    });
+    const playersCost = players.reduce(
+      (prev, player) => prev + player.price,
+      0
+    );
+    if (playersCost > cycle.budget) throw new Error("players cost over budget");
 
     if (!user.gameResults) user.gameResults = [];
     user.gameResults = user.gameResults.filter(

@@ -5,6 +5,7 @@ import GameCycleFormDialog from "../../components/gameCycle/GameCycleFormDialog"
 import Page from "../../components/_layout/Page";
 import useAddCycle from "../../hooks/cycles/useAddCycle";
 import useDeleteCycle from "../../hooks/cycles/useDeleteCycle";
+import useMyQuery from "../../hooks/useMyQuery";
 import { requireAuth } from "../../lib/auth0";
 import { GET_ALL_CYCLES } from "../../queries/cycle";
 import { Cycle } from "../api/graphql/features/cycles/cycle.model";
@@ -15,8 +16,7 @@ interface GetCyclesResponse {
 }
 
 export default function GameCycle() {
-  const { data, loading, refetch } =
-    useQuery<GetCyclesResponse>(GET_ALL_CYCLES);
+  const { data, refetch } = useMyQuery<GetCyclesResponse>(GET_ALL_CYCLES);
 
   const gameCycleDialogProps = useDisclosure();
   const { addCycle, isLoadingAddCycle } = useAddCycle({
@@ -31,7 +31,7 @@ export default function GameCycle() {
     });
   };
 
-  const { deleteCycle, isLoadingDeleteCycle } = useDeleteCycle({
+  const { deleteCycle } = useDeleteCycle({
     onSuccessCallback: () => {
       refetch();
     },
@@ -57,11 +57,7 @@ export default function GameCycle() {
         {...gameCycleDialogProps}
       />
 
-      <CyclesList
-        cycles={data?.cycles}
-        isLoading={loading}
-        onDeleteCycle={onDeleteCycle}
-      />
+      <CyclesList cycles={data?.cycles ?? []} onDeleteCycle={onDeleteCycle} />
     </Page>
   );
 }

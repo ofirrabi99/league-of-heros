@@ -14,12 +14,14 @@ import GameCycleForm from "./GameCycleForm";
 
 interface FormContext {
   name: string;
+  budget: number;
   fromTime: string;
   toTime: string;
 }
 
 const initialValues: FormContext = {
   name: "",
+  budget: 100,
   fromTime: "",
   toTime: "",
 };

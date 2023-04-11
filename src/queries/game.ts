@@ -65,9 +65,12 @@ export const GET_GAMES = gql`
 
 export const GET_NEXT_GAMES = gql`
   query nextGames {
+    nextCycle {
+      _id
+      budget
+    }
     currentCycle {
       _id
-      fromTime
     }
     nextGames {
       _id

@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import Game from "../components/games/Game";
 import LineupBuilder from "../components/myTeam/LineupBuilder";
 import Page from "../components/_layout/Page";
@@ -16,6 +15,7 @@ import { User } from "./api/graphql/features/user/user.model";
 
 interface GetNextGamesResponse {
   nextGames: GameClass[];
+  nextCycle: Cycle | null;
   currentCycle: Cycle | null;
 }
 
@@ -26,7 +26,9 @@ interface GetUserResponse {
 export default function MyTeam() {
   const getNextGamesResponse = useMyQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
   const getUserResponse = useMyQuery<GetUserResponse>(GET_USER);
-  const [isTransferWindowOpen, setIsTransferWindowOpen] = useState(false);
+  const isTransferWindowOpen = Boolean(
+    !getNextGamesResponse.data?.currentCycle
+  );
 
   const isThereGamesAvailable =
     (getNextGamesResponse.data?.nextGames.length ?? 0) > 0;
@@ -34,17 +36,6 @@ export default function MyTeam() {
   const players = getAllPlayersFromGamesArray(
     getNextGamesResponse.data?.nextGames ?? []
   );
-
-  useEffect(() => {
-    if (getNextGamesResponse.data?.currentCycle?.fromTime) {
-      setIsTransferWindowOpen(
-        new Date() < new Date(getNextGamesResponse.data?.currentCycle?.fromTime)
-      );
-    }
-  }, [
-    getNextGamesResponse.data?.currentCycle?.fromTime,
-    setIsTransferWindowOpen,
-  ]);
 
   return (
     <Page
@@ -75,16 +66,17 @@ export default function MyTeam() {
       )}
       {isThereGamesAvailable && (
         <LineupBuilder
-          cycleId={getNextGamesResponse.data?.currentCycle?._id ?? ""}
+          cycleId={getNextGamesResponse.data?.nextCycle?._id}
           players={players}
           userChosenPlayers={
             getUserResponse.data?.user?.gameResults
               ?.find(
                 (game) =>
-                  game.cycle === getNextGamesResponse.data?.currentCycle?._id
+                  game.cycle === getNextGamesResponse.data?.nextCycle?._id
               )
               ?.players.map((player) => player.playerId) ?? []
           }
+          budget={getNextGamesResponse.data?.nextCycle?.budget ?? 0}
           isTransferWindowOpen={isTransferWindowOpen}
         />
       )}

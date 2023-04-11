@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 const cycleProps = `
 _id
 name
+budget
 fromTime
 toTime`;
 

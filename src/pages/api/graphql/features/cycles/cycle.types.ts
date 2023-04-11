@@ -10,6 +10,9 @@ export class CycleInput implements Partial<Cycle> {
   name!: string;
 
   @Field()
+  budget!: number;
+
+  @Field()
   fromTime!: Date;
 
   @Field()

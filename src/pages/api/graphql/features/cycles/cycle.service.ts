@@ -9,10 +9,21 @@ export class CycleService {
     return await CycleModel.find();
   }
 
+  async getNextCycle(): Promise<Cycle | null> {
+    const nextCycle = await CycleModel.findOne({
+      fromTime: { $gt: new Date() },
+    }).sort("toTime");
+
+    return nextCycle;
+  }
+
   async getCurrentCycle(): Promise<Cycle | null> {
     const currentCycle = await CycleModel.findOne({
-      toTime: { $gt: new Date() },
-    }).sort("toTime");
+      $and: [
+        { fromTime: { $lt: new Date() } },
+        { toTime: { $gt: new Date() } },
+      ],
+    });
 
     return currentCycle;
   }
@@ -21,6 +32,7 @@ export class CycleService {
     const newCycle = new CycleModel();
 
     newCycle.name = cycle.name;
+    newCycle.budget = cycle.budget;
     newCycle.fromTime = cycle.fromTime;
     newCycle.toTime = cycle.toTime;
 

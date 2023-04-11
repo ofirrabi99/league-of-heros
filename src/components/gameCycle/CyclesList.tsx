@@ -4,19 +4,11 @@ import Alertify from "../_shared/Alertify";
 import CyclePreview from "./CyclePreview";
 
 interface Props {
-  cycles: Cycle[] | undefined;
-  isLoading: boolean;
+  cycles: Cycle[];
   onDeleteCycle: (cycleId: Cycle["_id"]) => void;
 }
-export default function CyclesList({
-  cycles,
-  isLoading,
-  onDeleteCycle,
-}: Props) {
-  if (isLoading)
-    return <Progress size="md" isIndeterminate colorScheme="purple" />;
-  else if (!cycles) return <Alertify status="error">An error</Alertify>;
-  else if (!cycles.length) return <Alertify>No cycles yet created</Alertify>;
+export default function CyclesList({ cycles, onDeleteCycle }: Props) {
+  if (!cycles.length) return <Alertify>No cycles yet created</Alertify>;
   else
     return (
       <Grid gap={2} gridTemplateColumns="repeat(auto-fit, minmax(20rem, 1fr))">

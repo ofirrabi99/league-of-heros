@@ -86,7 +86,34 @@ export default function GameEdit({ teams, cycles }: Props) {
 
             <FormControl isRequired width="auto">
               <FormLabel htmlFor="time">Time</FormLabel>
-              <Field as={Input} name="time" type="datetime-local" />
+              <Field
+                as={Input}
+                isDisabled={Boolean(!values.cycle)}
+                name="time"
+                type="datetime-local"
+                min={
+                  values.cycle
+                    ? new Date(
+                        cycles.find((cycle) => cycle._id === values.cycle)
+                          ?.fromTime ?? new Date()
+                      )
+                        .toLocaleString("sv")
+                        .split(" ")
+                        .join("T")
+                    : undefined
+                }
+                max={
+                  values.cycle
+                    ? new Date(
+                        cycles.find((cycle) => cycle._id === values.cycle)
+                          ?.toTime ?? new Date()
+                      )
+                        .toLocaleString("sv")
+                        .split(" ")
+                        .join("T")
+                    : undefined
+                }
+              />
             </FormControl>
 
             <Button

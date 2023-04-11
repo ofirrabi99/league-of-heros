@@ -5,7 +5,7 @@ import useUnexpectedErrorDialog from "../state/useUnexpectedErrorDialog";
 
 export default function useMyQuery<TData = any>(query: DocumentNode) {
   const { startLoading, stopLoading } = useGlobalLoading();
-  const { data, loading, error } = useQuery<TData>(query, {
+  const { data, loading, error, ...restQueryResults } = useQuery<TData>(query, {
     onCompleted: stopLoading,
     onError: stopLoading,
   });
@@ -19,5 +19,5 @@ export default function useMyQuery<TData = any>(query: DocumentNode) {
     startLoading();
   }, []);
 
-  return { data, loading };
+  return { data, loading, ...restQueryResults };
 }

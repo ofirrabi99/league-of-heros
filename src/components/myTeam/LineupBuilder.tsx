@@ -11,14 +11,16 @@ import Progressify from "../_shared/Progressify";
 interface Props {
   userChosenPlayers: Player["_id"][];
   players: Player[];
-  cycleId: Cycle["_id"];
+  cycleId?: Cycle["_id"];
   isTransferWindowOpen: boolean;
+  budget: number;
 }
 export default function LineupBuilder({
   userChosenPlayers,
   players,
   cycleId,
   isTransferWindowOpen,
+  budget,
 }: Props) {
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
     new Set()
@@ -34,22 +36,17 @@ export default function LineupBuilder({
     setChosenPlayersId(new Set(userChosenPlayers));
   }, [userChosenPlayers]);
 
-  // TODO - set on admin page
-  const maxLineupCost = 100;
   const lineupCost = chosenPlayers.reduce(
     (prev, current) => prev + current.price,
     0
   );
-  // TODO - Check on server also
-  const isOutOfMoney = maxLineupCost < lineupCost;
+  const isOutOfMoney = budget < lineupCost;
 
   const addPlayer = (playerId: Player["_id"]) => {
-    if (!isTransferWindowOpen) return;
     setChosenPlayersId((prev) => new Set([...prev, playerId]));
   };
 
   const removePlayer = (playerId: Player["_id"]) => {
-    if (!isTransferWindowOpen) return;
     setChosenPlayersId((prev) => {
       const newSet = new Set(prev);
       newSet.delete(playerId);
@@ -71,12 +68,12 @@ export default function LineupBuilder({
           <DynamicList maxSize="30rem">
             <Progressify
               value={lineupCost}
-              max={maxLineupCost}
+              max={budget}
               colorScheme={isOutOfMoney ? "red" : "yellow"}
             >
               {isOutOfMoney &&
                 `Money's tight, it's time to cut some players and set things right`}
-              {!isOutOfMoney && `${maxLineupCost - lineupCost}$ left`}
+              {!isOutOfMoney && `${budget - lineupCost}$ left`}
             </Progressify>
           </DynamicList>
           <br />
@@ -97,42 +94,46 @@ export default function LineupBuilder({
           />
         ))}
       </DynamicList>
-      <DynamicList maxSize="30rem">
-        <Button
-          colorScheme="purple"
-          isDisabled={isOutOfMoney || !isTransferWindowOpen}
-          isLoading={isLoadingSetLineup}
-          width="100%"
-          onClick={() => {
-            setLineup({
-              variables: {
-                lineup: {
-                  cycle: cycleId,
-                  players: Array.from(chosenPlayersId).map((player) => ({
-                    playerId: player,
-                    score: 0,
-                  })),
-                },
-              },
-            });
-          }}
-        >
-          SAVE LINEUP
-        </Button>
-      </DynamicList>
-      <br />
-      <br />
-      <Heading>Available Players</Heading>
-      <DynamicList maxSize="10rem">
-        {players.map((player) => (
-          <PlayerPreview
-            key={player._id}
-            player={player}
-            onClick={addPlayer}
-            picked={chosenPlayersId.has(player._id)}
-          />
-        ))}
-      </DynamicList>
+      {isTransferWindowOpen && (
+        <>
+          <DynamicList maxSize="30rem">
+            <Button
+              colorScheme="purple"
+              isDisabled={isOutOfMoney}
+              isLoading={isLoadingSetLineup}
+              width="100%"
+              onClick={() => {
+                setLineup({
+                  variables: {
+                    lineup: {
+                      cycle: cycleId,
+                      players: Array.from(chosenPlayersId).map((player) => ({
+                        playerId: player,
+                        score: 0,
+                      })),
+                    },
+                  },
+                });
+              }}
+            >
+              SAVE LINEUP
+            </Button>
+          </DynamicList>
+          <br />
+          <br />
+          <Heading>Available Players</Heading>
+          <DynamicList maxSize="10rem">
+            {players.map((player) => (
+              <PlayerPreview
+                key={player._id}
+                player={player}
+                onClick={addPlayer}
+                picked={chosenPlayersId.has(player._id)}
+              />
+            ))}
+          </DynamicList>
+        </>
+      )}
     </>
   );
 }

@@ -8,6 +8,10 @@ export default function GameCycleForm() {
         <FormLabel htmlFor="name">Cycle Name</FormLabel>
         <Field as={Input} name="name" placeholder="ex: Cup Final" />
       </FormControl>
+      <FormControl isRequired>
+        <FormLabel htmlFor="budget">Budget</FormLabel>
+        <Field as={Input} name="budget" type="number" />
+      </FormControl>
       <Grid
         width="100%"
         gap={2}

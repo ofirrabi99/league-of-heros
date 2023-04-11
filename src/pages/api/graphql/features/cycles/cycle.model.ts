@@ -1,5 +1,4 @@
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import type { Ref } from "@typegoose/typegoose";
 import { Field as GQLField, ID, ObjectType as GQLType } from "type-graphql";
 
 @GQLType()
@@ -10,6 +9,10 @@ export class Cycle {
   @GQLField()
   @Property({ required: true })
   name!: string;
+
+  @GQLField()
+  @Property({ required: true })
+  budget!: number;
 
   @GQLField((_type) => Date)
   @Property({ required: true })

@@ -28,6 +28,9 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
     <Card align="center" size="sm">
       <CardHeader>
         <Heading size="md">{cycle.name}</Heading>
+        <Text fontSize="xl" textAlign={"center"}>
+          {cycle.budget}$
+        </Text>
       </CardHeader>
       <CardBody textAlign={"center"}>
         <Text>{new Date(cycle.fromTime).toLocaleString()}</Text>

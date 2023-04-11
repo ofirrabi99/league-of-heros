@@ -15,6 +15,11 @@ export class CycleResolver {
   }
 
   @Query((_returns) => Cycle, { nullable: true })
+  nextCycle() {
+    return this.cycleService.getNextCycle();
+  }
+
+  @Query((_returns) => Cycle, { nullable: true })
   currentCycle() {
     return this.cycleService.getCurrentCycle();
   }

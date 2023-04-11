@@ -6,7 +6,6 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-// TODO: change cache logic
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: "no-cache",

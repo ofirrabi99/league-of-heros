@@ -30,12 +30,7 @@ export default function useSetTeam({ isInEditMode }: Props) {
   const {
     action: setTeam,
     options: { loading: isLoadingSetTeam },
-  } = useMyMutation(
-    SET_TEAM,
-    onSuccess,
-    // TODO - handle duplicate team name
-    onError
-  );
+  } = useMyMutation(SET_TEAM, onSuccess, onError);
 
   return { setTeam, isLoadingSetTeam };
 }

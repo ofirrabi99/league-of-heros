@@ -29,14 +29,19 @@ export class UserService {
           _id: "$_id",
           doc: { $first: "$$ROOT" },
           gameResults: { $push: "$gameResults" },
-          sum: {
+          totalScore: {
             $sum: "$totalScore",
           },
         },
       },
       {
         $replaceRoot: {
-          newRoot: { $mergeObjects: ["$doc", { gameResults: "$gameResults" }] },
+          newRoot: {
+            $mergeObjects: [
+              "$doc",
+              { gameResults: "$gameResults", totalScore: "$totalScore" },
+            ],
+          },
         },
       },
       {

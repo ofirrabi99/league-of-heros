@@ -35,14 +35,12 @@ export class GameService {
   }
 
   async setGame(input: GameInput): Promise<Game> {
-    // TODO: Look best practices for exceptions
     if (input.awayTeam === input.homeTeam)
       throw new Error("Identical teams provided");
 
     const homeTeam = await TeamModel.findOne({ _id: input.homeTeam });
     const awayTeam = await TeamModel.findOne({ _id: input.awayTeam });
 
-    // TODO: Look best practices for exceptions
     if (!homeTeam) throw new Error("homeTeam is not exists");
     if (!awayTeam) throw new Error("awayTeam is not exists");
 
@@ -66,13 +64,11 @@ export class GameService {
     gameId: string
   ): Promise<GameResult> {
     const game = await GameModel.findOne({ _id: gameId });
-    // TODO: Look best practices for exceptions
     if (!game) throw new Error("game is not exists");
 
     game!.result = gameResult;
     await game.save();
 
-    // TODO - change to one query only
     for (const playerScore of gameResult.players) {
       await UserModel.updateMany(
         {},

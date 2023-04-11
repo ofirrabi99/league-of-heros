@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import CyclesList from "../../components/gameCycle/CyclesList";
 import GameCycleFormDialog from "../../components/gameCycle/GameCycleFormDialog";

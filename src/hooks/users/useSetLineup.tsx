@@ -21,12 +21,7 @@ export default function useSetLineup() {
   const {
     action: setLineup,
     options: { loading: isLoadingSetLineup },
-  } = useMyMutation(
-    SET_LINEUP,
-    onSuccess,
-    // TODO - handle error
-    onError
-  );
+  } = useMyMutation(SET_LINEUP, onSuccess, onError);
 
   return { setLineup, isLoadingSetLineup };
 }

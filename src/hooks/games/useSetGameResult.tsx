@@ -21,12 +21,7 @@ export default function useSetGameResult() {
   const {
     action: setGameResult,
     options: { loading: isLoadingSetGameResult },
-  } = useMyMutation(
-    SET_GAME_RESULT,
-    onSuccess,
-    // TODO - handle error
-    onError
-  );
+  } = useMyMutation(SET_GAME_RESULT, onSuccess, onError);
 
   return { setGameResult, isLoadingSetGameResult };
 }

@@ -22,7 +22,6 @@ export class PlayerService {
   async setPlayer(input: PlayerInput): Promise<Player> {
     const team = await TeamModel.findOne({ _id: input.team });
 
-    // TODO: Look best practices for exceptions
     if (!team) throw new Error("Team is not exists");
 
     let player =

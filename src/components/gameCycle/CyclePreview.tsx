@@ -27,7 +27,9 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
   return (
     <Card align="center" size="sm">
       <CardHeader>
-        <Heading size="md">{cycle.name}</Heading>
+        <Heading size="md" textAlign={"center"}>
+          {cycle.name}
+        </Heading>
         <Text fontSize="xl" textAlign={"center"}>
           {cycle.budget}$
         </Text>

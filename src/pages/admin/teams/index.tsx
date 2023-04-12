@@ -13,7 +13,7 @@ interface GetTeamsResponse {
 export default function AdminTeams() {
   const { data } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
   return (
-    <Page title="Control Your Teams with Ease">
+    <Page title="Teams">
       <DynamicList maxSize="20rem">
         {data?.teams.map((team) => (
           <Team key={team._id} team={team} />

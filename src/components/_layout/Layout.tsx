@@ -1,4 +1,3 @@
-import Toolbar from "./Toolbar";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import useUnexpectedErrorDialog from "../../state/useUnexpectedErrorDialog";
 import AreYouSureDialog from "./AreYouSureDialog";
@@ -7,6 +6,9 @@ import Loading from "./Loading";
 import { useEffect } from "react";
 import Router from "next/router";
 import useGlobalLoading from "../../state/useGlobalLoading";
+import SidebarWithHeader from "./Sidebar";
+import "nprogress/nprogress.css";
+import NProgress from "nprogress";
 
 interface Props {
   children: React.ReactNode;
@@ -15,8 +17,10 @@ interface Props {
 export default function Layout({ children }: Props) {
   const areYouSureDialog = useAreYouSureDialog();
   const uexpectedErrorDialog = useUnexpectedErrorDialog();
-  const { isLoading, startLoading, stopLoading } = useGlobalLoading();
+  const { isLoading } = useGlobalLoading();
   useEffect(() => {
+    const startLoading = () => NProgress.start();
+    const stopLoading = () => NProgress.done();
     Router.events.on("routeChangeStart", startLoading);
     Router.events.on("routeChangeComplete", stopLoading);
     Router.events.on("routeChangeError", stopLoading);
@@ -25,13 +29,12 @@ export default function Layout({ children }: Props) {
       Router.events.off("routeChangeComplete", stopLoading);
       Router.events.off("routeChangeError", stopLoading);
     };
-  }, [startLoading, stopLoading]);
+  }, []);
 
   return (
     <>
-      <Toolbar />
       <Loading isLoading={isLoading()} />
-      {children}
+      <SidebarWithHeader>{children}</SidebarWithHeader>
       <AreYouSureDialog
         isOpen={areYouSureDialog.isOpen}
         onClose={areYouSureDialog.onClose}

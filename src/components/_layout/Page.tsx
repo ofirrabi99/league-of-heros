@@ -9,8 +9,8 @@ interface Props {
 
 export default function Page({ title, children, subTitle }: Props) {
   return (
-    <Box p={4}>
-      <Box p={2}>
+    <Box>
+      <Box py={2}>
         {!!title && <Heading textAlign={"center"}>{title}</Heading>}
         {!!subTitle && (
           <Text fontSize="xl" textAlign={"center"}>

@@ -5,6 +5,7 @@ import { GET_TEAMS } from "../../../queries/team";
 import DynamicList from "../../../components/_shared/DynamicList";
 import Page from "../../../components/_layout/Page";
 import useMyQuery from "../../../hooks/useMyQuery";
+import EmptyState from "../../../components/_shared/EmptyState";
 
 interface GetTeamsResponse {
   teams: TeamClass[];
@@ -13,7 +14,8 @@ interface GetTeamsResponse {
 export default function AdminTeams() {
   const { data } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
   return (
-    <Page title="Teams">
+    <Page>
+      <EmptyState />
       <DynamicList maxSize="20rem">
         {data?.teams.map((team) => (
           <Team key={team._id} team={team} />

@@ -21,7 +21,6 @@ import {
   MenuItem,
   MenuList,
   useColorMode,
-  ColorModeContextType,
   ColorMode,
   Button,
   Spinner,
@@ -33,7 +32,7 @@ import {
   SunIcon,
   UnlockIcon,
 } from "@chakra-ui/icons";
-import { UserContext, UserProfile, useUser } from "@auth0/nextjs-auth0/client";
+import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
 import NextLink from "next/link";
 import Image from "next/image";
 

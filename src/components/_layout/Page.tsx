@@ -10,14 +10,16 @@ interface Props {
 export default function Page({ title, children, subTitle }: Props) {
   return (
     <Box>
-      <Box py={2}>
-        {!!title && <Heading textAlign={"center"}>{title}</Heading>}
-        {!!subTitle && (
-          <Text fontSize="xl" textAlign={"center"}>
-            {subTitle}
-          </Text>
-        )}
-      </Box>
+      {(!!title || !!subTitle) && (
+        <Box py={2}>
+          {!!title && <Heading textAlign={"center"}>{title}</Heading>}
+          {!!subTitle && (
+            <Text fontSize="xl" textAlign={"center"}>
+              {subTitle}
+            </Text>
+          )}
+        </Box>
+      )}
       <DynamicList maxSize="75rem">{children}</DynamicList>
     </Box>
   );

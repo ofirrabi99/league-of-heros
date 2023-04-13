@@ -5,11 +5,12 @@ export default function EmptyState() {
     <VStack
       textAlign="center"
       gap={4}
-      //   position="absolute"
-      //   top="50%"
-      //   left="50%"
-      //   transform="translateY(-50%) translateX(-50%)"
-      //   //   padding={4}
+      position="absolute"
+      top="50%"
+      left="50%"
+      transform="translateY(-50%) translateX(-50%)"
+      width="100%"
+      padding={4}
     >
       <Text fontSize="2xl" fontWeight="bold">
         Start building your teams!

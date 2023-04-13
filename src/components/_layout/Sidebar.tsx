@@ -98,8 +98,11 @@ export default function SidebarWithHeader({
         user={user}
         isLoadingUser={isLoadingUser}
       />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
+      <Box ml={{ base: 0, md: 60 }} p="4" minH="100dvh" position="relative">
+        <>
+          <Box h={20}></Box>
+          {children}
+        </>
       </Box>
     </Box>
   );
@@ -207,6 +210,11 @@ const MobileNav = ({
       borderBottomWidth="1px"
       borderBottomColor={"transparent"}
       justifyContent={{ base: "space-between", md: "flex-end" }}
+      position="fixed"
+      right={0}
+      width="-webkit-fill-available"
+      zIndex={1}
+      bg={useColorModeValue("gray.100", "gray.900")}
       {...rest}
     >
       <IconButton

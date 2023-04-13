@@ -16,8 +16,8 @@ export default function EmptyState() {
         Start building your teams!
       </Text>
       <Text fontSize="lg">
-        Before we can create games, we'll first need to add all our league teams
-        to the system.
+        Before we can create games, we will first need to add all our league
+        teams to the system.
       </Text>
       <Button colorScheme="purple">Add Your First Team</Button>
     </VStack>

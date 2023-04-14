@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import {
   IconButton,
   Avatar,
@@ -35,6 +35,7 @@ import {
 import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
 import NextLink from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const SIDEBAR_WIDTH = 60;
 
@@ -57,6 +58,7 @@ export default function SidebarWithHeader({
 }: {
   children: ReactNode;
 }) {
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { user, isLoading: isLoadingUser } = useUser();
@@ -68,6 +70,10 @@ export default function SidebarWithHeader({
       !link.roles?.length ||
       Boolean(link.roles.find((role) => userRoles.includes(role)))
   );
+
+  useEffect(() => {
+    onClose();
+  }, [router.asPath]);
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>

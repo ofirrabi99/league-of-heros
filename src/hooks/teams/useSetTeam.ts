@@ -18,7 +18,7 @@ export default function useSetTeam({ isInEditMode }: Props) {
         title: "Team has been updated in the system!",
         status: "success",
       });
-      if (!isInEditMode) router.push(`/admin/teams/${data.setTeam._id}`);
+      router.push(`/admin/teams`);
     },
     [toast, isInEditMode, router]
   );

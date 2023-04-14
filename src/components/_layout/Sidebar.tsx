@@ -45,7 +45,6 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Admin - Teams", href: "/admin/teams", roles: ["Admin"] },
-  { name: "Admin - Add Team", href: "/admin/teams/add", roles: ["Admin"] },
   { name: "Admin - Games", href: "/admin/games", roles: ["Admin"] },
   { name: "Admin - Add Game", href: "/admin/games/add", roles: ["Admin"] },
   { name: "Admin - Game Cycle", href: "/admin/game-cycle", roles: ["Admin"] },

@@ -61,9 +61,9 @@ export default function TeamEdit({ team }: Props) {
               <Field as={Input} name="imageUrl" placeholder="https://" />
             </FormControl>
 
-            <h2>Players:</h2>
+            <FormLabel>Players</FormLabel>
             <FieldArray name="players" validateOnChange>
-              {({ push }) => (
+              {({ push, remove }) => (
                 <>
                   <DynamicList maxSize="15rem">
                     {values.players.map((player, playerIndex) => (
@@ -71,12 +71,13 @@ export default function TeamEdit({ team }: Props) {
                         index={playerIndex}
                         key={playerIndex}
                         player={player}
+                        remove={remove}
                       />
                     ))}
                   </DynamicList>
 
                   <Button
-                    colorScheme="green"
+                    colorScheme="blue"
                     onClick={() => {
                       const newPlayer: PlayerInput = {
                         name: "",
@@ -98,7 +99,7 @@ export default function TeamEdit({ team }: Props) {
               colorScheme="purple"
               isLoading={isLoadingSetTeam}
             >
-              {isInEditMode ? "UPDATE" : "ADD"} TEAM
+              {isInEditMode ? "UPDATE" : "CREATE"} TEAM
             </Button>
           </VStack>
         </Form>

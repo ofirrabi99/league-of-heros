@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Fade,
   Image,
   Input,
   Stat,
@@ -38,8 +37,8 @@ export default function PlayerPreview({
       cursor="pointer"
       onClick={onClick ? () => onClick(_id) : undefined}
     >
-      <VStack mb={2} alignItems="flex-start">
-        <Image src={imageUrl} objectFit="cover" alt={name} />
+      <VStack alignItems="flex-start">
+        <Image src={imageUrl} width={150} alt={name} />
         <Box>
           <Stat>
             <StatLabel>{name}</StatLabel>

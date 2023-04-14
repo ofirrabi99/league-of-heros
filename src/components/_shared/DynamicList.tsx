@@ -10,7 +10,7 @@ export default function DynamicList({ maxSize, children }: Props) {
     <Grid
       templateColumns={`repeat(auto-fit, minmax(min-content, ${maxSize}))`}
       gap={2}
-      justifyContent="center"
+      justifyContent={{ base: "center", md: "start" }}
       width={"100%"}
     >
       {children}

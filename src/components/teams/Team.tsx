@@ -1,4 +1,13 @@
-import { Avatar, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Heading,
+  HStack,
+  VStack,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { memo, useCallback } from "react";
 import useDeleteTeam from "../../hooks/teams/useDeleteTeam";
@@ -31,16 +40,19 @@ function Team({ team }: Props) {
   }, [team._id, router]);
 
   return (
-    <VStack>
-      <Avatar size={"xl"} src={team.imageUrl} />
-      <Heading fontSize={"2xl"}>{team.name}</Heading>
-      <HStack>
+    <Card>
+      <CardBody>
+        <VStack>
+          <Avatar size={"xl"} src={team.imageUrl} />
+          <Heading fontSize={"2xl"}>{team.name}</Heading>
+        </VStack>
+      </CardBody>
+      <CardFooter display="flex" gap={2}>
         <Button
           onClick={handleDeleteClick}
           colorScheme="red"
           flex={1}
           fontSize={"sm"}
-          rounded={"full"}
           isLoading={isLoadingDeleteTeam}
         >
           Delete
@@ -50,12 +62,11 @@ function Team({ team }: Props) {
           colorScheme="purple"
           flex={1}
           fontSize={"sm"}
-          rounded={"full"}
         >
           Edit
         </Button>
-      </HStack>
-    </VStack>
+      </CardFooter>
+    </Card>
   );
 }
 

@@ -4,7 +4,7 @@ import { requireAuth } from "../../../lib/auth0";
 
 export default function AdminTeamsAdd() {
   return (
-    <Page title="Create New Basketball Teams Effortlessly">
+    <Page title="Add New Team" subTitle="Set team name, logo and players">
       <TeamEdit />
     </Page>
   );

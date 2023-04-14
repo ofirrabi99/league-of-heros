@@ -12,12 +12,8 @@ export default function Page({ title, children, subTitle }: Props) {
     <Box>
       {(!!title || !!subTitle) && (
         <Box py={2}>
-          {!!title && <Heading textAlign={"center"}>{title}</Heading>}
-          {!!subTitle && (
-            <Text fontSize="xl" textAlign={"center"}>
-              {subTitle}
-            </Text>
-          )}
+          {!!title && <Heading>{title}</Heading>}
+          {!!subTitle && <Text fontSize="xl">{subTitle}</Text>}
         </Box>
       )}
       <DynamicList maxSize="75rem">{children}</DynamicList>

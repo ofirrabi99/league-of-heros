@@ -19,12 +19,18 @@ export default function AdminTeams() {
   const router = useRouter();
   const { data } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
 
+  const isEmptyState = data?.teams.length === 0;
+
   const goToTeamAdd = useCallback(() => {
     router.push("/admin/teams/add");
   }, [router]);
   return (
-    <Page title="Teams" subTitle="Create and manage teams.">
-      {data?.teams.length === 0 && (
+    <Page
+      title="Teams"
+      subTitle="Create and manage teams."
+      hideHeader={isEmptyState}
+    >
+      {isEmptyState && (
         <EmptyPageState
           title="Start building your teams!"
           description="Before we can create games, we will first need to add all our league
@@ -33,7 +39,7 @@ export default function AdminTeams() {
           onClick={goToTeamAdd}
         />
       )}
-      {data?.teams.length !== 0 && (
+      {!isEmptyState && (
         <>
           <Button
             size="lg"

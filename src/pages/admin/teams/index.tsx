@@ -50,6 +50,8 @@ export default function AdminTeams() {
           >
             Create New Team
           </Button>
+          <br />
+          <br />
           <DynamicList maxSize="20rem">
             {data?.teams.map((team) => (
               <Team key={team._id} team={team} />

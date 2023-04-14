@@ -50,7 +50,7 @@ export default function TeamEdit({ team }: Props) {
     >
       {({ values }) => (
         <Form>
-          <VStack spacing={3} justifyContent="center" alignItems={"center"}>
+          <VStack spacing={3} alignItems={{ base: "center", md: "start" }}>
             <FormControl isRequired width="auto">
               <FormLabel htmlFor="name">Team Name</FormLabel>
               <Field as={Input} name="name" placeholder="San Antonio Spurs" />

@@ -88,21 +88,6 @@ export default function Player({ index, player, remove }: Props) {
         </Center>
       </CardBody>
       <CardFooter justify="space-around">
-        {/* <Accordion allowToggle>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  Show Preview
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel>
-              <PlayerPreview player={player as PlayerClass} />
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion> */}
         <Popover isLazy>
           <PopoverTrigger>
             <Button variant="solid" colorScheme="blue">

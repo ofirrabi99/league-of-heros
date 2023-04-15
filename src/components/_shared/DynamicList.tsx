@@ -1,4 +1,5 @@
 import { Grid } from "@chakra-ui/react";
+import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
 
 interface Props {
   maxSize: string;
@@ -6,12 +7,14 @@ interface Props {
 }
 
 export default function DynamicList({ maxSize, children }: Props) {
+  const { justifyContent } = useBreakpointsAlign();
+
   return (
     <Grid
       templateColumns={`repeat(auto-fit, minmax(min-content, ${maxSize}))`}
       gap={2}
-      justifyContent={{ base: "center", md: "start" }}
       width={"100%"}
+      justifyContent={justifyContent}
     >
       {children}
     </Grid>

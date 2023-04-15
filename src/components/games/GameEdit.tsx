@@ -116,11 +116,7 @@ export default function GameEdit({ teams, cycles }: Props) {
               />
             </FormControl>
 
-            <Button
-              type="submit"
-              colorScheme="purple"
-              isLoading={isLoadingSetGame}
-            >
+            <Button type="submit" isLoading={isLoadingSetGame}>
               ADD GAME
             </Button>
           </VStack>

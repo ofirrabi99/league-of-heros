@@ -98,7 +98,6 @@ export default function LineupBuilder({
         <>
           <DynamicList maxSize="30rem">
             <Button
-              colorScheme="purple"
               isDisabled={isOutOfMoney}
               isLoading={isLoadingSetLineup}
               width="100%"

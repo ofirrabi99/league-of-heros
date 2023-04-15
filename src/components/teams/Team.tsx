@@ -57,12 +57,7 @@ function Team({ team }: Props) {
         >
           Delete
         </Button>
-        <Button
-          onClick={handleEditClick}
-          colorScheme="purple"
-          flex={1}
-          fontSize={"sm"}
-        >
+        <Button onClick={handleEditClick} flex={1} fontSize={"sm"}>
           Edit
         </Button>
       </CardFooter>

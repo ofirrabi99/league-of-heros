@@ -288,7 +288,7 @@ const MobileNav = ({
           )}
           {!isLoadingUser && !Boolean(user) && (
             <NextLink href="/api/auth/login">
-              <Button colorScheme="purple">Sign In</Button>
+              <Button>Sign In</Button>
             </NextLink>
           )}
         </Flex>

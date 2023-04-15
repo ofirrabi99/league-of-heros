@@ -12,6 +12,7 @@ import { Form, Formik, Field, FieldArray } from "formik";
 import { PlayerInput } from "../../pages/api/graphql/features/player/player.types";
 import Player from "./Player";
 import DynamicList from "../_shared/DynamicList";
+import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
 
 export interface FormContext {
   name: string;
@@ -23,6 +24,7 @@ interface Props {
   team?: Team;
 }
 export default function TeamEdit({ team }: Props) {
+  const { alignItems } = useBreakpointsAlign();
   const initialValues: FormContext = {
     name: team?.name ?? "",
     imageUrl: team?.imageUrl ?? "",
@@ -50,7 +52,7 @@ export default function TeamEdit({ team }: Props) {
     >
       {({ values }) => (
         <Form>
-          <VStack spacing={3} alignItems={{ base: "center", md: "start" }}>
+          <VStack spacing={3} alignItems={alignItems}>
             <FormControl isRequired width="auto">
               <FormLabel htmlFor="name">Team Name</FormLabel>
               <Field as={Input} name="name" placeholder="San Antonio Spurs" />
@@ -94,11 +96,7 @@ export default function TeamEdit({ team }: Props) {
               )}
             </FieldArray>
 
-            <Button
-              type="submit"
-              colorScheme="purple"
-              isLoading={isLoadingSetTeam}
-            >
+            <Button type="submit" isLoading={isLoadingSetTeam}>
               {isInEditMode ? "UPDATE" : "CREATE"} TEAM
             </Button>
           </VStack>

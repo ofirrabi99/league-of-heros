@@ -43,11 +43,7 @@ export default function GameCycle() {
 
   return (
     <Page>
-      <Button
-        colorScheme="purple"
-        onClick={gameCycleDialogProps.onOpen}
-        size="lg"
-      >
+      <Button onClick={gameCycleDialogProps.onOpen} size="lg">
         ADD GAME CYCLE
       </Button>
       <GameCycleFormDialog

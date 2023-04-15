@@ -67,7 +67,6 @@ function Game({ game, hideEdit }: Props) {
           </Button>
           <Button
             onClick={handleEditClick}
-            colorScheme="purple"
             flex={1}
             fontSize={"sm"}
             rounded={"full"}

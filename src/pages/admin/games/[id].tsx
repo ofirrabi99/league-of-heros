@@ -59,7 +59,6 @@ export default function AdminGamesEdit() {
         ))}
       </DynamicList>
       <Button
-        colorScheme="purple"
         isLoading={isLoadingSetGameResult}
         width="100%"
         onClick={() => {

@@ -8,8 +8,9 @@ import useMyQuery from "../../../hooks/useMyQuery";
 import EmptyPageState from "../../../components/_shared/EmptyPageState";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import useBreakpointsAlign from "../../../hooks/_shared/useBreakpointsAlign";
 
 interface GetTeamsResponse {
   teams: TeamClass[];
@@ -18,6 +19,7 @@ interface GetTeamsResponse {
 export default function AdminTeams() {
   const router = useRouter();
   const { data } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
+  const { alignItems } = useBreakpointsAlign();
 
   const isEmptyState = data?.teams.length === 0;
 
@@ -40,24 +42,21 @@ export default function AdminTeams() {
         />
       )}
       {!isEmptyState && (
-        <>
+        <VStack alignItems={alignItems} gap={4}>
           <Button
             size="lg"
             leftIcon={<AddIcon />}
-            colorScheme="purple"
             variant="solid"
             onClick={goToTeamAdd}
           >
             Create New Team
           </Button>
-          <br />
-          <br />
           <DynamicList maxSize="20rem">
             {data?.teams.map((team) => (
               <Team key={team._id} team={team} />
             ))}
           </DynamicList>
-        </>
+        </VStack>
       )}
     </Page>
   );

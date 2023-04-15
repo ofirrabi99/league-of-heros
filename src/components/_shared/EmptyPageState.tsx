@@ -29,9 +29,7 @@ export default function EmptyPageState({
         {title}
       </Text>
       <Text fontSize="lg">{description}</Text>
-      <Button colorScheme="purple" onClick={onClick}>
-        {action}
-      </Button>
+      <Button onClick={onClick}>{action}</Button>
     </VStack>
   );
 }

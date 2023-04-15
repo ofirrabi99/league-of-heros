@@ -72,8 +72,11 @@ export default function SidebarWithHeader({
   );
 
   useEffect(() => {
-    onClose();
-  }, [router.asPath]);
+    router.events.on("routeChangeStart", onClose);
+    return () => {
+      router.events.off("routeChangeStart", onClose);
+    };
+  }, [router.events, onClose]);
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>

@@ -13,6 +13,7 @@ import { PlayerInput } from "../../pages/api/graphql/features/player/player.type
 import Player from "./Player";
 import DynamicList from "../_shared/DynamicList";
 import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
+import Alertify from "../_shared/Alertify";
 
 export interface FormContext {
   name: string;
@@ -64,6 +65,11 @@ export default function TeamEdit({ team }: Props) {
             </FormControl>
 
             <FormLabel>Players</FormLabel>
+            {values.players.length === 0 && (
+              <Alertify status="error">
+                No players on team at the moment
+              </Alertify>
+            )}
             <FieldArray name="players" validateOnChange>
               {({ push, remove }) => (
                 <>

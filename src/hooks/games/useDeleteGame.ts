@@ -1,17 +1,17 @@
 import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
+import { GamesContext } from "../../pages/admin/games";
 import { DELETE_GAME } from "../../queries/game";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 import useMyMutation from "../useMyMutation";
 
 export default function useDeleteGame() {
-  const router = useRouter();
   const toast = useToast();
+  const { refetch } = useContext(GamesContext);
 
   const onSuccess = useCallback(() => {
-    router.replace(router.asPath);
-  }, [router]);
+    refetch();
+  }, [refetch]);
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);

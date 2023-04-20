@@ -1,8 +1,16 @@
-import { Avatar, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  VStack,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { memo, useCallback } from "react";
 import useDeleteGame from "../../hooks/games/useDeleteGame";
-import useCard from "../../hooks/_shared/useCard";
 import { Game as GameClass } from "../../pages/api/graphql/features/games/game.model";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
@@ -12,16 +20,15 @@ interface Props {
   hideEdit?: boolean;
 }
 
-function Game({ game, hideEdit }: Props) {
+export default function Game({ game, hideEdit }: Props) {
   const router = useRouter();
-  const card = useCard();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const { deleteGame, isLoadingDeleteGame } = useDeleteGame();
 
   const homeTeam = game.homeTeam as Team;
   const awayTeam = game.awayTeam as Team;
 
-  const handleDeleteClick = useCallback(() => {
+  const handleDeleteClick = () => {
     fireAreYouSureDialog(
       {
         title: `Delete game`,
@@ -31,52 +38,57 @@ function Game({ game, hideEdit }: Props) {
         deleteGame({ variables: { gameId: game._id } });
       }
     );
-  }, [fireAreYouSureDialog, game._id, deleteGame]);
+  };
 
-  const handleEditClick = useCallback(() => {
+  const handleEditClick = () => {
     router.push(`/admin/games/${game._id}`);
-  }, [game._id, router]);
+  };
 
   return (
-    <VStack {...card}>
-      <HStack>
-        <VStack textAlign={"center"}>
-          <Avatar size={"xl"} src={homeTeam.imageUrl} name={homeTeam.name} />
-          <Heading fontSize={"2xl"}>{homeTeam.name}</Heading>
-        </VStack>
-        <VStack>
-          <Heading>VS</Heading>
-        </VStack>
-        <VStack textAlign={"center"}>
-          <Avatar size={"xl"} src={awayTeam.imageUrl} name={awayTeam.name} />
-          <Heading fontSize={"2xl"}>{awayTeam.name}</Heading>
-        </VStack>
-      </HStack>
-      <Heading size="sm">{new Date(game.time).toLocaleString("he-IL")}</Heading>
+    <Card align="center" size="sm" textAlign="center">
+      <CardBody>
+        <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
+          <VStack textAlign={"center"}>
+            <Avatar size={"xl"} src={homeTeam.imageUrl} name={homeTeam.name} />
+            <Heading fontSize={"2xl"}>{homeTeam.name}</Heading>
+          </VStack>
+          <VStack>
+            <Heading>VS</Heading>
+          </VStack>
+          <VStack textAlign={"center"}>
+            <Avatar size={"xl"} src={awayTeam.imageUrl} name={awayTeam.name} />
+            <Heading fontSize={"2xl"}>{awayTeam.name}</Heading>
+          </VStack>
+        </Box>
+        <Heading size="sm">
+          {new Date(game.time).toLocaleString("he-IL")}
+        </Heading>
+      </CardBody>
       {!hideEdit && (
-        <HStack width="100%">
-          <Button
-            onClick={handleDeleteClick}
-            colorScheme="red"
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-            isLoading={isLoadingDeleteGame}
-          >
-            Delete
-          </Button>
-          <Button
-            onClick={handleEditClick}
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-          >
-            Edit
-          </Button>
-        </HStack>
+        <>
+          <Divider />
+          <CardFooter display="flex" gap={2}>
+            <Button
+              onClick={handleDeleteClick}
+              colorScheme="red"
+              flex={1}
+              fontSize={"sm"}
+              rounded={"full"}
+              isLoading={isLoadingDeleteGame}
+            >
+              Delete
+            </Button>
+            <Button
+              onClick={handleEditClick}
+              flex={1}
+              fontSize={"sm"}
+              rounded={"full"}
+            >
+              Edit
+            </Button>
+          </CardFooter>
+        </>
       )}
-    </VStack>
+    </Card>
   );
 }
-
-export default memo(Game);

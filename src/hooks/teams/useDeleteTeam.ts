@@ -1,17 +1,16 @@
 import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { DELETE_TEAM } from "../../queries/team";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 import useMyMutation from "../useMyMutation";
 
-export default function useDeleteTeam() {
-  const router = useRouter();
+interface Props {
+  afterSuccess: () => void;
+}
+export default function useDeleteTeam({ afterSuccess }: Props) {
   const toast = useToast();
 
-  const onSuccess = useCallback(() => {
-    router.replace(router.asPath);
-  }, [router]);
+  const onSuccess = afterSuccess;
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);

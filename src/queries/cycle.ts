@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { gameProps } from "./game";
 
 const cycleProps = `
 _id
@@ -19,6 +20,9 @@ export const GET_ALL_CYCLES = gql`
 query cycles {
   cycles {
     ${cycleProps}
+    games {
+      ${gameProps}
+    }
   }
 }
 `;

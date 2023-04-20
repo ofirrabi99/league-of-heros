@@ -67,7 +67,9 @@ export default function GameCycleFormDialog({
                 <Button mr={3} type="submit" isLoading={isLoading}>
                   Add
                 </Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button onClick={onClose} colorScheme="gray">
+                  Cancel
+                </Button>
               </ModalFooter>
             </Form>
           )}

@@ -20,6 +20,12 @@ export class GameService {
     }).populate(["homeTeam", "awayTeam"]);
   }
 
+  async getByCycle(cycleId: string): Promise<Game[]> {
+    return await GameModel.find({
+      cycle: cycleId,
+    }).populate(["homeTeam", "awayTeam"]);
+  }
+
   async getNextGames(): Promise<Game[]> {
     const currentCycle = await CycleModel.findOne({
       toTime: { $gt: new Date() },

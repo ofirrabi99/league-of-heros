@@ -1,13 +1,26 @@
-import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Authorized,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
 import { Service } from "typedi";
 import { Cycle } from "./cycle.model";
 import { CycleInput } from "./cycle.types";
 import { CycleService } from "./cycle.service";
+import { Game } from "../games/game.model";
+import GameService from "../games/game.service";
 
 @Service()
 @Resolver((_of) => Cycle)
 export class CycleResolver {
-  constructor(private readonly cycleService: CycleService) {}
+  constructor(
+    private readonly cycleService: CycleService,
+    private readonly gameService: GameService
+  ) {}
 
   @Query((_returns) => [Cycle])
   cycles() {
@@ -34,5 +47,10 @@ export class CycleResolver {
   @Mutation((_returns) => Cycle, { nullable: true })
   deleteCycle(@Arg("cycleId") cycleId: string): Promise<Cycle | null> {
     return this.cycleService.deleteCycle(cycleId);
+  }
+
+  @FieldResolver((_returns) => [Game])
+  async games(@Root("_doc") cycle: Cycle): Promise<Game[]> {
+    return await this.gameService.getByCycle(cycle._id);
   }
 }

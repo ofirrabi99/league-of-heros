@@ -11,6 +11,8 @@ import { Form, Formik, Field } from "formik";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
 import useSetGame from "../../hooks/games/useSetGame";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
+import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
+import { useRouter } from "next/router";
 
 const TeamsOptions = ({ teams }: { teams: Team[] }) => (
   <>
@@ -44,12 +46,15 @@ interface Props {
   cycles: Cycle[];
 }
 export default function GameEdit({ teams, cycles }: Props) {
+  const router = useRouter();
   const initialValues: FormContext = {
     homeTeam: "",
     awayTeam: "",
     time: "",
-    cycle: "",
+    cycle: (router.query.cycleId as string) ?? "",
   };
+  const { alignItems } = useBreakpointsAlign();
+
   const { setGame, isLoadingSetGame } = useSetGame({ isInEditMode: false });
   const onSubmit = useCallback(
     (form: FormContext) => {
@@ -62,7 +67,7 @@ export default function GameEdit({ teams, cycles }: Props) {
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ values }) => (
         <Form>
-          <VStack spacing={3} justifyContent="center" alignItems={"center"}>
+          <VStack spacing={3} justifyContent="center" alignItems={alignItems}>
             <FormControl isRequired width="auto">
               <FormLabel htmlFor="homeTeam">Home Team</FormLabel>
               <Field as={Select} name="homeTeam" placeholder="Select Home Team">

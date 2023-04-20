@@ -18,7 +18,7 @@ interface GetTeamsResponse {
 
 export default function AdminTeams() {
   const router = useRouter();
-  const { data } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
+  const { data, refetch } = useMyQuery<GetTeamsResponse>(GET_TEAMS);
   const { alignItems } = useBreakpointsAlign();
 
   const isEmptyState = data?.teams.length === 0;
@@ -53,7 +53,7 @@ export default function AdminTeams() {
           </Button>
           <DynamicList maxSize="20rem">
             {data?.teams.map((team) => (
-              <Team key={team._id} team={team} />
+              <Team key={team._id} team={team} afterDelete={refetch} />
             ))}
           </DynamicList>
         </VStack>

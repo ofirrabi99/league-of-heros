@@ -47,7 +47,7 @@ export default function AreYouSureDialog({
           <AlertDialogBody>{children}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
+            <Button ref={cancelRef} onClick={onClose} colorScheme="gray">
               Cancel
             </Button>
             <Button colorScheme="red" onClick={handleApprove} ml={3}>

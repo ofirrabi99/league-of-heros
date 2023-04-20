@@ -1,5 +1,6 @@
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { Field as GQLField, ID, ObjectType as GQLType } from "type-graphql";
+import { Game } from "../games/game.model";
 
 @GQLType()
 export class Cycle {
@@ -21,6 +22,9 @@ export class Cycle {
   @GQLField((_type) => Date)
   @Property({ required: true })
   toTime!: Date;
+
+  @GQLField((_type) => [Game])
+  games?: Game[];
 }
 
 export const CycleModel = getModelForClass(Cycle, {

@@ -1,5 +1,22 @@
 import { gql } from "@apollo/client";
 
+export const gameProps = `
+_id
+cycle {
+  _id
+}
+time
+homeTeam {
+  _id
+  name
+  imageUrl
+}
+awayTeam {
+  _id
+  name
+  imageUrl
+}`;
+
 export const GET_GAME = gql`
   query getGame($gameId: String!) {
     game(gameId: $gameId) {
@@ -44,21 +61,7 @@ export const GET_GAME = gql`
 export const GET_GAMES = gql`
   query games {
     games {
-      _id
-      cycle {
-        _id
-      }
-      time
-      homeTeam {
-        _id
-        name
-        imageUrl
-      }
-      awayTeam {
-        _id
-        name
-        imageUrl
-      }
+      ${gameProps}
     }
   }
 `;

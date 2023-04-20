@@ -4,24 +4,27 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Divider,
   Heading,
-  HStack,
   VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { memo, useCallback } from "react";
+import { useCallback } from "react";
 import useDeleteTeam from "../../hooks/teams/useDeleteTeam";
 import { Team as TeamClass } from "../../pages/api/graphql/features/team/team.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 
 interface Props {
   team: TeamClass;
+  afterDelete: () => void;
 }
 
-function Team({ team }: Props) {
+export default function Team({ team, afterDelete }: Props) {
   const router = useRouter();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
-  const { deleteTeam, isLoadingDeleteTeam } = useDeleteTeam();
+  const { deleteTeam, isLoadingDeleteTeam } = useDeleteTeam({
+    afterSuccess: afterDelete,
+  });
 
   const handleDeleteClick = useCallback(() => {
     fireAreYouSureDialog(
@@ -47,6 +50,7 @@ function Team({ team }: Props) {
           <Heading fontSize={"2xl"}>{team.name}</Heading>
         </VStack>
       </CardBody>
+      <Divider />
       <CardFooter display="flex" gap={2}>
         <Button
           onClick={handleDeleteClick}
@@ -64,5 +68,3 @@ function Team({ team }: Props) {
     </Card>
   );
 }
-
-export default memo(Team);

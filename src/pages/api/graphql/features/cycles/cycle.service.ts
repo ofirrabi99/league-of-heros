@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { CycleInput } from "./cycle.types";
-import { Cycle, CycleModel } from "./cycle.model";
-import { GameModel } from "../games/game.model";
+import { Cycle } from "./cycle.model";
+import { CycleModel, GameModel } from "..";
 
 @Service()
 export class CycleService {

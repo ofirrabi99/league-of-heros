@@ -1,9 +1,9 @@
 import { Service } from "typedi";
-import { CycleModel } from "../cycles/cycle.model";
+import { CycleModel, GameModel } from "..";
 import { TeamModel } from "../team/team.model";
 import { GameResult, UserModel } from "../user/user.model";
 import { LineupInput } from "../user/user.types";
-import { Game, GameModel } from "./game.model";
+import { Game } from "./game.model";
 import { GameInput } from "./game.types";
 
 @Service()

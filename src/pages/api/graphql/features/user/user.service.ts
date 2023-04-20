@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { CycleModel } from "../cycles/cycle.model";
+import { CycleModel } from "..";
 import { PlayerModel } from "../player/player.model";
 import { User, UserModel } from "./user.model";
 import { LineupInput, UserInput } from "./user.types";

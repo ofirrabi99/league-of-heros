@@ -36,9 +36,3 @@ export class Game {
   @Property({ _id: false })
   result?: GameResult;
 }
-
-export const GameModel = getModelForClass(Game, {
-  schemaOptions: {
-    versionKey: false,
-  },
-});

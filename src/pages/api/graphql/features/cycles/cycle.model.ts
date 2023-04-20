@@ -26,9 +26,3 @@ export class Cycle {
   @GQLField((_type) => [Game])
   games?: Game[];
 }
-
-export const CycleModel = getModelForClass(Cycle, {
-  schemaOptions: {
-    versionKey: false,
-  },
-});

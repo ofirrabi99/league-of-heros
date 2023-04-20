@@ -38,7 +38,14 @@ export default function PlayerPreview({
       onClick={onClick ? () => onClick(_id) : undefined}
     >
       <VStack alignItems="flex-start">
-        <Image src={imageUrl} width={150} alt={name} />
+        <Image
+          src={imageUrl}
+          width={150}
+          height={200}
+          alt={name}
+          float="left"
+          objectFit="fill"
+        />
         <Box>
           <Stat>
             <StatLabel>{name}</StatLabel>

@@ -1,5 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
+import DynamicList from "../_shared/DynamicList";
 import CyclePreview from "./CyclePreview";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 export default function CyclesList({ cycles, onDeleteCycle }: Props) {
   return (
-    <Grid gap={2} gridTemplateColumns="repeat(auto-fit, minmax(20rem, 1fr))">
+    <DynamicList maxSize="25rem">
       {cycles.map((cycle) => (
         <CyclePreview
           key={cycle._id}
@@ -16,6 +17,6 @@ export default function CyclesList({ cycles, onDeleteCycle }: Props) {
           onDeleteCycle={onDeleteCycle}
         />
       ))}
-    </Grid>
+    </DynamicList>
   );
 }

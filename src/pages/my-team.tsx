@@ -35,7 +35,7 @@ export default function MyTeam() {
 
   const players = getAllPlayersFromGamesArray(
     getNextGamesResponse.data?.nextGames ?? []
-  );
+  ).sort((a, b) => b.price - a.price);
 
   return (
     <Page

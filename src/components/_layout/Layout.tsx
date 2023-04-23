@@ -4,7 +4,7 @@ import AreYouSureDialog from "./AreYouSureDialog";
 import UnexpectedErrorDialog from "./UnexpectedErrorDialog";
 import Loading from "./Loading";
 import { useEffect } from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import useGlobalLoading from "../../state/useGlobalLoading";
 import SidebarWithHeader from "./Sidebar";
 import "nprogress/nprogress.css";
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
+  const router = useRouter();
   const areYouSureDialog = useAreYouSureDialog();
   const uexpectedErrorDialog = useUnexpectedErrorDialog();
   const { isLoading } = useGlobalLoading();
@@ -34,7 +35,10 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Loading isLoading={isLoading()} />
-      <SidebarWithHeader>{children}</SidebarWithHeader>
+      {router.asPath !== "/" && (
+        <SidebarWithHeader>{children}</SidebarWithHeader>
+      )}
+      {router.asPath === "/" && children}
       <AreYouSureDialog
         isOpen={areYouSureDialog.isOpen}
         onClose={areYouSureDialog.onClose}

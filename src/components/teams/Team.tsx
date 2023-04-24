@@ -1,3 +1,4 @@
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
@@ -43,7 +44,7 @@ export default function Team({ team, afterDelete }: Props) {
   }, [team._id, router]);
 
   return (
-    <Card>
+    <Card size="sm">
       <CardBody>
         <VStack>
           <Avatar size={"xl"} src={team.imageUrl} />
@@ -56,12 +57,12 @@ export default function Team({ team, afterDelete }: Props) {
           onClick={handleDeleteClick}
           colorScheme="red"
           flex={1}
-          fontSize={"sm"}
           isLoading={isLoadingDeleteTeam}
+          leftIcon={<DeleteIcon />}
         >
           Delete
         </Button>
-        <Button onClick={handleEditClick} flex={1} fontSize={"sm"}>
+        <Button onClick={handleEditClick} flex={1} leftIcon={<EditIcon />}>
           Edit
         </Button>
       </CardFooter>

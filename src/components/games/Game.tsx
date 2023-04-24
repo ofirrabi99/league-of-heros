@@ -1,3 +1,4 @@
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -45,7 +46,7 @@ export default function Game({ game, hideEdit }: Props) {
   };
 
   return (
-    <Card align="center" size="sm" textAlign="center">
+    <Card size="sm" textAlign="center">
       <CardBody>
         <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
           <VStack textAlign={"center"}>
@@ -72,18 +73,12 @@ export default function Game({ game, hideEdit }: Props) {
               onClick={handleDeleteClick}
               colorScheme="red"
               flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
               isLoading={isLoadingDeleteGame}
+              leftIcon={<DeleteIcon />}
             >
               Delete
             </Button>
-            <Button
-              onClick={handleEditClick}
-              flex={1}
-              fontSize={"sm"}
-              rounded={"full"}
-            >
+            <Button onClick={handleEditClick} flex={1} leftIcon={<EditIcon />}>
               Edit
             </Button>
           </CardFooter>

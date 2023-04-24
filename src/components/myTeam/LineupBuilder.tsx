@@ -1,5 +1,5 @@
 import { Button, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useSetLineup from "../../hooks/users/useSetLineup";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
 import { Player } from "../../pages/api/graphql/features/player/player.model";
@@ -42,17 +42,23 @@ export default function LineupBuilder({
   );
   const isOutOfMoney = budget < lineupCost;
 
-  const addPlayer = (playerId: Player["_id"]) => {
-    setChosenPlayersId((prev) => new Set([...prev, playerId]));
-  };
+  const addPlayer = useCallback(
+    (playerId: Player["_id"]) => {
+      setChosenPlayersId((prev) => new Set([...prev, playerId]));
+    },
+    [setChosenPlayersId]
+  );
 
-  const removePlayer = (playerId: Player["_id"]) => {
-    setChosenPlayersId((prev) => {
-      const newSet = new Set(prev);
-      newSet.delete(playerId);
-      return newSet;
-    });
-  };
+  const removePlayer = useCallback(
+    (playerId: Player["_id"]) => {
+      setChosenPlayersId((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(playerId);
+        return newSet;
+      });
+    },
+    [setChosenPlayersId]
+  );
 
   return (
     <>

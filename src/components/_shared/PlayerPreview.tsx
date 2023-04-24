@@ -9,6 +9,7 @@ import {
   StatNumber,
   VStack,
 } from "@chakra-ui/react";
+import { memo } from "react";
 import { Player } from "../../pages/api/graphql/features/player/player.model";
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
   picked?: boolean;
 }
 
-export default function PlayerPreview({
+function PlayerPreview({
   player,
   onClick,
   inEditGame = false,
@@ -74,3 +75,5 @@ export default function PlayerPreview({
     </Box>
   );
 }
+
+export default memo(PlayerPreview);

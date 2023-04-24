@@ -1,3 +1,4 @@
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Button,
   Card,
@@ -42,9 +43,11 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
 
   return (
     <>
-      <Card align="center" size="sm" textAlign={"center"}>
+      <Card size="sm" textAlign={"center"}>
         <CardHeader>
           <Heading size="md">{cycle.name}</Heading>
+        </CardHeader>
+        <CardBody>
           <Text fontSize="xl">{cycle.budget}$</Text>
           <Button
             variant="link"
@@ -53,17 +56,22 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
           >
             {cycle.games?.length ?? 0} Games
           </Button>
-        </CardHeader>
-        <CardBody>
           <Text>{new Date(cycle.fromTime).toLocaleString("he-IL")}</Text>
           <Text>-</Text>
           <Text>{new Date(cycle.toTime).toLocaleString("he-IL")}</Text>
         </CardBody>
         <Divider />
         <CardFooter display="flex" gap={2}>
-          <Button onClick={onAddGameClick}>Add Game</Button>
-          <Button colorScheme="red" onClick={onDeleteClick}>
+          <Button
+            colorScheme="red"
+            onClick={onDeleteClick}
+            leftIcon={<DeleteIcon />}
+            flex={1}
+          >
             Delete
+          </Button>
+          <Button onClick={onAddGameClick} leftIcon={<AddIcon />} flex={1}>
+            Add Game
           </Button>
         </CardFooter>
       </Card>

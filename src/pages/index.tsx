@@ -11,10 +11,11 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { FormattedMessage } from "react-intl";
 
 interface FeatureProps {
-  title: string;
-  text: string;
+  title: React.ReactElement;
+  text: React.ReactElement;
   icon: React.ReactElement;
 }
 
@@ -55,17 +56,14 @@ export default function Home() {
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
           lineHeight={"110%"}
         >
-          Are you ready to build your{" "}
+          <FormattedMessage id="page.home.header1" />{" "}
           <Text as={"span"} color={"purple.400"}>
-            superstar squad
+            <FormattedMessage id="general.brand" />
           </Text>{" "}
-          and take on the competition?
+          <FormattedMessage id="page.home.header2" />
         </Heading>
         <Text color={"gray.500"} maxW={"3xl"}>
-          Join Superstar Squad today and compete against other fans in your
-          favorite sports! Choose your players, track their performance, and
-          climb the leaderboard to become the ultimate superstar league
-          champion. Sign up now and start building your superstar squad!
+          <FormattedMessage id="page.home.description" />
         </Text>
         <Stack spacing={6} direction={"row"}>
           <Button
@@ -75,13 +73,13 @@ export default function Home() {
             px={6}
             colorScheme="orange"
           >
-            Start Building Your Superstar Squad Now!
+            <FormattedMessage id="page.home.cta" />
           </Button>
         </Stack>
 
         <Box p={4}>
           <Heading fontSize={"3xl"} mb={4}>
-            So... How does it work?
+            <FormattedMessage id="page.home.features.title" />
           </Heading>
           <SimpleGrid
             columns={{ base: 1, md: 3 }}
@@ -90,20 +88,18 @@ export default function Home() {
           >
             <Feature
               icon={<SearchIcon />}
-              title={"Pick Players"}
-              text={"Pick players from real life games"}
+              title={<FormattedMessage id="page.home.features1.title" />}
+              text={<FormattedMessage id="page.home.features1.description" />}
             />
             <Feature
               icon={<ViewIcon />}
-              title={"Track Performance"}
-              text={
-                "Track your chosen players performance to predict your score"
-              }
+              title={<FormattedMessage id="page.home.features2.title" />}
+              text={<FormattedMessage id="page.home.features2.description" />}
             />
             <Feature
               icon={<CheckIcon />}
-              title={"Climb the Leaderboard"}
-              text={"Check your place in the leaderboard"}
+              title={<FormattedMessage id="page.home.features3.title" />}
+              text={<FormattedMessage id="page.home.features3.description" />}
             />
           </SimpleGrid>
         </Box>

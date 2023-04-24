@@ -83,7 +83,11 @@ export default function Home() {
           <Heading fontSize={"3xl"} mb={4}>
             So... How does it work?
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+          <SimpleGrid
+            columns={{ base: 1, md: 3 }}
+            spacing={10}
+            alignItems="start"
+          >
             <Feature
               icon={<SearchIcon />}
               title={"Pick Players"}

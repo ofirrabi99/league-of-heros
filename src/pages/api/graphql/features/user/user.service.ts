@@ -70,7 +70,8 @@ export class UserService {
     let user = (await UserModel.findOne({ subId })) ?? new UserModel({ subId });
 
     const cycle = await CycleModel.findById(input.cycle);
-    if (!cycle) throw new Error("cycle is not exists");
+    if (!cycle || new Date(cycle.fromTime) < new Date())
+      throw new Error("cycle is not exists");
 
     const players = await PlayerModel.find({
       _id: { $in: input.players.map((player) => player.playerId) },

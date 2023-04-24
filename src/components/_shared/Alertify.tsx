@@ -8,7 +8,7 @@ interface Props {
 export default function Alertify({ children, status = "info" }: Props) {
   return (
     <ScaleFade in initialScale={0}>
-      <Alert status={status}>
+      <Alert status={status} w="fit-content">
         <AlertIcon />
         {children}
       </Alert>

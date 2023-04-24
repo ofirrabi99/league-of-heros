@@ -12,7 +12,7 @@ export class CycleService {
   async getNextCycle(): Promise<Cycle | null> {
     const nextCycle = await CycleModel.findOne({
       fromTime: { $gt: new Date() },
-    }).sort("toTime");
+    }).sort("fromTime");
 
     return nextCycle;
   }

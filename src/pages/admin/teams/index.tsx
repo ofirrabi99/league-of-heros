@@ -62,4 +62,4 @@ export default function AdminTeams() {
   );
 }
 
-export const getServerSideProps = requireAuth({});
+export const getServerSideProps = requireAuth({ roles: ["Admin"] });

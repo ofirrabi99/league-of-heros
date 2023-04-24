@@ -28,4 +28,4 @@ export default function AdminGamesAdd() {
   );
 }
 
-export const getServerSideProps = requireAuth({});
+export const getServerSideProps = requireAuth({ roles: ["Admin"] });

@@ -98,4 +98,4 @@ export default function GameCycle() {
   );
 }
 
-export const getServerSideProps = requireAuth({});
+export const getServerSideProps = requireAuth({ roles: ["Admin"] });

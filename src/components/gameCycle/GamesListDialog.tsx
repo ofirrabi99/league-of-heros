@@ -7,6 +7,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { FormattedMessage } from "react-intl";
 import { Game as GameClass } from "../../pages/api/graphql/features/games/game.model";
 import Game from "../games/Game";
 import DynamicList from "../_shared/DynamicList";
@@ -36,7 +37,12 @@ export default function GamesListDialog({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Games in {cycleName}</ModalHeader>
+        <ModalHeader>
+          <FormattedMessage
+            id="page.admin.games.games-list.title"
+            values={{ value: cycleName }}
+          />
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <DynamicList maxSize="50rem">

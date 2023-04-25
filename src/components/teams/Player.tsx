@@ -26,6 +26,7 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+import { FormattedMessage } from "react-intl";
 import { Player as PlayerClass } from "../../pages/api/graphql/features/player/player.model";
 import { PlayerInput } from "../../pages/api/graphql/features/player/player.types";
 import PlayerPreview from "../_shared/PlayerPreview";
@@ -40,31 +41,24 @@ export default function Player({ index, player, remove }: Props) {
     <Card>
       <CardBody>
         <FormControl isRequired width={"auto"}>
-          <FormLabel htmlFor={`players.${index}.name`}>Name</FormLabel>
-          <Field
-            name={`players.${index}.name`}
-            placeholder="Tim Duncen"
-            as={Input}
-          />
+          <FormLabel htmlFor={`players.${index}.name`}>
+            <FormattedMessage id="general.name" />
+          </FormLabel>
+          <Field name={`players.${index}.name`} as={Input} />
         </FormControl>
 
         <FormControl isRequired width={"auto"}>
-          <FormLabel htmlFor={`players.${index}.imageUrl`}>Image</FormLabel>
-          <Field
-            name={`players.${index}.imageUrl`}
-            placeholder="https://"
-            as={Input}
-          />
+          <FormLabel htmlFor={`players.${index}.imageUrl`}>
+            <FormattedMessage id="general.image" />
+          </FormLabel>
+          <Field name={`players.${index}.imageUrl`} as={Input} />
         </FormControl>
 
         <FormControl isRequired width={"auto"}>
-          <FormLabel htmlFor={`players.${index}.price`}>Price</FormLabel>
-          <Field
-            name={`players.${index}.price`}
-            placeholder="1"
-            type="number"
-            as={Input}
-          />
+          <FormLabel htmlFor={`players.${index}.price`}>
+            <FormattedMessage id="general.price" />
+          </FormLabel>
+          <Field name={`players.${index}.price`} type="number" as={Input} />
         </FormControl>
 
         <Center mt={4}>
@@ -74,7 +68,7 @@ export default function Player({ index, player, remove }: Props) {
             justifyContent={"center"}
           >
             <FormLabel htmlFor="email-alerts" mb="0">
-              Hide player?
+              <FormattedMessage id="page.admin.teams.hide-player" />
             </FormLabel>
             <Field
               id="email-alerts"
@@ -91,7 +85,7 @@ export default function Player({ index, player, remove }: Props) {
         <Popover isLazy>
           <PopoverTrigger>
             <Button variant="solid" colorScheme="blue">
-              Preview
+              <FormattedMessage id="general.preview" />
             </Button>
           </PopoverTrigger>
           <PopoverContent width="auto">
@@ -108,7 +102,7 @@ export default function Player({ index, player, remove }: Props) {
             variant="ghost"
             colorScheme="red"
           >
-            Remove
+            <FormattedMessage id="general.delete" />
           </Button>
         )}
       </CardFooter>

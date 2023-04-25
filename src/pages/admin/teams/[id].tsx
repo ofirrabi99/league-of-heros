@@ -16,7 +16,7 @@ export default function AdminTeamsEdit() {
     variables: { teamId: router.query.id },
   });
   return (
-    <Page title="Make Quick and Easy Changes to Your Basketball Teams">
+    <Page title="page.admin.teams.edit-team">
       <TeamEdit team={data?.team} />
     </Page>
   );

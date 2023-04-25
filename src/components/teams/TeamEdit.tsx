@@ -14,6 +14,7 @@ import Player from "./Player";
 import DynamicList from "../_shared/DynamicList";
 import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
 import Alertify from "../_shared/Alertify";
+import { FormattedMessage } from "react-intl";
 
 export interface FormContext {
   name: string;
@@ -55,19 +56,25 @@ export default function TeamEdit({ team }: Props) {
         <Form>
           <VStack spacing={3} alignItems={alignItems}>
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="name">Team Name</FormLabel>
-              <Field as={Input} name="name" placeholder="San Antonio Spurs" />
+              <FormLabel htmlFor="name">
+                <FormattedMessage id="page.admin.teams.team-name" />
+              </FormLabel>
+              <Field as={Input} name="name" />
             </FormControl>
 
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="imageUrl">Image URL</FormLabel>
-              <Field as={Input} name="imageUrl" placeholder="https://" />
+              <FormLabel htmlFor="imageUrl">
+                <FormattedMessage id="page.admin.teams.image-url" />
+              </FormLabel>
+              <Field as={Input} name="imageUrl" />
             </FormControl>
 
-            <FormLabel>Players</FormLabel>
+            <FormLabel>
+              <FormattedMessage id="page.admin.teams.players" />
+            </FormLabel>
             {values.players.length === 0 && (
               <Alertify status="error">
-                No players on team at the moment
+                <FormattedMessage id="page.admin.teams.no-players" />
               </Alertify>
             )}
             <FieldArray name="players" validateOnChange>
@@ -96,14 +103,19 @@ export default function TeamEdit({ team }: Props) {
                       push(newPlayer);
                     }}
                   >
-                    ADD PLAYER
+                    <FormattedMessage id="page.admin.teams.add-player" />
                   </Button>
                 </>
               )}
             </FieldArray>
 
             <Button type="submit" isLoading={isLoadingSetTeam}>
-              {isInEditMode ? "UPDATE" : "CREATE"} TEAM
+              {isInEditMode ? (
+                <FormattedMessage id="general.update" />
+              ) : (
+                <FormattedMessage id="general.create" />
+              )}{" "}
+              <FormattedMessage id="general.team" />
             </Button>
           </VStack>
         </Form>

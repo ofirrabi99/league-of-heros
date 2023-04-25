@@ -279,18 +279,26 @@ const MobileNav = ({
                   onClick={toggleColorMode}
                   icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
                 >
-                  {isDarkMode ? "Light Mode" : "Dark Mode"}
+                  {isDarkMode ? (
+                    <FormattedMessage id="sidebar.light-mode" />
+                  ) : (
+                    <FormattedMessage id="sidebar.dark-mode" />
+                  )}
                 </MenuItem>
                 <MenuDivider />
                 <NextLink href="/api/auth/logout">
-                  <MenuItem icon={<UnlockIcon />}>Sign Out</MenuItem>
+                  <MenuItem icon={<UnlockIcon />}>
+                    <FormattedMessage id="sidebar.sign-out" />
+                  </MenuItem>
                 </NextLink>
               </MenuList>
             </Menu>
           )}
           {!isLoadingUser && !Boolean(user) && (
             <NextLink href="/api/auth/login">
-              <Button>Sign In</Button>
+              <Button>
+                <FormattedMessage id="sidebar.sign-in" />
+              </Button>
             </NextLink>
           )}
         </Flex>

@@ -13,6 +13,7 @@ import useSetGame from "../../hooks/games/useSetGame";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
 import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 
 const TeamsOptions = ({ teams }: { teams: Team[] }) => (
   <>
@@ -55,7 +56,7 @@ export default function GameEdit({ teams, cycles }: Props) {
   };
   const { alignItems } = useBreakpointsAlign();
 
-  const { setGame, isLoadingSetGame } = useSetGame({ isInEditMode: false });
+  const { setGame, isLoadingSetGame } = useSetGame();
   const onSubmit = useCallback(
     (form: FormContext) => {
       setGame({ variables: { game: { ...form, time: new Date(form.time) } } });
@@ -69,28 +70,36 @@ export default function GameEdit({ teams, cycles }: Props) {
         <Form>
           <VStack spacing={3} justifyContent="center" alignItems={alignItems}>
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="homeTeam">Home Team</FormLabel>
-              <Field as={Select} name="homeTeam" placeholder="Select Home Team">
+              <FormLabel htmlFor="homeTeam">
+                <FormattedMessage id="general.home-team" />
+              </FormLabel>
+              <Field as={Select} name="homeTeam" placeholder=" ">
                 <TeamsOptions teams={teams} />
               </Field>
             </FormControl>
 
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="awayTeam">Away Team</FormLabel>
-              <Field as={Select} name="awayTeam" placeholder="Select Away Team">
+              <FormLabel htmlFor="awayTeam">
+                <FormattedMessage id="general.away-team" />
+              </FormLabel>
+              <Field as={Select} name="awayTeam" placeholder=" ">
                 <TeamsOptions teams={teams} />
               </Field>
             </FormControl>
 
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="cycle">Cycle</FormLabel>
-              <Field as={Select} name="cycle" placeholder="Select cycle">
+              <FormLabel htmlFor="cycle">
+                <FormattedMessage id="general.cycle" />
+              </FormLabel>
+              <Field as={Select} name="cycle" placeholder=" ">
                 <CyclesOptions cycles={cycles} />
               </Field>
             </FormControl>
 
             <FormControl isRequired width="auto">
-              <FormLabel htmlFor="time">Time</FormLabel>
+              <FormLabel htmlFor="time">
+                <FormattedMessage id="general.time" />
+              </FormLabel>
               <Field
                 as={Input}
                 isDisabled={Boolean(!values.cycle)}
@@ -122,7 +131,7 @@ export default function GameEdit({ teams, cycles }: Props) {
             </FormControl>
 
             <Button type="submit" isLoading={isLoadingSetGame}>
-              ADD GAME
+              <FormattedMessage id="page.admin.games.add-game" />
             </Button>
           </VStack>
         </Form>

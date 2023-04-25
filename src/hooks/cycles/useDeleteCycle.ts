@@ -4,6 +4,7 @@ import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 import { DELETE_CYCLE } from "../../queries/cycle";
 import { useMutation } from "@apollo/client";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
+import { useIntl } from "react-intl";
 
 interface DeleteDataProps {
   deleteCycle: Cycle | null;
@@ -14,22 +15,25 @@ interface Props {
 }
 export default function useDeleteCycle({ onSuccessCallback }: Props) {
   const toast = useToast();
+  const intl = useIntl();
 
   const onCompleted = useCallback(
     (data: DeleteDataProps) => {
       if (data.deleteCycle)
         toast({
-          title: "Cycle has been deleted from the system!",
+          title: intl.formatMessage({ id: "general.success-action" }),
           status: "success",
         });
       else
         toast({
-          title: "Cannot delete cycle with games attached to it!",
+          title: intl.formatMessage({
+            id: "page.admin.games.delete-cycle-with-games",
+          }),
           status: "error",
         });
       onSuccessCallback();
     },
-    [toast, onSuccessCallback]
+    [toast, onSuccessCallback, intl]
   );
 
   const onError = useCallback(() => {

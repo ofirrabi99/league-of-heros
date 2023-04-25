@@ -79,9 +79,15 @@ export default function LineupBuilder({
               max={budget}
               colorScheme={isOutOfMoney ? "red" : "yellow"}
             >
-              {isOutOfMoney &&
-                `Money's tight, it's time to cut some players and set things right`}
-              {!isOutOfMoney && `${budget - lineupCost}$ left`}
+              {isOutOfMoney && (
+                <FormattedMessage id="page.my-squad.lineup.budget.no-money" />
+              )}
+              {!isOutOfMoney && (
+                <FormattedMessage
+                  id="page.my-squad.lineup.budget.left"
+                  values={{ value: budget - lineupCost }}
+                />
+              )}
             </Progressify>
           </DynamicList>
           <br />
@@ -89,7 +95,9 @@ export default function LineupBuilder({
       )}
       {Boolean(!chosenPlayers.length) && (
         <>
-          <Alertify status="warning">No players selected yet</Alertify>
+          <Alertify status="warning">
+            <FormattedMessage id="page.my-squad.lineup.no-players-selected" />
+          </Alertify>
           <br />
         </>
       )}
@@ -123,12 +131,14 @@ export default function LineupBuilder({
                 });
               }}
             >
-              SAVE LINEUP
+              <FormattedMessage id="page.my-squad.lineup.save" />
             </Button>
           </DynamicList>
           <br />
           <br />
-          <Heading>Available Players</Heading>
+          <Heading>
+            <FormattedMessage id="page.my-squad.lineup.available-players" />
+          </Heading>
           <DynamicList maxSize="10rem">
             {players.map((player) => (
               <PlayerPreview

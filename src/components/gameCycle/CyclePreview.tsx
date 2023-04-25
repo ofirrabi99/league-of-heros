@@ -11,6 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import GamesListDialog from "./GamesListDialog";
@@ -54,7 +55,10 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
             onClick={gamesListProps.onOpen}
             isDisabled={!cycle.games?.length}
           >
-            {cycle.games?.length ?? 0} Games
+            <FormattedMessage
+              id="page.admin.games.game-amount"
+              values={{ value: cycle.games?.length ?? 0 }}
+            />
           </Button>
           <Text>{new Date(cycle.fromTime).toLocaleString("he-IL")}</Text>
           <Text>-</Text>
@@ -68,10 +72,10 @@ export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
             leftIcon={<DeleteIcon />}
             flex={1}
           >
-            Delete
+            <FormattedMessage id="general.delete" />
           </Button>
           <Button onClick={onAddGameClick} leftIcon={<AddIcon />} flex={1}>
-            Add Game
+            <FormattedMessage id="page.admin.games.add-game" />
           </Button>
         </CardFooter>
       </Card>

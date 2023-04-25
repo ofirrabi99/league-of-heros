@@ -19,7 +19,7 @@ export default function AdminGamesAdd() {
   const teamsResponse = useMyQuery<GetTeamsResponse>(GET_TEAMS);
   const cyclesResponse = useMyQuery<GetCyclesResponse>(GET_ALL_CYCLES);
   return (
-    <Page title="Create New League Games Effortlessly">
+    <Page title="page.admin.games.create-game">
       <GameEdit
         teams={teamsResponse.data?.teams ?? []}
         cycles={cyclesResponse.data?.cycles ?? []}

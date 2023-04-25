@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 import useDeleteGame from "../../hooks/games/useDeleteGame";
 import { Game as GameClass } from "../../pages/api/graphql/features/games/game.model";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
@@ -54,7 +55,9 @@ export default function Game({ game, hideEdit }: Props) {
             <Heading fontSize={"2xl"}>{homeTeam.name}</Heading>
           </VStack>
           <VStack>
-            <Heading>VS</Heading>
+            <Heading>
+              <FormattedMessage id="game.vs" />
+            </Heading>
           </VStack>
           <VStack textAlign={"center"}>
             <Avatar size={"xl"} src={awayTeam.imageUrl} name={awayTeam.name} />
@@ -76,10 +79,10 @@ export default function Game({ game, hideEdit }: Props) {
               isLoading={isLoadingDeleteGame}
               leftIcon={<DeleteIcon />}
             >
-              Delete
+              <FormattedMessage id="general.delete" />
             </Button>
             <Button onClick={handleEditClick} flex={1} leftIcon={<EditIcon />}>
-              Edit
+              <FormattedMessage id="general.edit" />
             </Button>
           </CardFooter>
         </>

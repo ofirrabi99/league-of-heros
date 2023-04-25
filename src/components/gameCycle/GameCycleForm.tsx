@@ -1,15 +1,20 @@
 import { FormControl, FormLabel, Grid, Input, VStack } from "@chakra-ui/react";
 import { Field } from "formik";
+import { FormattedMessage } from "react-intl";
 
 export default function GameCycleForm() {
   return (
     <VStack>
       <FormControl isRequired>
-        <FormLabel htmlFor="name">Cycle Name</FormLabel>
-        <Field as={Input} name="name" placeholder="ex: Cup Final" />
+        <FormLabel htmlFor="name">
+          <FormattedMessage id="page.admin.games.new-popup.name" />
+        </FormLabel>
+        <Field as={Input} name="name" />
       </FormControl>
       <FormControl isRequired>
-        <FormLabel htmlFor="budget">Budget</FormLabel>
+        <FormLabel htmlFor="budget">
+          <FormattedMessage id="page.admin.games.new-popup.budget" />
+        </FormLabel>
         <Field as={Input} name="budget" type="number" />
       </FormControl>
       <Grid
@@ -18,11 +23,15 @@ export default function GameCycleForm() {
         gridTemplateColumns="repeat(auto-fit,minmax(10rem, 1fr))"
       >
         <FormControl isRequired>
-          <FormLabel htmlFor="fromTime">From</FormLabel>
+          <FormLabel htmlFor="fromTime">
+            <FormattedMessage id="page.admin.games.new-popup.from" />
+          </FormLabel>
           <Field as={Input} name="fromTime" type="datetime-local" />
         </FormControl>
         <FormControl isRequired>
-          <FormLabel htmlFor="toTime">To</FormLabel>
+          <FormLabel htmlFor="toTime">
+            <FormattedMessage id="page.admin.games.new-popup.to" />
+          </FormLabel>
           <Field as={Input} name="toTime" type="datetime-local" />
         </FormControl>
       </Grid>

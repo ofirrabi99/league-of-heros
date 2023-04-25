@@ -10,6 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { memo } from "react";
+import { FormattedMessage } from "react-intl";
 import { Player } from "../../pages/api/graphql/features/player/player.model";
 
 interface Props {
@@ -54,7 +55,7 @@ function PlayerPreview({
             {picked && (
               <StatHelpText>
                 <Badge variant="subtle" colorScheme="green">
-                  picked
+                  <FormattedMessage id="player.picked" />
                 </Badge>
               </StatHelpText>
             )}
@@ -63,7 +64,7 @@ function PlayerPreview({
         {inEditGame && (
           <Input
             type="number"
-            placeholder="Score"
+            placeholder="0"
             value={score}
             onChange={(event) => {
               if (onEditScore)

@@ -13,6 +13,7 @@ import useSetGameResult from "../../../hooks/games/useSetGameResult";
 import { Cycle } from "../../api/graphql/features/cycles/cycle.model";
 import useMyQuery from "../../../hooks/useMyQuery";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 
 interface GetGameResponse {
   game: Game;
@@ -43,7 +44,7 @@ export default function AdminGamesEdit() {
   if (!game) return <></>;
 
   return (
-    <Page title="Edit game">
+    <Page title="page.admin.games.edit-game">
       <GamePreview game={game!} hideEdit={true} />
       <DynamicList maxSize="10rem">
         {players.map((player) => (
@@ -76,7 +77,7 @@ export default function AdminGamesEdit() {
           });
         }}
       >
-        SAVE GAME
+        <FormattedMessage id="page.admin.games.save-game" />
       </Button>
     </Page>
   );

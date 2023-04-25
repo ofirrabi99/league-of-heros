@@ -1,22 +1,20 @@
 import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useCallback } from "react";
+import { useIntl } from "react-intl";
 import { SET_GAME } from "../../queries/game";
 import { GENERAL_ERROR_TOAST } from "../../utils/constants";
 import useMyMutation from "../useMyMutation";
 
-interface Props {
-  isInEditMode: Boolean;
-}
-export default function useSetGame({ isInEditMode }: Props) {
+export default function useSetGame() {
   const toast = useToast();
+  const intl = useIntl();
 
   const onSuccess = useCallback(() => {
     toast({
-      title: "Game has been updated in the system!",
+      title: intl.formatMessage({ id: "general.success-action" }),
       status: "success",
     });
-  }, [toast]);
+  }, [toast, intl]);
 
   const onError = useCallback(() => {
     toast(GENERAL_ERROR_TOAST);

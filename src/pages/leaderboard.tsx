@@ -1,4 +1,5 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { FormattedMessage } from "react-intl";
 import UsersRows from "../components/leaderboard/UsersRows";
 import Page from "../components/_layout/Page";
 import useMyQuery from "../hooks/useMyQuery";
@@ -16,16 +17,22 @@ export default function Leaderboard() {
 
   return (
     <Page
-      title="LEADERBOARD"
-      subTitle="Who's on top? Find out with our regularly updated leaderboard rankings."
+      title="page.leaderboard.title"
+      subTitle="page.leaderboard.description"
     >
       <TableContainer>
         <Table size="sm" variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
-              <Th>place</Th>
-              <Th>name</Th>
-              <Th isNumeric>score</Th>
+              <Th>
+                <FormattedMessage id="page.leaderboard.table.place" />
+              </Th>
+              <Th>
+                <FormattedMessage id="page.leaderboard.table.name" />
+              </Th>
+              <Th isNumeric>
+                <FormattedMessage id="page.leaderboard.table.score" />
+              </Th>
             </Tr>
           </Thead>
           <Tbody>

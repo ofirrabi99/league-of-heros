@@ -9,6 +9,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { FormattedMessage } from "react-intl";
 import { CycleInput } from "../../pages/api/graphql/features/cycles/cycle.types";
 import GameCycleForm from "./GameCycleForm";
 
@@ -54,7 +55,9 @@ export default function GameCycleFormDialog({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>New Game Cycle</ModalHeader>
+        <ModalHeader>
+          <FormattedMessage id="page.admin.games.new-popup.title" />
+        </ModalHeader>
         <ModalCloseButton />
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {() => (
@@ -65,10 +68,10 @@ export default function GameCycleFormDialog({
 
               <ModalFooter>
                 <Button mr={3} type="submit" isLoading={isLoading}>
-                  Add
+                  <FormattedMessage id="general.add" />
                 </Button>
                 <Button onClick={onClose} colorScheme="gray">
-                  Cancel
+                  <FormattedMessage id="general.cancel" />
                 </Button>
               </ModalFooter>
             </Form>

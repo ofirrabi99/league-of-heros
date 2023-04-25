@@ -22,5 +22,13 @@
   "page.admin.teams.create": "Create New Team",
   "page.admin.games.title": "Games",
   "page.admin.games.description": "Create and manage your games",
-  "page.admin.games.create": "Create New Game Cycle"
+  "page.admin.games.create": "Create New Game Cycle",
+  "page.my-squad.title": "My Squad",
+  "page.my-squad.game-description": "It's game time! Choose players according to your budget who will get you the highest score together",
+  "page.my-squad.non-game-description": "Sorry, no games scheduled at the moment. Come back later for more updates. Thanks",
+  "page.my-squad.lineup.title": "Your Lineup",
+  "page.my-squad.lineup.info.main": "Choose as many players as you want, as long as you stay within your budget",
+  "page.my-squad.lineup.budget.left": "left",
+  "page.my-squad.lineup.save": "Save Lineup",
+  "page.my-squad.lineup.available-players": "available Players"
 }

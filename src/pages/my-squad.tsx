@@ -39,11 +39,11 @@ export default function MySquad() {
 
   return (
     <Page
-      title="MY TEAM"
+      title="page.my-squad.title"
       subTitle={
         isThereGamesAvailable
-          ? "It's game time: Use our Team Selection page to put together the ultimate team for victory."
-          : "Sorry, there are no scheduled games at the moment. Please check back later for updates. Thank you."
+          ? "page.my-squad.game-description"
+          : "page.my-squad.non-game-description"
       }
     >
       {isThereGamesAvailable && (

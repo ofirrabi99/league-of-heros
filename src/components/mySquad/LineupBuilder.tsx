@@ -7,6 +7,7 @@ import Alertify from "../_shared/Alertify";
 import DynamicList from "../_shared/DynamicList";
 import PlayerPreview from "../_shared/PlayerPreview";
 import Progressify from "../_shared/Progressify";
+import { FormattedMessage } from "react-intl";
 
 interface Props {
   userChosenPlayers: Player["_id"][];
@@ -62,13 +63,14 @@ export default function LineupBuilder({
 
   return (
     <>
-      <Heading>Your Lineup</Heading>
+      <Heading>
+        <FormattedMessage id="page.my-squad.lineup.title" />
+      </Heading>
       <br />
       {Boolean(chosenPlayers.length) && (
         <>
           <Alertify>
-            Choose as many players as you want, as long as you stay within your
-            budget.
+            <FormattedMessage id="page.my-squad.lineup.info.main" />
           </Alertify>
           <br />
           <DynamicList maxSize="30rem">

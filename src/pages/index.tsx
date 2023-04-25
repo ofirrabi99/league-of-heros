@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 
 interface FeatureProps {
@@ -41,6 +43,11 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 };
 
 export default function Home() {
+  const { locale } = useRouter();
+  useEffect(() => {
+    console.log(locale);
+    document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`;
+  }, [locale]);
   return (
     <Container maxW={"5xl"}>
       <Box display="flex" alignItems={"center"} justifyContent="center">

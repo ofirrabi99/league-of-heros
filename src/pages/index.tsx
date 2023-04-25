@@ -69,9 +69,9 @@ export default function Home() {
           <Button
             as={Link}
             href="/my-team"
-            rounded={"full"}
-            px={6}
+            p={6}
             colorScheme="orange"
+            whiteSpace={"normal"}
           >
             <FormattedMessage id="page.home.cta" />
           </Button>

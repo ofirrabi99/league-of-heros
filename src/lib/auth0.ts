@@ -25,7 +25,6 @@ export const requireAuth = ({ getServerSideProps, roles }: RequireAuthProps) =>
               process.env.NEXT_PUBLIC_AUTH0_ROLES_AREA as string
             ] as string[])
           : [];
-        console.log(userRoles);
         const isAllow = userRoles.some((role) => roles.includes(role));
         if (!isAllow) {
           return {

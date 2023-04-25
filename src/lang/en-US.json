@@ -1,5 +1,11 @@
 {
   "general.brand": "Superstar Squad",
+  "general.edit": "Edit",
+  "general.delete": "Delete",
+  "sidebar.admin.teams": "Admin - Teams",
+  "sidebar.admin.games": "Admin - Games",
+  "sidebar.squad": "My Squad",
+  "sidebar.leaderboard": "Leaderboard",
   "page.home.header1": "Are you ready to build your",
   "page.home.header2": "and take on the competition?",
   "page.home.description": "Join Superstar Squad today and compete against other fans in your favorite sports! Choose your players, track their performance, and climb the leaderboard to become the ultimate superstar league champion. Sign up now and start building your superstar squad!",
@@ -10,5 +16,11 @@
   "page.home.features2.title": "Track Performance",
   "page.home.features2.description": "Track your chosen players performance to predict your score",
   "page.home.features3.title": "Climb the Leaderboard",
-  "page.home.features3.description": "Check your place in the leaderboard"
+  "page.home.features3.description": "Check your place in the leaderboard",
+  "page.admin.teams.title": "Teams",
+  "page.admin.teams.description": "Create and manage your teams",
+  "page.admin.teams.create": "Create New Team",
+  "page.admin.games.title": "Games",
+  "page.admin.games.description": "Create and manage your games",
+  "page.admin.games.create": "Create New Game Cycle"
 }

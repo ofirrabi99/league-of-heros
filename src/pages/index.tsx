@@ -68,7 +68,7 @@ export default function Home() {
         <Stack spacing={6} direction={"row"}>
           <Button
             as={Link}
-            href="/my-team"
+            href="/my-squad"
             p={6}
             colorScheme="orange"
             whiteSpace={"normal"}

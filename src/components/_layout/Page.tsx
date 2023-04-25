@@ -1,5 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import useBreakpointsAlign from "../../hooks/_shared/useBreakpointsAlign";
+import { FormattedMessage } from "react-intl";
 
 interface Props {
   title?: string;
@@ -14,10 +15,14 @@ export default function Page({ title, children, subTitle, hideHeader }: Props) {
     <Box>
       {!hideHeader && (!!title || !!subTitle) && (
         <Box py={2}>
-          {!!title && <Heading textAlign={textAlign}>{title}</Heading>}
+          {!!title && (
+            <Heading textAlign={textAlign}>
+              <FormattedMessage id={title} />
+            </Heading>
+          )}
           {!!subTitle && (
             <Text fontSize="xl" textAlign={textAlign}>
-              {subTitle}
+              <FormattedMessage id={subTitle} />
             </Text>
           )}
         </Box>

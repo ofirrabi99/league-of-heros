@@ -1,5 +1,11 @@
 {
   "general.brand": "נבחרת הסופרסטארים",
+  "general.edit": "ערוך",
+  "general.delete": "מחק",
+  "sidebar.admin.teams": "מנהל - קבוצות",
+  "sidebar.admin.games": "מנהל - משחקים",
+  "sidebar.squad": "הנבחרת שלי",
+  "sidebar.leaderboard": "לוח התוצאות",
   "page.home.header1": "מוכנים לבנות את",
   "page.home.header2": "ולקחת את התחרות?",
   "page.home.description": "הצטרפו לנבחרת הסופרסטארים עוד היום והתחרו נגד אוהדים אחרים בתחרויות הספורט האהובות עליכם! ביחרו את השחקנים שלכם, עקבו אחרי ביצועיהם, וטפסו במעלה הטבלה כדי להפוך לאלופי נבחרות הסופרסטארים. הירשמו עכשיו ותתחילו לבנות את נבחרת הסופרסטארים שלכם!",
@@ -10,5 +16,11 @@
   "page.home.features2.title": "עקבו אחר התוצאות",
   "page.home.features2.description": "עקבו אחר התוצאות במשחקים של השחקנים שבחרתם",
   "page.home.features3.title": "טפסו במעלה הטבלה",
-  "page.home.features3.description": "בדקו את מיקומכם בטבלת האלופים"
+  "page.home.features3.description": "בדקו את מיקומכם בטבלת האלופים",
+  "page.admin.teams.title": "קבוצות",
+  "page.admin.teams.description": "צור ונהל את הקבוצות שלך",
+  "page.admin.teams.create": "צור קבוצה חדשה",
+  "page.admin.games.title": "משחקים",
+  "page.admin.games.description": "צור ונהל את המשחקים שלך",
+  "page.admin.games.create": "צור מחזור משחקים חדש"
 }

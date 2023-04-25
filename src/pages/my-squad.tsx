@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import Game from "../components/games/Game";
-import LineupBuilder from "../components/myTeam/LineupBuilder";
+import LineupBuilder from "../components/mySquad/LineupBuilder";
 import Page from "../components/_layout/Page";
 import DynamicList from "../components/_shared/DynamicList";
 import useMyQuery from "../hooks/useMyQuery";
@@ -23,7 +23,7 @@ interface GetUserResponse {
   user?: User;
 }
 
-export default function MyTeam() {
+export default function MySquad() {
   const getNextGamesResponse = useMyQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
   const getUserResponse = useMyQuery<GetUserResponse>(GET_USER);
   const isTransferWindowOpen = Boolean(

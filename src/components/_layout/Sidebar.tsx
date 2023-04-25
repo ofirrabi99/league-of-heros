@@ -36,6 +36,7 @@ import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
 import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { FormattedMessage } from "react-intl";
 
 const SIDEBAR_WIDTH = 60;
 
@@ -45,10 +46,10 @@ interface LinkItemProps {
   roles?: string[];
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Admin - Teams", href: "/admin/teams", roles: ["Admin"] },
-  { name: "Admin - Games", href: "/admin/games", roles: ["Admin"] },
-  { name: "My Team", href: "/my-team" },
-  { name: "Leaderboard", href: "/leaderboard" },
+  { name: "sidebar.admin.teams", href: "/admin/teams", roles: ["Admin"] },
+  { name: "sidebar.admin.games", href: "/admin/games", roles: ["Admin"] },
+  { name: "sidebar.squad", href: "/my-squad" },
+  { name: "sidebar.leaderboard", href: "/leaderboard" },
 ];
 
 export default function SidebarWithHeader({
@@ -151,7 +152,7 @@ const SidebarContent = ({ onClose, links, ...rest }: SidebarProps) => {
       </Flex>
       {links.map((link) => (
         <NavItem key={link.href} href={link.href}>
-          {link.name}
+          <FormattedMessage id={link.name} />
         </NavItem>
       ))}
     </Box>
@@ -160,7 +161,7 @@ const SidebarContent = ({ onClose, links, ...rest }: SidebarProps) => {
 
 interface NavItemProps extends FlexProps {
   href: string;
-  children: string;
+  children: React.ReactElement;
 }
 const NavItem = ({ children, href, ...rest }: NavItemProps) => {
   return (

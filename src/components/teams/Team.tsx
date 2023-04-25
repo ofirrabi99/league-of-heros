@@ -14,6 +14,7 @@ import { useCallback } from "react";
 import useDeleteTeam from "../../hooks/teams/useDeleteTeam";
 import { Team as TeamClass } from "../../pages/api/graphql/features/team/team.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
+import { FormattedMessage } from "react-intl";
 
 interface Props {
   team: TeamClass;
@@ -60,10 +61,10 @@ export default function Team({ team, afterDelete }: Props) {
           isLoading={isLoadingDeleteTeam}
           leftIcon={<DeleteIcon />}
         >
-          Delete
+          <FormattedMessage id="general.delete" />
         </Button>
         <Button onClick={handleEditClick} flex={1} leftIcon={<EditIcon />}>
-          Edit
+          <FormattedMessage id="general.edit" />
         </Button>
       </CardFooter>
     </Card>

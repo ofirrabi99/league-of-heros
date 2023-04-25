@@ -13,6 +13,7 @@ import { GET_ALL_CYCLES } from "../../../queries/cycle";
 import { Cycle } from "../../api/graphql/features/cycles/cycle.model";
 import { CycleInput } from "../../api/graphql/features/cycles/cycle.types";
 import { createContext } from "react";
+import { FormattedMessage } from "react-intl";
 
 interface GamesContextProps {
   refetch: () => void;
@@ -58,8 +59,8 @@ export default function GameCycle() {
 
   return (
     <Page
-      title="Games"
-      subTitle="Create and manage games."
+      title="page.admin.games.title"
+      subTitle="page.admin.games.description"
       hideHeader={isEmptyState}
     >
       {isEmptyState && (
@@ -78,7 +79,7 @@ export default function GameCycle() {
             leftIcon={<AddIcon />}
             variant="solid"
           >
-            ADD GAME CYCLE
+            <FormattedMessage id="page.admin.games.create" />
           </Button>
           <GamesContext.Provider value={{ refetch: refetch }}>
             <CyclesList

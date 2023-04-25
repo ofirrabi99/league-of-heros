@@ -11,6 +11,7 @@ import { useCallback } from "react";
 import { Button, VStack } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import useBreakpointsAlign from "../../../hooks/_shared/useBreakpointsAlign";
+import { FormattedMessage } from "react-intl";
 
 interface GetTeamsResponse {
   teams: TeamClass[];
@@ -28,8 +29,8 @@ export default function AdminTeams() {
   }, [router]);
   return (
     <Page
-      title="Teams"
-      subTitle="Create and manage teams."
+      title="page.admin.teams.title"
+      subTitle="page.admin.teams.description"
       hideHeader={isEmptyState}
     >
       {isEmptyState && (
@@ -49,7 +50,7 @@ export default function AdminTeams() {
             variant="solid"
             onClick={goToTeamAdd}
           >
-            Create New Team
+            <FormattedMessage id="page.admin.teams.create" />
           </Button>
           <DynamicList maxSize="20rem">
             {data?.teams.map((team) => (

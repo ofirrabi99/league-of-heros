@@ -14,7 +14,7 @@ import { useCallback } from "react";
 import useDeleteTeam from "../../hooks/teams/useDeleteTeam";
 import { Team as TeamClass } from "../../pages/api/graphql/features/team/team.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 interface Props {
   team: TeamClass;
@@ -23,6 +23,7 @@ interface Props {
 
 export default function Team({ team, afterDelete }: Props) {
   const router = useRouter();
+  const intl = useIntl();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const { deleteTeam, isLoadingDeleteTeam } = useDeleteTeam({
     afterSuccess: afterDelete,
@@ -31,8 +32,13 @@ export default function Team({ team, afterDelete }: Props) {
   const handleDeleteClick = useCallback(() => {
     fireAreYouSureDialog(
       {
-        title: `Delete ${team.name}`,
-        description: "Are you sure? You can't undo this action afterwards.",
+        title: intl.formatMessage(
+          { id: "general.popup.delete.title" },
+          { value: team.name }
+        ),
+        description: intl.formatMessage({
+          id: "general.popup.delete.are-you-sure",
+        }),
       },
       () => {
         deleteTeam({ variables: { teamId: team._id } });

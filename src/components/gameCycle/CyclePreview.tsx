@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Cycle } from "../../pages/api/graphql/features/cycles/cycle.model";
 import useAreYouSureDialog from "../../state/useAreYouSureDialog";
 import GamesListDialog from "./GamesListDialog";
@@ -22,14 +22,20 @@ interface Props {
 }
 export default function CyclePreview({ cycle, onDeleteCycle }: Props) {
   const router = useRouter();
+  const intl = useIntl();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const gamesListProps = useDisclosure();
 
   const onDeleteClick = () => {
     fireAreYouSureDialog(
       {
-        title: `Delete ${cycle.name}?`,
-        description: "Are you sure? You can't undo this action afterwards.",
+        title: intl.formatMessage(
+          { id: "general.popup.delete.title" },
+          { value: cycle.name }
+        ),
+        description: intl.formatMessage({
+          id: "general.popup.delete.are-you-sure",
+        }),
       },
       () => onDeleteCycle(cycle._id)
     );

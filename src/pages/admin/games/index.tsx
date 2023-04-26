@@ -65,9 +65,9 @@ export default function GameCycle() {
     >
       {isEmptyState && (
         <EmptyPageState
-          title="Start creating games!"
-          description="In order to create a game, we will first need to create a cycle. Then we will attach new games to the cycle."
-          action="Add Your First Cycle"
+          title="page.admin.games.empty-state.title"
+          description="page.admin.games.empty-state.description"
+          action="page.admin.games.empty-state.action"
           onClick={gameCycleDialogProps.onOpen}
         />
       )}

@@ -1,5 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Button, Text, VStack } from "@chakra-ui/react";
+import { FormattedMessage } from "react-intl";
 
 interface Props {
   title: string;
@@ -26,10 +27,14 @@ export default function EmptyPageState({
     >
       <EditIcon boxSize={16} />
       <Text fontSize="2xl" fontWeight="bold">
-        {title}
+        <FormattedMessage id={title} />
       </Text>
-      <Text fontSize="lg">{description}</Text>
-      <Button onClick={onClick}>{action}</Button>
+      <Text fontSize="lg">
+        <FormattedMessage id={description} />
+      </Text>
+      <Button onClick={onClick}>
+        <FormattedMessage id={action} />
+      </Button>
     </VStack>
   );
 }

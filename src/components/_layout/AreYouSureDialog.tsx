@@ -8,6 +8,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useRef } from "react";
+import { FormattedMessage } from "react-intl";
 
 interface Props {
   isOpen: boolean;
@@ -48,10 +49,10 @@ export default function AreYouSureDialog({
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} colorScheme="gray">
-              Cancel
+              <FormattedMessage id="general.cancel" />
             </Button>
             <Button colorScheme="red" onClick={handleApprove} ml={3}>
-              Yes
+              <FormattedMessage id="general.yes" />
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -35,10 +35,9 @@ export default function AdminTeams() {
     >
       {isEmptyState && (
         <EmptyPageState
-          title="Start building your teams!"
-          description="Before we can create games, we will first need to add all our league
-        teams to the system."
-          action="Add Your First Team"
+          title="page.admin.teams.empty-state.title"
+          description="page.admin.teams.empty-state.description"
+          action="page.admin.teams.empty-state.action"
           onClick={goToTeamAdd}
         />
       )}

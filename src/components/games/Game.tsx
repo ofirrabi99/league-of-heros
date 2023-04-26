@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import useDeleteGame from "../../hooks/games/useDeleteGame";
 import { Game as GameClass } from "../../pages/api/graphql/features/games/game.model";
 import { Team } from "../../pages/api/graphql/features/team/team.model";
@@ -24,17 +24,24 @@ interface Props {
 
 export default function Game({ game, hideEdit }: Props) {
   const router = useRouter();
+  const intl = useIntl();
   const { fire: fireAreYouSureDialog } = useAreYouSureDialog();
   const { deleteGame, isLoadingDeleteGame } = useDeleteGame();
 
+  const dateString = new Date(game.time).toLocaleString("he-IL");
   const homeTeam = game.homeTeam as Team;
   const awayTeam = game.awayTeam as Team;
 
   const handleDeleteClick = () => {
     fireAreYouSureDialog(
       {
-        title: `Delete game`,
-        description: "Are you sure? You can't undo this action afterwards.",
+        title: intl.formatMessage(
+          { id: "general.popup.delete.title" },
+          { value: homeTeam.name + " - " + awayTeam.name }
+        ),
+        description: intl.formatMessage({
+          id: "general.popup.delete.are-you-sure",
+        }),
       },
       () => {
         deleteGame({ variables: { gameId: game._id } });
@@ -64,9 +71,7 @@ export default function Game({ game, hideEdit }: Props) {
             <Heading fontSize={"2xl"}>{awayTeam.name}</Heading>
           </VStack>
         </Box>
-        <Heading size="sm">
-          {new Date(game.time).toLocaleString("he-IL")}
-        </Heading>
+        <Heading size="sm">{dateString}</Heading>
       </CardBody>
       {!hideEdit && (
         <>

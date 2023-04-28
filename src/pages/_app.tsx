@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
                 <link rel="icon" href="/logo.png" />
               </Head>
-              <main className={font.className}>
+              <main className={font.className} dir={dir}>
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>

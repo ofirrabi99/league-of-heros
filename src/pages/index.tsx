@@ -5,22 +5,24 @@ import {
   Container,
   Flex,
   Heading,
+  HStack,
   SimpleGrid,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
+import { languages } from "../lang";
 
 interface FeatureProps {
   title: React.ReactElement;
   text: React.ReactElement;
   icon: React.ReactElement;
 }
-
 const Feature = ({ title, text, icon }: FeatureProps) => {
   return (
     <Stack align={"center"} justify={"center"}>
@@ -39,6 +41,19 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
       <Text fontWeight={600}>{title}</Text>
       <Text color={"gray.600"}>{text}</Text>
     </Stack>
+  );
+};
+
+interface LanguageProps {
+  name: string;
+  id: string;
+}
+
+const Language = ({ name, id }: LanguageProps) => {
+  return (
+    <Button colorScheme="gray" as={Link} href={"/"} locale={id}>
+      {name}
+    </Button>
   );
 };
 
@@ -72,7 +87,7 @@ export default function Home() {
         <Text color={"gray.500"} maxW={"3xl"}>
           <FormattedMessage id="page.home.description" />
         </Text>
-        <Stack spacing={6} direction={"row"}>
+        <VStack spacing={6}>
           <Button
             as={Link}
             href="/my-squad"
@@ -82,7 +97,12 @@ export default function Home() {
           >
             <FormattedMessage id="page.home.cta" />
           </Button>
-        </Stack>
+          <HStack>
+            {languages.map((lang) => (
+              <Language key={lang.id} name={lang.name} id={lang.id} />
+            ))}
+          </HStack>
+        </VStack>
 
         <Box p={4}>
           <Heading fontSize={"3xl"} mb={4}>

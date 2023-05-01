@@ -54,14 +54,6 @@ export class UserService {
     return await UserModel.findOne({ subId: id });
   }
 
-  async setUser(subId: string, input: UserInput): Promise<User> {
-    let user = (await UserModel.findOne({ subId })) ?? new UserModel({ subId });
-
-    user.name = input.name;
-
-    return user.save();
-  }
-
   async setLineup(
     subId: string,
     input: LineupInput,

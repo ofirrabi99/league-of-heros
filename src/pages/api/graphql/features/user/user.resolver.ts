@@ -22,11 +22,6 @@ export class UserResolver {
   }
 
   @Mutation((_returns) => User)
-  setUser(@Arg("user") user: UserInput, @CurrentUser("id") userId: string) {
-    return this.userService.setUser(userId, user);
-  }
-
-  @Mutation((_returns) => User)
   setLineup(
     @Arg("lineup") lineup: LineupInput,
     @CurrentUser("id") userId: string,

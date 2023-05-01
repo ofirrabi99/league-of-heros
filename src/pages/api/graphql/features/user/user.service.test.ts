@@ -211,7 +211,6 @@ describe("user service", () => {
       ).rejects.toThrow("players cost over budget");
     });
 
-    // TODO - finish
     it("should set lineup of the next cycle", async () => {
       await UserModel.create({
         subId: "google-oauth2|100213131064061169942",

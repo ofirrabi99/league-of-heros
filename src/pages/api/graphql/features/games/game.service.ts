@@ -35,7 +35,8 @@ export class GameService {
     if (!nextCycle) return [];
 
     const nextGames = await GameModel.find({
-      time: { $gte: nextCycle.fromTime, $lte: nextCycle.toTime },
+      // time: { $gte: nextCycle.fromTime, $lte: nextCycle.toTime },
+      cycle: nextCycle._id,
     }).populate(["homeTeam", "awayTeam"]);
 
     return nextGames;

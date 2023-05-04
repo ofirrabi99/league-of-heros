@@ -37,6 +37,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
+import { getDirection, messages } from "../../lang";
 
 const SIDEBAR_WIDTH = 60;
 
@@ -58,6 +59,9 @@ export default function SidebarWithHeader({
   children: ReactNode;
 }) {
   const router = useRouter();
+  const locale: keyof typeof messages =
+    (router.locale as keyof typeof messages) ?? "en-US";
+  const dir = getDirection(locale);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { user, isLoading: isLoadingUser } = useUser();
@@ -87,13 +91,13 @@ export default function SidebarWithHeader({
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
-        placement="start"
+        placement="bottom"
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
         size="full"
       >
-        <DrawerContent bg={useColorModeValue("gray.100", "gray.900")}>
+        <DrawerContent dir={dir} bg={useColorModeValue("gray.100", "gray.900")}>
           <SidebarContent onClose={onClose} links={filteredLinkItems} />
         </DrawerContent>
       </Drawer>
@@ -141,7 +145,6 @@ const SidebarContent = ({ onClose, links, ...rest }: SidebarProps) => {
         mx="8"
         justifyContent="center"
       >
-        <Logo size={SIDEBAR_WIDTH * 2} />
         <CloseButton
           display={{ base: "flex", md: "none" }}
           position="absolute"
@@ -149,6 +152,7 @@ const SidebarContent = ({ onClose, links, ...rest }: SidebarProps) => {
           right={4}
           onClick={onClose}
         />
+        <Logo size={SIDEBAR_WIDTH * 2} />
       </Flex>
       {links.map((link) => (
         <NavItem key={link.href} href={link.href}>

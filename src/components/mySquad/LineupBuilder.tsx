@@ -13,14 +13,12 @@ interface Props {
   userChosenPlayers: Player["_id"][];
   players: Player[];
   cycleId?: Cycle["_id"];
-  isTransferWindowOpen: boolean;
   budget: number;
 }
 export default function LineupBuilder({
   userChosenPlayers,
   players,
   cycleId,
-  isTransferWindowOpen,
   budget,
 }: Props) {
   const [chosenPlayersId, setChosenPlayersId] = useState<Set<Player["_id"]>>(
@@ -110,47 +108,44 @@ export default function LineupBuilder({
           />
         ))}
       </DynamicList>
-      {isTransferWindowOpen && (
-        <>
-          <DynamicList maxSize="30rem">
-            <Button
-              isDisabled={isOutOfMoney}
-              isLoading={isLoadingSetLineup}
-              width="100%"
-              onClick={() => {
-                setLineup({
-                  variables: {
-                    lineup: {
-                      cycle: cycleId,
-                      players: Array.from(chosenPlayersId).map((player) => ({
-                        playerId: player,
-                        score: 0,
-                      })),
-                    },
-                  },
-                });
-              }}
-            >
-              <FormattedMessage id="page.my-squad.lineup.save" />
-            </Button>
-          </DynamicList>
-          <br />
-          <br />
-          <Heading>
-            <FormattedMessage id="page.my-squad.lineup.available-players" />
-          </Heading>
-          <DynamicList maxSize="10rem">
-            {players.map((player) => (
-              <PlayerPreview
-                key={player._id}
-                player={player}
-                onClick={addPlayer}
-                picked={chosenPlayersId.has(player._id)}
-              />
-            ))}
-          </DynamicList>
-        </>
-      )}
+
+      <DynamicList maxSize="30rem">
+        <Button
+          isDisabled={isOutOfMoney}
+          isLoading={isLoadingSetLineup}
+          width="100%"
+          onClick={() => {
+            setLineup({
+              variables: {
+                lineup: {
+                  cycle: cycleId,
+                  players: Array.from(chosenPlayersId).map((player) => ({
+                    playerId: player,
+                    score: 0,
+                  })),
+                },
+              },
+            });
+          }}
+        >
+          <FormattedMessage id="page.my-squad.lineup.save" />
+        </Button>
+      </DynamicList>
+      <br />
+      <br />
+      <Heading>
+        <FormattedMessage id="page.my-squad.lineup.available-players" />
+      </Heading>
+      <DynamicList maxSize="10rem">
+        {players.map((player) => (
+          <PlayerPreview
+            key={player._id}
+            player={player}
+            onClick={addPlayer}
+            picked={chosenPlayersId.has(player._id)}
+          />
+        ))}
+      </DynamicList>
     </>
   );
 }

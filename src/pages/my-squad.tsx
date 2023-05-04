@@ -26,9 +26,6 @@ interface GetUserResponse {
 export default function MySquad() {
   const getNextGamesResponse = useMyQuery<GetNextGamesResponse>(GET_NEXT_GAMES);
   const getUserResponse = useMyQuery<GetUserResponse>(GET_USER);
-  const isTransferWindowOpen = Boolean(
-    !getNextGamesResponse.data?.currentCycle
-  );
 
   const isThereGamesAvailable =
     (getNextGamesResponse.data?.nextGames.length ?? 0) > 0;
@@ -77,7 +74,6 @@ export default function MySquad() {
               ?.players.map((player) => player.playerId) ?? []
           }
           budget={getNextGamesResponse.data?.nextCycle?.budget ?? 0}
-          isTransferWindowOpen={isTransferWindowOpen}
         />
       )}
     </Page>

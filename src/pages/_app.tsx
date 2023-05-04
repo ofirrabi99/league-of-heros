@@ -13,6 +13,7 @@ import { getDirection, messages } from "../lang";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import rtl from "stylis-plugin-rtl";
+import { useEffect } from "react";
 
 const options = {
   rtl: { key: "css-he-il", stylisPlugins: [rtl] },
@@ -27,6 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
     (router.locale as keyof typeof messages) ?? "en-US";
   const dir = getDirection(locale);
   const cache = createCache(options[dir]);
+
+  useEffect(() => {
+    const dir = getDirection(locale);
+    document.querySelector("body")?.setAttribute("dir", dir);
+  }, [locale]);
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
@@ -46,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
                 <link rel="icon" href="/logo.png" />
               </Head>
-              <main className={font.className} dir={dir}>
+              <main className={font.className}>
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>

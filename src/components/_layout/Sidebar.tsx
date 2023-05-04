@@ -37,7 +37,6 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
-import { getDirection, messages } from "../../lang";
 
 const SIDEBAR_WIDTH = 60;
 
@@ -59,9 +58,6 @@ export default function SidebarWithHeader({
   children: ReactNode;
 }) {
   const router = useRouter();
-  const locale: keyof typeof messages =
-    (router.locale as keyof typeof messages) ?? "en-US";
-  const dir = getDirection(locale);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { user, isLoading: isLoadingUser } = useUser();
@@ -97,7 +93,7 @@ export default function SidebarWithHeader({
         onOverlayClick={onClose}
         size="full"
       >
-        <DrawerContent dir={dir} bg={useColorModeValue("gray.100", "gray.900")}>
+        <DrawerContent bg={useColorModeValue("gray.100", "gray.900")}>
           <SidebarContent onClose={onClose} links={filteredLinkItems} />
         </DrawerContent>
       </Drawer>

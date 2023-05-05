@@ -11,15 +11,16 @@ import { CheckRole } from "./middlewares/CheckRole";
 import { CycleResolver } from "./features/cycles/cycle.resolver";
 
 export async function dbConnect() {
+  if (mongoose.connections[0].readyState) return;
+
   const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable");
   }
 
+  console.log("Create new DB Connection");
   mongoose.set("strictQuery", false);
   mongoose.set("runValidators", true);
-
-  if (mongoose.connections[0].readyState) return;
   await mongoose.connect(MONGODB_URI);
 }
 

@@ -21,7 +21,7 @@ export async function dbConnect() {
   console.log("Create new DB Connection");
   mongoose.set("strictQuery", false);
   mongoose.set("runValidators", true);
-  await mongoose.connect(MONGODB_URI);
+  await mongoose.connect(MONGODB_URI, { maxPoolSize: 3 });
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

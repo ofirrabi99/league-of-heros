@@ -10,7 +10,7 @@ import { GameResolver } from "./features/games/game.resolver";
 import { CheckRole } from "./middlewares/CheckRole";
 import { CycleResolver } from "./features/cycles/cycle.resolver";
 
-async function dbConnect() {
+export async function dbConnect() {
   const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable");

@@ -78,7 +78,7 @@ export default function SidebarWithHeader({
   }, [router.events, onClose]);
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100dvh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
         links={filteredLinkItems}

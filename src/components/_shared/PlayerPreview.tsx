@@ -32,6 +32,10 @@ function PlayerPreview({
 }: Props) {
   const { _id, imageUrl, name, price } = player;
 
+  const numberInputOnWheelPreventChange = (e: any) => {
+    e.target.blur();
+  };
+
   return (
     <Box
       p={4}
@@ -65,11 +69,11 @@ function PlayerPreview({
           <Input
             type="number"
             placeholder="0"
+            onWheel={numberInputOnWheelPreventChange}
             value={score}
             onChange={(event) => {
               if (onEditScore) {
-                const score = Number(event.target.value);
-                onEditScore(player._id, score || 0);
+                onEditScore(player._id, event.target.valueAsNumber || 0);
               }
             }}
           />

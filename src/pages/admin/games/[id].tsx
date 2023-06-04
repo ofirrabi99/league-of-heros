@@ -6,7 +6,7 @@ import { GET_GAME } from "../../../queries/game";
 import { Game } from "../../api/graphql/features/games/game.model";
 import { Team } from "../../api/graphql/features/team/team.model";
 import GamePreview from "../../../components/games/Game";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlayerResultInput } from "../../api/graphql/features/user/user.model";
 import { Button } from "@chakra-ui/react";
 import useSetGameResult from "../../../hooks/games/useSetGameResult";
@@ -35,11 +35,15 @@ export default function AdminGamesEdit() {
   const { isLoadingSetGameResult, setGameResult } = useSetGameResult();
   const [playerResults, setPlayerResults] = useState<
     Map<PlayerResultInput["playerId"], PlayerResultInput["score"]>
-  >(
-    new Map(
-      game?.result?.players.map(({ playerId, score }) => [playerId, score])
-    )
-  );
+  >(new Map());
+
+  useEffect(() => {
+    setPlayerResults(
+      new Map(
+        game?.result?.players.map(({ playerId, score }) => [playerId, score])
+      )
+    );
+  }, [game]);
 
   if (!game) return <></>;
 

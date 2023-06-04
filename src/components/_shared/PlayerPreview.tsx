@@ -67,8 +67,10 @@ function PlayerPreview({
             placeholder="0"
             value={score}
             onChange={(event) => {
-              if (onEditScore)
-                onEditScore(player._id, event.target.valueAsNumber);
+              if (onEditScore) {
+                const score = Number(event.target.value);
+                onEditScore(player._id, score || 0);
+              }
             }}
           />
         )}
